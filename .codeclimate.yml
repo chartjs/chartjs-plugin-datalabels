@@ -1,0 +1,17 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: true
+    channel: "eslint-3"
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "samples/**/*.js"
+  - "src/**/*.js"
+exclude_paths: []

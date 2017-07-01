@@ -1,0 +1,5 @@
+/dist
+/jsdoc
+/node_modules
+.DS_Store
+bower.json

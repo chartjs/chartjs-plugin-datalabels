@@ -1,0 +1,36 @@
+language: node_js
+node_js:
+  - "6"
+
+script:
+  - gulp lint
+  - gulp build
+  - gulp package
+  - gulp bower
+
+# IMPORTANT: scripts require GITHUB_AUTH_TOKEN and GITHUB_AUTH_EMAIL environment variables
+# IMPORTANT: scripts has to be set executables in the Git repository (error 127)
+# https://github.com/travis-ci/travis-ci/issues/5538#issuecomment-225025939
+# http://stackoverflow.com/a/15572639
+
+deploy:
+  - provider: script
+    script: ./scripts/release.sh
+    skip_cleanup: true
+    on:
+      branch: release
+  - provider: releases
+    api_key: $GITHUB_AUTH_TOKEN
+    file:
+      - "./dist/chartjs-plugin-datalabels.js"
+      - "./dist/chartjs-plugin-datalabels.min.js"
+      - "./dist/chartjs-plugin-datalabels.zip"
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: npm
+    email: $NPM_AUTH_EMAIL
+    api_key: $NPM_AUTH_TOKEN
+    skip_cleanup: true
+    on:
+      tags: true
