@@ -1,42 +1,34 @@
-# Display labels on data
+<div align="center">
+    <img src="docs/assets/banner.png"/>
+</div>
 
-[![npm](https://img.shields.io/npm/v/chartjs-plugin-datalabels.svg?style=flat-square)](https://npmjs.com/package/chartjs-plugin-datalabels) [![Bower](https://img.shields.io/bower/v/chartjs-plugin-datalabels.svg?style=flat-square)](https://libraries.io/bower/chartjs-plugin-datalabels) [![Travis](https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square)](https://travis-ci.org/chartjs/chartjs-plugin-datalabels) [![Code Climate](https://img.shields.io/codeclimate/github/chartjs/chartjs-plugin-datalabels.svg?style=flat-square)](https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels)
+[![npm](https://img.shields.io/npm/v/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://npmjs.com/package/chartjs-plugin-datalabels) [![bower](https://img.shields.io/bower/v/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://libraries.io/bower/chartjs-plugin-datalabels) [![cdn](https://img.shields.io/npm/v/chartjs-plugin-datalabels.svg?label=cdn&style=flat-square&maxAge=600)](https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@latest/dist/) [![Travis](https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://travis-ci.org/chartjs/chartjs-plugin-datalabels) [![Code Climate](https://img.shields.io/codeclimate/github/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels)
 
-[Chart.js](http://www.chartjs.org/) plugin prints the value of points on the graph.
+Highly customizable [Chart.js](http://www.chartjs.org/) plugin that displays labels on data for any type of charts.
 
-Requires [Chart.js](/chartjs/Chart.js/releases) **2.7.0** or later.
+Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or later.
 
-## Usage
+## Documentation
 
-You can download the latest version of [chartjs-plugin-datalabels on GitHub](https://github.com/chartjs/chartjs-plugin-datalabels/releases/latest)
-
-## Configuration
-
-The plugin options can be changes at 3 different places:
-
-- globally: `Chart.defaults.global.plugins.datalabels.*`
-- per chart: `config.options.plugins.datalabels.*`
-- per dataset: `dataset.datalabels.*`
-
-Each option is first read from the dataset then, if undefined, from the chart options and finally from the global plugin options. Most options also accept a function called for each data with two arguments: the data `index` and a `context` object currently containing `datasetIndex`, `dataIndex` and `value`. See [`src/options.js`](src/options.js) for available options.
+- [Installation](docs/installation.md)
+- [Options](docs/options.md)
+- [Positioning](docs/positioning.md)
+- [Formating](docs/formatting.md)
 
 ## Development
 
 You first need to install node dependencies (requires [Node.js](https://nodejs.org/)):
 
-```shell
-> npm install
-```
+    > npm install
 
 The following commands will then be available from the repository root:
 
-```shell
-> gulp build            // build dist files
-> gulp build --watch    // build and watch for changes
-> gulp lint             // perform code linting
-> gulp package          // create an archive with dist files and samples
-```
+    > gulp build            // build dist files
+    > gulp build --watch    // build and watch for changes
+    > gulp lint             // perform code linting
+    > gulp package          // create an archive with dist files and samples
+    > gulp docs             // generate GitBook documentation (`dist/docs`)
 
 ## License
 
-chartjs-plugin-datalabels is available under the [MIT license](LICENSE.md).
+`chartjs-plugin-datalabels` is available under the [MIT license](LICENSE.md).

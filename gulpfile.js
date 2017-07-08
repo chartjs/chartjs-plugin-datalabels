@@ -14,6 +14,7 @@ var merge = require('merge2');
 var path = require('path');
 var rollup = require('rollup-stream');
 var source = require('vinyl-source-stream');
+var {exec} = require('child-process-promise');
 var pkg = require('./package.json');
 
 var srcDir = './src/';
@@ -61,6 +62,17 @@ gulp.task('lint', function() {
 		.pipe(eslint())
 		.pipe(eslint.format())
 		.pipe(eslint.failAfterError());
+});
+
+gulp.task('docs', function(done) {
+	const script = require.resolve('gitbook-cli/bin/gitbook.js');
+	exec([process.execPath, script, 'install', './'].join(' ')).then(() => {
+		return exec([process.execPath, script, 'build', './', './dist/docs'].join(' '));
+	}).catch((err) => {
+		console.error(err.stdout);
+	}).then(() => {
+		done();
+	});
 });
 
 gulp.task('package', function() {
