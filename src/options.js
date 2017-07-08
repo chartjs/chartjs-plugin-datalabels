@@ -89,15 +89,15 @@ export default {
 	lineHeight: undefined,
 
 	/**
-	 * The distance (in pixel) to pull the label away from the anchor point, the direction
-	 * being determined by the value axis (only applicable if `align` is `start` or `end`).
+	 * The distance (in pixels) to pull the label away from the anchor point, the direction
+	 * being determined by the `align` value (only applicable if `align` is `start` or `end`).
 	 * @member {Number|Array|Function}
 	 * @default 4
 	 */
 	offset: 4,
 
 	/**
-	 * The padding (in pixel) to apply between the text and the surrounding frame.
+	 * The padding (in pixels) to apply between the text and the surrounding frame.
 	 * @member {Number|Object|Array|Function}
 	 * @prop {Number} padding.top - Space above the text.
 	 * @prop {Number} padding.right - Space on the right of the text.
@@ -120,7 +120,7 @@ export default {
 	rotation: 0,
 
 	/**
-	 * Text alignment for multi-lines labels ('start'|'center'|'end').
+	 * Text alignment for multi-lines labels ('left'|'right'|'start'|'center'|'end').
 	 * @member {String|Array|Function}
 	 * @default 'start'
 	 */

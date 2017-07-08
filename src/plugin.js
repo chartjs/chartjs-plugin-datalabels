@@ -220,7 +220,7 @@ function drawText(ctx, lines, rect, model) {
 
 	if (align === 'center') {
 		x += rect.w/2;
-	} else if (align === 'end') {
+	} else if (align === 'end' || align === 'right') {
 		x += rect.w;
 	}
 
