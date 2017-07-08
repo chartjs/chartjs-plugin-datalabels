@@ -357,7 +357,8 @@ Chart.plugins.register({
 				modelize(el, i, ctx, config, {
 					datasetIndex: args.index,
 					dataIndex: i,
-					value: data[i]
+					value: data[i],
+					chart: chart
 				}) :
 				null;
 		}
