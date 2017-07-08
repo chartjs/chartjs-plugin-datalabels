@@ -89,20 +89,6 @@ export default {
 	lineHeight: undefined,
 
 	/**
-	 * Invert the values of `align`, `anchor` and `rotation` for negative values.
-	 * @member {Object|Boolean|Array|Function}
-	 * @prop {Boolean} mirror.align - Only applicable if `align` is `start` or `end`.
-	 * @prop {Boolean} mirror.anchor - Only applicable if `anchor` is `start` or `end`.
-	 * @prop {Boolean} mirror.rotation - Mirrors the rotation horizontally or vertically.
-	 * @default false (all values)
-	 */
-	mirror: {
-		align: false,
-		anchor: false,
-		rotation: false
-	},
-
-	/**
 	 * The distance (in pixel) to pull the label away from the anchor point, the direction
 	 * being determined by the value axis (only applicable if `align` is `start` or `end`).
 	 * @member {Number|Array|Function}

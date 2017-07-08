@@ -104,24 +104,6 @@ function parseFont(value) {
 	return font;
 }
 
-function parseMirror(value) {
-	var align, anchor, rotation;
-
-	if (helpers.isObject(value)) {
-		align = value.align || false;
-		anchor = value.anchor || false;
-		rotation = value.rotation || false;
-	} else {
-		align = anchor = rotation = !!value;
-	}
-
-	return {
-		align: align,
-		anchor: anchor,
-		rotation: rotation
-	};
-}
-
 function coordinates(el, model) {
 	var point = model.positioner(el._view, model.anchor, model.origin);
 
@@ -289,33 +271,6 @@ function getScaleOrigin(el) {
 		{x: null, y: pixel};
 }
 
-function mirrored(value) {
-	switch (value) {
-	case 'start': return 'end';
-	case 'end': return 'start';
-	default: return value;
-	}
-}
-
-function applyMirror(el, value, mirror, model) {
-	if (!isNaN(value) && isFinite(value) && value < 0) {
-		if (mirror.rotation) {
-			model.rotation = Math.PI - model.rotation;
-			if (el._model.horizontal) {
-				model.rotation += Math.PI;
-			}
-		}
-
-		if (mirror.align) {
-			model.align = mirrored(model.align);
-		}
-
-		if (mirror.anchor) {
-			model.anchor = mirrored(model.anchor);
-		}
-	}
-}
-
 // @todo could be moved in Chart.helpers.options.evaluate
 function evaluate(input, index, context, defaultValue) {
 	if (input === undefined) {
@@ -364,8 +319,6 @@ function modelize(el, index, ctx, config, context) {
 		size: textSize(ctx, lines, font.string, lineHeight)
 	};
 
-	var mirror = parseMirror(evaluate(config.mirror, index, context, false));
-	applyMirror(el, value, mirror, model);
 	return model;
 }
 
