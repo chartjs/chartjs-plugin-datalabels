@@ -5,7 +5,7 @@
 'use strict';
 
 import Chart from 'chart.js';
-import defaults from './options.js';
+import defaults from './defaults.js';
 import positioners from './positioners.js';
 
 Chart.defaults.global.plugins.datalabels = defaults;
