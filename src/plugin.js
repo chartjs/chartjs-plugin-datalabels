@@ -34,6 +34,7 @@ function toTextLines(inputs) {
 }
 
 // @todo move this method in Chart.helpers.canvas.toFont (deprecates helpers.fontString)
+// @see https://developer.mozilla.org/en-US/docs/Web/CSS/font
 function toFontString(font) {
 	if (!font || helpers.isNullOrUndef(font.size) || helpers.isNullOrUndef(font.family)) {
 		return null;
@@ -47,21 +48,23 @@ function toFontString(font) {
 
 // @todo move this in Chart.helpers.canvas.textSize
 // @todo cache calls of measureText if font doesn't change?!
-function textSize(ctx, lines, font, lineHeight) {
+function textSize(ctx, lines, font) {
 	var items = [].concat(lines);
 	var ilen = items.length;
+	var prev = ctx.font;
 	var width = 0;
-	var item, i;
+	var i;
 
-	ctx.font = font;
+	ctx.font = font.string;
 
 	for (i=0; i<ilen; ++i) {
-		item = items[i];
-		width = Math.max(ctx.measureText(item).width, width);
+		width = Math.max(ctx.measureText(items[i]).width, width);
 	}
 
+	ctx.font = prev;
+
 	return {
-		height: items.length*lineHeight,
+		height: ilen * font.lineHeight,
 		width: width
 	};
 }
@@ -89,12 +92,35 @@ function parsePadding(value) {
 	};
 }
 
+// @todo move this method in Chart.helpers.options.toLineHeight
+function parseLineHeight(value, size) {
+	var matches = (''+value).match(/^(\d+(?:\.\d+)?)(px|em|%)?$/);
+	if (!matches) {
+		console.warn(value, 'is not a valid line height, falling back to 1.2');
+		return size * 1.2;
+	}
+
+	var number = parseFloat(matches[1]);
+	var unit = matches[2];
+
+	if (unit === 'px') {
+		return number;
+	}
+	if (unit === '%') {
+		number /= 100;
+	}
+
+	return size * number;
+}
+
 // @todo move this method in Chart.helpers.options.toFont
 function parseFont(value) {
 	var global = Chart.defaults.global;
+	var size = helpers.valueOrDefault(value.size, global.defaultFontSize);
 	var font = {
 		family: helpers.valueOrDefault(value.family, global.defaultFontFamily),
-		size: helpers.valueOrDefault(value.size, global.defaultFontSize),
+		lineHeight: parseLineHeight(helpers.valueOrDefault(value.lineHeight, 1.2), size),
+		size: size,
 		style: helpers.valueOrDefault(value.style, global.defaultFontStyle),
 		weight: helpers.valueOrDefault(value.weight, null),
 		string: ''
@@ -206,7 +232,8 @@ function drawFrame(ctx, rect, model) {
 
 function drawText(ctx, lines, rect, model) {
 	var align = model.textAlign;
-	var lh = model.lineHeight;
+	var font = model.font;
+	var lh = font.lineHeight;
 	var color = model.color;
 	var ilen = lines.length;
 	var x, y, i;
@@ -298,7 +325,6 @@ function modelize(el, index, ctx, config, context) {
 	}
 
 	var font = parseFont(evaluate(config.font, index, context, {}));
-	var lineHeight = evaluate(config.lineHeight, index, context, font.size);
 	var model = {
 		align: evaluate(config.align, index, context, 'center'),
 		anchor: evaluate(config.anchor, index, context, 'center'),
@@ -308,7 +334,6 @@ function modelize(el, index, ctx, config, context) {
 		borderWidth: evaluate(config.borderWidth, index, context, 0),
 		color: evaluate(config.color, index, context, Chart.defaults.global.defaultFontColor),
 		font: font,
-		lineHeight: lineHeight,
 		lines: lines,
 		offset: evaluate(config.offset, index, context, 0),
 		padding: parsePadding(evaluate(config.padding, index, context, 0)),
@@ -316,7 +341,7 @@ function modelize(el, index, ctx, config, context) {
 		textAlign: evaluate(config.textAlign, index, context, 'start'),
 		origin: getScaleOrigin(el),
 		positioner: getPositioner(el),
-		size: textSize(ctx, lines, font.string, lineHeight)
+		size: textSize(ctx, lines, font)
 	};
 
 	return model;

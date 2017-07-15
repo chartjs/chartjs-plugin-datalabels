@@ -47,7 +47,7 @@ formatter: function(value) {
 }
 ```
 
-The `lineHeight` option controls the amount of space (in pixels) used for each line. If `undefined` (default), the current `font.size` is used.
+> **Tip:** the space between each line can be adjusted using the `font.lineHeight` option.
 
 ## Text Alignment
 

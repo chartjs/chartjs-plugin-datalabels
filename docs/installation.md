@@ -10,7 +10,7 @@
 
 [![bower](https://img.shields.io/bower/v/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://libraries.io/bower/chartjs-plugin-datalabels)
 
-    bower install chart.js --save
+    bower install chartjs-plugin-datalabels --save
 
 ## CDN
 

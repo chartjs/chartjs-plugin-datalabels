@@ -84,9 +84,9 @@ export default {
 	/**
 	 * The line height (in pixel) to use for multi-lines labels.
 	 * @member {Number|Array|Function|undefined}
-	 * @default undefined (use font.size)
+	 * @default 1.2
 	 */
-	lineHeight: undefined,
+	lineHeight: 1.2,
 
 	/**
 	 * The distance (in pixels) to pull the label away from the anchor point, the direction
