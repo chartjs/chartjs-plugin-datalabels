@@ -69,57 +69,13 @@ function textSize(ctx, lines, font) {
 	};
 }
 
-// @todo move this method in Chart.helpers.options.toPadding
-function parsePadding(value) {
-	var t, r, b, l;
-
-	if (helpers.isObject(value)) {
-		t = parseFloat(value.top) || 0;
-		r = parseFloat(value.right) || 0;
-		b = parseFloat(value.bottom) || 0;
-		l = parseFloat(value.left) || 0;
-	} else {
-		t = r = b = l = parseFloat(value) || 0;
-	}
-
-	return {
-		top: t,
-		right: r,
-		bottom: b,
-		left: l,
-		height: t+b,
-		width: l+r
-	};
-}
-
-// @todo move this method in Chart.helpers.options.toLineHeight
-function parseLineHeight(value, size) {
-	var matches = (''+value).match(/^(\d+(?:\.\d+)?)(px|em|%)?$/);
-	if (!matches) {
-		console.warn(value, 'is not a valid line height, falling back to 1.2');
-		return size * 1.2;
-	}
-
-	var number = parseFloat(matches[1]);
-	var unit = matches[2];
-
-	if (unit === 'px') {
-		return number;
-	}
-	if (unit === '%') {
-		number /= 100;
-	}
-
-	return size * number;
-}
-
 // @todo move this method in Chart.helpers.options.toFont
 function parseFont(value) {
 	var global = Chart.defaults.global;
 	var size = helpers.valueOrDefault(value.size, global.defaultFontSize);
 	var font = {
 		family: helpers.valueOrDefault(value.family, global.defaultFontFamily),
-		lineHeight: parseLineHeight(helpers.valueOrDefault(value.lineHeight, 1.2), size),
+		lineHeight: helpers.options.toLineHeight(value.lineHeight, size),
 		size: size,
 		style: helpers.valueOrDefault(value.style, global.defaultFontStyle),
 		weight: helpers.valueOrDefault(value.weight, null),
@@ -336,7 +292,7 @@ function modelize(el, index, ctx, config, context) {
 		font: font,
 		lines: lines,
 		offset: evaluate(config.offset, index, context, 0),
-		padding: parsePadding(evaluate(config.padding, index, context, 0)),
+		padding: helpers.options.toPadding(evaluate(config.padding, index, context, 0)),
 		rotation: evaluate(config.rotation, index, context, 0) * (Math.PI/180),
 		textAlign: evaluate(config.textAlign, index, context, 'start'),
 		origin: getScaleOrigin(el),
