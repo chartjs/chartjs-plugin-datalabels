@@ -3,7 +3,7 @@ const pkg = require('./package.json');
 const banner = `/*!
  * ` + pkg.name + `
  * http://chartjs.org/
- * Version: `+ pkg.version + `
+ * Version: ` + pkg.version + `
  *
  * Copyright ` + (new Date().getFullYear()) + ` Chart.js Contributors
  * Released under the MIT license

@@ -13,10 +13,10 @@ function orient(point, origin) {
 
 	var dx = point.x - x0;
 	var dy = point.y - y0;
-	var ln = Math.sqrt(dx*dx + dy*dy);
+	var ln = Math.sqrt(dx * dx + dy * dy);
 	return {
-		x: ln? dx/ln : 0,
-		y: ln? dy/ln : -1
+		x: ln ? dx / ln : 0,
+		y: ln ? dy / ln : -1
 	};
 }
 
@@ -34,12 +34,12 @@ export default {
 		} else if (anchor === 'end') {
 			d = r1;
 		} else {
-			d = (r0 + r1)/2;
+			d = (r0 + r1) / 2;
 		}
 
 		return {
-			x: vm.x + vx*d,
-			y: vm.y + vy*d,
+			x: vm.x + vx * d,
+			y: vm.y + vy * d,
 			vx: vx,
 			vy: vy
 		};
@@ -57,8 +57,8 @@ export default {
 		}
 
 		return {
-			x: vm.x + v.x*d,
-			y: vm.y + v.y*d,
+			x: vm.x + v.x * d,
+			y: vm.y + v.y * d,
 			vx: v.x,
 			vy: v.y
 		};
@@ -66,16 +66,16 @@ export default {
 
 	rect: function(vm, anchor, origin) {
 		var horizontal = vm.horizontal;
-		var size = Math.abs(vm.base - (horizontal? vm.x : vm.y));
-		var x = horizontal? Math.min(vm.x, vm.base) : vm.x;
-		var y = horizontal? vm.y : Math.min(vm.y, vm.base);
+		var size = Math.abs(vm.base - (horizontal ? vm.x : vm.y));
+		var x = horizontal ? Math.min(vm.x, vm.base) : vm.x;
+		var y = horizontal ? vm.y : Math.min(vm.y, vm.base);
 		var v = orient(vm, origin);
 
 		if (anchor === 'center') {
 			if (horizontal) {
-				x += size/2;
+				x += size / 2;
 			} else {
-				y += size/2;
+				y += size / 2;
 			}
 		} else if (anchor === 'start' && !horizontal) {
 			y += size;

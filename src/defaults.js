@@ -148,8 +148,8 @@ export default {
 			} else {
 				label = '';
 				keys = Object.keys(value);
-				for (k=0, klen=keys.length; k<klen; ++k) {
-					label += (k !== 0? ', ' : '') + keys[k] + ': ' + value[keys[k]];
+				for (k = 0, klen = keys.length; k < klen; ++k) {
+					label += (k !== 0 ? ', ' : '') + keys[k] + ': ' + value[keys[k]];
 				}
 			}
 		}

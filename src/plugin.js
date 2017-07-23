@@ -26,7 +26,7 @@ function toTextLines(inputs) {
 		} else if (Array.isArray(input)) {
 			inputs.push.apply(inputs, input);
 		} else if (!helpers.isNullOrUndef(inputs)) {
-			lines.unshift(''+input);
+			lines.unshift('' + input);
 		}
 	}
 
@@ -40,8 +40,8 @@ function toFontString(font) {
 		return null;
 	}
 
-	return (font.style? font.style + ' ' : '')
-		+ (font.weight? font.weight + ' ' : '')
+	return (font.style ? font.style + ' ' : '')
+		+ (font.weight ? font.weight + ' ' : '')
 		+ font.size + 'px '
 		+ font.family;
 }
@@ -57,7 +57,7 @@ function textSize(ctx, lines, font) {
 
 	ctx.font = font.string;
 
-	for (i=0; i<ilen; ++i) {
+	for (i = 0; i < ilen; ++i) {
 		width = Math.max(ctx.measureText(items[i]).width, width);
 	}
 
@@ -109,12 +109,12 @@ function coordinates(el, model) {
 	}
 
 	// take in account the label rotation
-	dx += Math.abs(tw/2 * Math.cos(rotation)) + Math.abs(th/2 * Math.sin(rotation));
-	dy += Math.abs(tw/2 * Math.sin(rotation)) + Math.abs(th/2 * Math.cos(rotation));
+	dx += Math.abs(tw / 2 * Math.cos(rotation)) + Math.abs(th / 2 * Math.sin(rotation));
+	dy += Math.abs(tw / 2 * Math.sin(rotation)) + Math.abs(th / 2 * Math.cos(rotation));
 
 	// ... and padding
-	dx += vx > 0? padding.right : padding.left;
-	dy += vy > 0? padding.bottom : padding.top;
+	dx += vx > 0 ? padding.right : padding.left;
+	dy += vy > 0 ? padding.bottom : padding.top;
 
 	// ... and borders
 	dx += model.borderWidth || 0;
@@ -133,8 +133,8 @@ function coordinates(el, model) {
 function boundingRects(size, padding) {
 	var th = size.height;
 	var tw = size.width;
-	var tx = -tw/2;
-	var ty = -th/2;
+	var tx = -tw / 2;
+	var ty = -th / 2;
 
 	return {
 		frame: {
@@ -165,8 +165,8 @@ function drawFrame(ctx, rect, model) {
 
 	helpers.canvas.roundedRect(
 		ctx,
-		Math.round(rect.x) - borderWidth/2,
-		Math.round(rect.y) - borderWidth/2,
+		Math.round(rect.x) - borderWidth / 2,
+		Math.round(rect.y) - borderWidth / 2,
 		Math.round(rect.w) + borderWidth,
 		Math.round(rect.h) + borderWidth,
 		model.borderRadius);
@@ -199,10 +199,10 @@ function drawText(ctx, lines, rect, model) {
 	}
 
 	x = rect.x;
-	y = rect.y + lh/2;
+	y = rect.y + lh / 2;
 
 	if (align === 'center') {
-		x += rect.w/2;
+		x += rect.w / 2;
 	} else if (align === 'end' || align === 'right') {
 		x += rect.w;
 	}
@@ -212,7 +212,7 @@ function drawText(ctx, lines, rect, model) {
 	ctx.textAlign = align;
 	ctx.textBaseline = 'middle';
 
-	for (i=0; i<ilen; ++i) {
+	for (i = 0; i < ilen; ++i) {
 		ctx.fillText(
 			lines[i],
 			Math.round(x),
@@ -249,7 +249,7 @@ function getScaleOrigin(el) {
 	}
 
 	var pixel = scale.getBasePixel();
-	return horizontal?
+	return horizontal ?
 		{x: pixel, y: null} :
 		{x: null, y: pixel};
 }
@@ -265,7 +265,7 @@ function evaluate(input, index, context, defaultValue) {
 	if (index !== undefined && Array.isArray(input)) {
 		input = input[index];
 	}
-	return input === undefined? defaultValue : input;
+	return input === undefined ? defaultValue : input;
 }
 
 function modelize(el, index, ctx, config, context) {
@@ -275,7 +275,7 @@ function modelize(el, index, ctx, config, context) {
 
 	var value = context.value;
 	var label = helpers.valueOrDefault(helpers.callback(config.formatter, [value, context]), value);
-	var lines = helpers.isNullOrUndef(label)? [] : toTextLines(label);
+	var lines = helpers.isNullOrUndef(label) ? [] : toTextLines(label);
 	if (!lines.length) {
 		return null;
 	}
@@ -293,7 +293,7 @@ function modelize(el, index, ctx, config, context) {
 		lines: lines,
 		offset: evaluate(config.offset, index, context, 0),
 		padding: helpers.options.toPadding(evaluate(config.padding, index, context, 0)),
-		rotation: evaluate(config.rotation, index, context, 0) * (Math.PI/180),
+		rotation: evaluate(config.rotation, index, context, 0) * (Math.PI / 180),
 		textAlign: evaluate(config.textAlign, index, context, 'start'),
 		origin: getScaleOrigin(el),
 		positioner: getPositioner(el),
@@ -332,9 +332,9 @@ Chart.plugins.register({
 
 		ctx.save();
 
-		for (i=0; i<ilen; ++i) {
+		for (i = 0; i < ilen; ++i) {
 			el = elements[i];
-			el[MODEL_KEY] = display && el && !el.hidden?
+			el[MODEL_KEY] = display && el && !el.hidden ?
 				modelize(el, i, ctx, config, {
 					datasetIndex: args.index,
 					dataIndex: i,
@@ -353,7 +353,7 @@ Chart.plugins.register({
 		var ctx = chart.ctx;
 		var i, el, model, center, rects;
 
-		for (i=0; i<ilen; ++i) {
+		for (i = 0; i < ilen; ++i) {
 			el = elements[i];
 			model = el[MODEL_KEY];
 			if (!model) {
