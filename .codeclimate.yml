@@ -4,14 +4,20 @@ engines:
     enabled: true
     config:
       languages:
-      - javascript
+        - javascript
   eslint:
     enabled: true
-    channel: "eslint-3"
+    channel: 'eslint-3'
   fixme:
     enabled: true
 ratings:
   paths:
-  - "samples/**/*.js"
-  - "src/**/*.js"
-exclude_paths: []
+    - 'src/**/*.js'
+exclude_paths:
+  - 'dist/'
+  - 'docs/'
+  - '**.json'
+  - '**.md'
+  - '**.sh'
+  - 'gulpfile.js'
+  - 'rollup.config.js'
