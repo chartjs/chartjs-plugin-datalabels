@@ -34,32 +34,32 @@ Available options:
 | [`textAlign`](formatting.md#text-alignment) | `String` | Yes | Yes | `start`
 | [`formatter`](formatting.md#data-transformation) | `Function/null` | - | - | -
 
+## Scriptable Options
+
+Scriptable options also accept a function which is called for each data and that takes the unique argument `context` representing contextual information (see [option context](options.md#option-context)).
+
+Example:
+
+```javascript
+color: function(context) {
+    var index = context.dataIndex;
+    var value = context.dataset.data[index];
+    return value < 0 ? 'red' :  // draw negative values in red
+        index % 2 ? 'blue' :    // else, alternate values in blue and green
+        'green';
+}
+```
+
 ## Option Context
 
 The option context is used to give contextual information when resolving options. It mainly applies to [scriptable options](#scriptable-options) but also to some function based options such as [`formatter`](formatting.md#data-transformation).
 
 The context object contains the following properties:
 
-- `datasetIndex`: index of the current dataset
-- `dataIndex`: index of the current data
-- `value`: value of the current data
 - `chart`: the associated chart
-
-## Scriptable Options
-
-Scriptable options also accept a function which is called for each data and that takes two arguments:
-
-- `index`: the index of the current data
-- `context`: contextual information (see [option context](options.md#option-context))
-
-Example:
-
-```javascript
-color: function(index, context) {
-    return context.value < 0? 'red' :  // draw negative values in red
-        index%2 ? 'blue' : 'green';    // else, alternate values in blue and green
-}
-```
+- `dataIndex`: index of the current data
+- `dataset`: dataset at index `datasetIndex`
+- `datasetIndex`: index of the current dataset
 
 ## Indexable Options
 

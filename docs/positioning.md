@@ -33,7 +33,7 @@ This option controls the clockwise rotation angle (in degrees) of the label, the
 The `display` option controls the visibility of labels (`true` to show all labels, else `false` to hide all labels). This option is [scriptable](options.md#scriptable-options), so it's also possible to show/hide a few labels:
 
 ```javascript
-display: function(index, context) {
-    return index%2; // display labels with an odd index
+display: function(context) {
+    return context.dataIndex % 2; // display labels with an odd index
 }
 ```

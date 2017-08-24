@@ -254,47 +254,34 @@ function getScaleOrigin(el) {
 		{x: null, y: pixel};
 }
 
-// @todo could be moved in Chart.helpers.options.evaluate
-function evaluate(input, index, context, defaultValue) {
-	if (input === undefined) {
-		return defaultValue;
-	}
-	if (context !== undefined && typeof input === 'function') {
-		input = input(index, context);
-	}
-	if (index !== undefined && Array.isArray(input)) {
-		input = input[index];
-	}
-	return input === undefined ? defaultValue : input;
-}
-
 function modelize(el, index, ctx, config, context) {
-	if (!evaluate(config.display, index, context, true)) {
+	var resolve = Chart.helpers.options.resolve;
+	if (!resolve([config.display, true], context, index)) {
 		return null;
 	}
 
-	var value = context.value;
+	var value = context.dataset.data[index];
 	var label = helpers.valueOrDefault(helpers.callback(config.formatter, [value, context]), value);
 	var lines = helpers.isNullOrUndef(label) ? [] : toTextLines(label);
 	if (!lines.length) {
 		return null;
 	}
 
-	var font = parseFont(evaluate(config.font, index, context, {}));
+	var font = parseFont(resolve([config.font, {}], context, index));
 	var model = {
-		align: evaluate(config.align, index, context, 'center'),
-		anchor: evaluate(config.anchor, index, context, 'center'),
-		backgroundColor: evaluate(config.backgroundColor, index, context, null),
-		borderColor: evaluate(config.borderColor, index, context, null),
-		borderRadius: evaluate(config.borderRadius, index, context, 0),
-		borderWidth: evaluate(config.borderWidth, index, context, 0),
-		color: evaluate(config.color, index, context, Chart.defaults.global.defaultFontColor),
+		align: resolve([config.align, 'center'], context, index),
+		anchor: resolve([config.anchor, 'center'], context, index),
+		backgroundColor: resolve([config.backgroundColor, null], context, index),
+		borderColor: resolve([config.borderColor, null], context, index),
+		borderRadius: resolve([config.borderRadius, 0], context, index),
+		borderWidth: resolve([config.borderWidth, 0], context, index),
+		color: resolve([config.color, Chart.defaults.global.defaultFontColor], context, index),
 		font: font,
 		lines: lines,
-		offset: evaluate(config.offset, index, context, 0),
-		padding: helpers.options.toPadding(evaluate(config.padding, index, context, 0)),
-		rotation: evaluate(config.rotation, index, context, 0) * (Math.PI / 180),
-		textAlign: evaluate(config.textAlign, index, context, 'start'),
+		offset: resolve([config.offset, 0], context, index),
+		padding: helpers.options.toPadding(resolve([config.padding, 0], context, index)),
+		rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
+		textAlign: resolve([config.textAlign, 'start'], context, index),
 		origin: getScaleOrigin(el),
 		positioner: getPositioner(el),
 		size: textSize(ctx, lines, font)
@@ -326,7 +313,6 @@ Chart.plugins.register({
 		var display = config && config.display;
 		var elements = args.meta.data || [];
 		var ilen = elements.length;
-		var data = dataset.data;
 		var ctx = chart.ctx;
 		var i, el;
 
@@ -336,10 +322,10 @@ Chart.plugins.register({
 			el = elements[i];
 			el[MODEL_KEY] = display && el && !el.hidden ?
 				modelize(el, i, ctx, config, {
-					datasetIndex: args.index,
+					chart: chart,
 					dataIndex: i,
-					value: data[i],
-					chart: chart
+					dataset: dataset,
+					datasetIndex: args.index
 				}) :
 				null;
 		}

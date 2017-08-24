@@ -131,9 +131,10 @@ export default {
 	 * @member {Function|null}
 	 * @prop {*} value - The data value
 	 * @prop {Object} context - The function unique argument:
-	 * @prop {Number} context.datasetIndex - Index of the current dataset
+	 * @prop {Chart} context.chart - The current chart
 	 * @prop {Number} context.dataIndex - Index of the current data
-	 * @prop {*} context.value - Value of the current data
+	 * @prop {Object} context.dataset - The current dataset
+	 * @prop {Number} context.datasetIndex - Index of the current dataset
 	 * @default data[index]
 	 */
 	formatter: function(value) {
