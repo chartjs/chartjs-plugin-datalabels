@@ -2,3 +2,4 @@
 * [Options](options.md)
 * [Positioning](positioning.md)
 * [Formating](formatting.md)
+* [Samples](https://chartjs-plugin-datalabels.netlify.com/samples)

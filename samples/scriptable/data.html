@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://rawgit.com/chartjs/chartjs.github.io/master/dist/master/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<div id="actions">
+			<button onclick="randomize(this)">Randomize</button>
+			<button onclick="addData(this)">Add Data</button>
+			<button onclick="removeData(this)">Remove Data</button>
+		</div>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Scriptable',
+			name: 'Data',
+			desc: 'Value increases are shown in blue with a up ' +
+				'arrow, decreases in red with a down arrow.'
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 16;
+		var labels = [];
+
+		Samples.srand(4);
+
+		for (var i = 0; i < DATA_COUNT; ++i) {
+			labels.push('' + i);
+		}
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 42,
+					right: 16,
+					bottom: 32,
+					left: 8
+				}
+			},
+			elements: {
+				line: {
+					fill: false
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [{
+					backgroundColor: Samples.color(0),
+					borderColor: Samples.color(0),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: -100,
+						max: 100
+					})
+				}]
+			},
+			options: {
+				plugins: {
+					datalabels: {
+						align: function(context) {
+							var index = context.dataIndex;
+							var curr = context.dataset.data[index];
+							var prev = context.dataset.data[index - 1];
+							var next = context.dataset.data[index + 1];
+							return prev < curr && next < curr ? 'end' :
+								prev > curr && next > curr ? 'start' :
+								'center';
+						},
+						backgroundColor: 'rgba(255, 255, 255, 0.7)',
+						borderColor: 'rgba(128, 128, 128, 0.7)',
+						borderRadius: 4,
+						borderWidth: 1,
+						color: function(context) {
+							var i = context.dataIndex;
+							var value = context.dataset.data[i];
+							var prev = context.dataset.data[i - 1];
+							var diff = prev !== undefined ? value - prev : 0;
+							return diff < 0 ? Samples.color(0) :
+								diff > 0 ? Samples.color(1) :
+								'gray';
+						},
+						font: {
+							size: 11,
+							weight: 600
+						},
+						offset: 8,
+						formatter: function(value, context) {
+							var i = context.dataIndex;
+							var prev = context.dataset.data[i - 1];
+							var diff = prev !== undefined ? prev - value : 0;
+							var glyph = diff < 0 ? '\u25B2' : diff > 0 ? '\u25BC' : '\u25C6';
+							return glyph + ' ' + Math.round(value);
+						}
+					}
+				}
+			}
+		});
+	</script>
+
+	<script id="script-actions">
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset, i) {
+				var color = Samples.color();
+				dataset.backgroundColor = color;
+				dataset.borderColor = color;
+				dataset.data = dataset.data.map(function(value) {
+					return Samples.rand(-100, 100);
+				});
+			});
+
+			chart.update();
+		}
+
+		function addData() {
+			chart.data.labels.push(chart.data.labels.length);
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.push(Samples.rand(-100, 100));
+			});
+
+			chart.update();
+		}
+
+		function removeData() {
+			chart.data.labels.shift();
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.shift();
+			});
+
+			chart.update();
+		}
+	</script>
+</body>
+</html>

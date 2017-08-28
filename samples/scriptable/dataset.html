@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://rawgit.com/chartjs/chartjs.github.io/master/dist/master/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<div id="actions">
+			<button onclick="randomize(this)">Randomize</button>
+			<button onclick="addData(this)">Add Data</button>
+			<button onclick="removeData(this)">Remove Data</button>
+		</div>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Scriptable',
+			name: 'Dataset',
+			desc: 'Labels are positionned outside a filled region between 2 datasets.'
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 12;
+		var labels = [];
+
+		Samples.srand(26);
+
+		for (var i = 0; i < DATA_COUNT; ++i) {
+			labels.push('' + i);
+		}
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 42,
+					right: 16,
+					bottom: 32,
+					left: 8
+				}
+			},
+			elements: {
+				line: {
+					borderWidth: 2,
+					fill: false
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [{
+					backgroundColor: Samples.transparentize(Samples.color(0)),
+					pointBackgroundColor: Samples.color(1),
+					borderColor: Samples.color(1),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: -25,
+						max: 25
+					}),
+					fill: '+1',
+				}, {
+					pointBackgroundColor: Samples.color(6),
+					borderColor: Samples.color(6),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: -100,
+						max: 100
+					})
+				}]
+			},
+			options: {
+				plugins: {
+					datalabels: {
+						align: function(context) {
+							var index = context.dataIndex;
+							var datasets = context.chart.data.datasets;
+							var v0 = datasets[0].data[index];
+							var v1 = datasets[1].data[index];
+							var invert = v0 - v1 > 0;
+							return context.datasetIndex === 0 ?
+								invert ? 'end' : 'start' :
+								invert ? 'start' : 'end';
+						},
+						backgroundColor: function(context) {
+							return context.dataset.borderColor;
+						},
+						borderRadius: 4,
+						color: 'white',
+						font: {
+							size: 11,
+							weight: 600
+						},
+						offset: 8,
+						formatter: Math.round
+					}
+				}
+			}
+		});
+	</script>
+
+	<script id="script-actions">
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset, i) {
+				var color = Samples.color();
+				dataset.borderColor = color;
+				dataset.pointBackgroundColor = color;
+				dataset.data = dataset.data.map(function(value) {
+					return Samples.rand(i % 2 ? -100 : -25, i % 2 ? 100 : 25);
+				});
+			});
+
+			chart.update();
+		}
+
+		function addData() {
+			chart.data.labels.push(chart.data.labels.length);
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.push(Samples.rand(i % 2 ? -100 : -25, i % 2 ? 100 : 25));
+			});
+
+			chart.update();
+		}
+
+		function removeData() {
+			chart.data.labels.shift();
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.shift();
+			});
+
+			chart.update();
+		}
+	</script>
+</body>
+</html>

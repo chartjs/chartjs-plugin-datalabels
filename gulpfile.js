@@ -1,6 +1,5 @@
 'use strict';
 
-var argv = require('yargs').argv;
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var file = require('gulp-file');
@@ -14,12 +13,14 @@ var merge = require('merge2');
 var path = require('path');
 var rollup = require('rollup-stream');
 var source = require('vinyl-source-stream');
-var {exec} = require('child-process-promise');
+var {exec} = require('mz/child_process');
 var pkg = require('./package.json');
 
-var srcDir = './src/';
-var outDir = './dist/';
-var samplesDir = './samples/';
+var argv = require('yargs')
+	.option('output', {alias: 'o', default: 'dist'})
+	.option('samples-dir', {default: 'samples'})
+	.option('docs-dir', {default: 'docs'})
+	.argv;
 
 function watch(glob, task) {
 	gutil.log('Waiting for changes...');
@@ -34,18 +35,19 @@ function watch(glob, task) {
 gulp.task('default', ['build']);
 
 gulp.task('build', function() {
+	var out = argv.output;
 	var task = function() {
 		return rollup('rollup.config.js')
 			.pipe(source(pkg.name + '.js'))
-			.pipe(gulp.dest(outDir))
+			.pipe(gulp.dest(out))
 			.pipe(rename(pkg.name + '.min.js'))
 			.pipe(streamify(uglify({preserveComments: 'license'})))
-			.pipe(gulp.dest(outDir));
+			.pipe(gulp.dest(out));
 	};
 
 	var tasks = [task()];
 	if (argv.watch) {
-		tasks.push(watch(srcDir + '**/*.js', task));
+		tasks.push(watch('src/**/*.js', task));
 	}
 
 	return tasks;
@@ -53,8 +55,8 @@ gulp.task('build', function() {
 
 gulp.task('lint', function() {
 	var files = [
-		samplesDir + '**/*.js',
-		srcDir + '**/*.js',
+		'samples/**/*.js',
+		'src/**/*.js',
 		'*.js'
 	];
 
@@ -65,29 +67,36 @@ gulp.task('lint', function() {
 });
 
 gulp.task('docs', function(done) {
-	const script = require.resolve('gitbook-cli/bin/gitbook.js');
-	exec([process.execPath, script, 'install', './'].join(' ')).then(() => {
-		return exec([process.execPath, script, 'build', './', './dist/docs'].join(' '));
-	}).catch((err) => {
-		console.error(err.stdout);
+	var script = require.resolve('gitbook-cli/bin/gitbook.js');
+	var out = path.join(argv.output, argv.docsDir);
+	var cmd = process.execPath;
+
+	exec([cmd, script, 'install', './'].join(' ')).then(() => {
+		return exec([cmd, script, 'build', './', out].join(' '));
 	}).then(() => {
 		done();
+	}).catch((err) => {
+		done(new Error(err.stdout || err));
 	});
 });
 
-gulp.task('package', function() {
-	return merge(
-		// gather "regular" files landing in the package root
-		gulp.src([outDir + '*.js', 'LICENSE.md']),
+gulp.task('samples', function() {
+	// since we moved the dist files one folder up (package root), we need to rewrite
+	// samples src="../dist/ to src="../ and then copy them in the /samples directory.
+	var out = path.join(argv.output, argv.samplesDir);
+	return gulp.src('samples/**/*', {base: 'samples'})
+		.pipe(streamify(replace(/src="((?:\.\.\/)+)dist\//g, 'src="$1', {skipBinary: true})))
+		.pipe(gulp.dest(out));
+});
 
-		// dist files in the package are in the root, so we need to rewrite samples
-		// src="../dist/ to src="../ and then copy them in the /samples directory.
-		gulp.src(samplesDir + '**/*', {base: '.'})
-			.pipe(streamify(replace('src="../dist/', 'src="../')))
+gulp.task('package', ['build', 'samples'], function() {
+	var out = argv.output;
+	return merge(
+		gulp.src(path.join(out, argv.samplesDir, '**/*'), {base: out}),
+		gulp.src([path.join(out, '*.js'), 'LICENSE.md'])
 	)
-	// finally, create the zip archive
 	.pipe(zip(pkg.name + '.zip'))
-	.pipe(gulp.dest(outDir));
+	.pipe(gulp.dest(out));
 });
 
 gulp.task('bower', function() {
@@ -97,7 +106,7 @@ gulp.task('bower', function() {
 		homepage: pkg.homepage,
 		license: pkg.license,
 		version: pkg.version,
-		main: outDir + pkg.name + '.js'
+		main: argv.output + '/' + pkg.name + '.js'
 	}, null, 2);
 
 	return file('bower.json', json, {src: true})

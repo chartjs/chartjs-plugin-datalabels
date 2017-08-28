@@ -1,0 +1,111 @@
+html body {
+	color: #555;
+	font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	display: flex;
+	height: 100vh;
+}
+
+a {
+	color: #ff3784;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #f0287a;
+	text-decoration: underline;
+}
+
+button {
+	background-color: #ff3784;
+	border: none;
+	border-radius: 0;
+	color: white;
+	cursor: pointer;
+	padding: 0.4rem 1rem;
+}
+
+button:hover {
+	background-color: #f0287a;
+	color: white;
+	text-decoration: none;
+}
+
+#side {
+	-webkit-box-shadow: 4px 0px 4px -2px rgba(0,0,0,0.2);
+	-moz-box-shadow: 4px 0px 4px -2px rgba(0,0,0,0.2);
+	box-shadow: 4px 0px 4px -2px rgba(0,0,0,0.2);
+	background-color: #fafafa;
+	min-width: 240px;
+	max-width: 320px;
+	overflow-y: auto;
+	flex: 1;
+}
+
+#header {
+	text-align: center;
+	padding: 0.5rem;
+}
+
+#header .scope {
+	display: inline-block;
+	font-size: 0.9em;
+	font-weight: 600;
+	padding: 4px 8px 8px;
+}
+
+#header .title {
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	color: #888;
+	padding: 0.25rem;
+}
+
+#header .title .name {
+	color: #222;
+	font-weight: 600;
+}
+
+#header .desc {
+	border-top: 1px dotted #ccc;
+	font-size: 0.8rem;
+	margin-top: 0.5rem;
+	padding: 0.5rem;
+	position: relative;
+}
+
+#navigator {
+	display: flex;
+	padding: 8px;
+}
+
+#actions,
+#options {
+	border-top: 1px solid #ddd;
+}
+
+#actions {
+	display: flex;
+	flex-direction: column;
+	padding: 0.5em;
+}
+
+#actions button {
+	margin-bottom: 2px;
+}
+
+#charts {
+	max-width: 1200px;
+	min-width: 200px;
+	overflow-y: auto;
+	padding: 16px;
+	flex: 5;
+}
+
+#charts .wrapper {
+	position: relative;
+}

@@ -10,7 +10,6 @@
     "url": "https://github.com/chartjs/chartjs-plugin-datalabels.git"
   },
   "devDependencies": {
-    "child-process-promise": "^2.2.1",
     "gitbook-cli": "^2.3.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.0",
@@ -22,6 +21,7 @@
     "gulp-util": "^3.0.7",
     "gulp-zip": "^3.2.0",
     "merge2": "^1.0.2",
+    "mz": "^2.6.0",
     "path": "^0.12.7",
     "rollup": "^0.41.6",
     "rollup-stream": "^1.19.0",

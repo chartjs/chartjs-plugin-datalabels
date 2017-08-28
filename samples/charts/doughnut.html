@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://rawgit.com/chartjs/chartjs.github.io/master/dist/master/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<div id="actions">
+			<button onclick="randomize(this)">Randomize</button>
+			<button onclick="addData(this)">Add Data</button>
+			<button onclick="removeData(this)">Remove Data</button>
+		</div>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Charts',
+			name: 'Doughnut',
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 10;
+		var labels = [];
+
+		Samples.srand(4);
+
+		for (var i = 0; i < DATA_COUNT; ++i) {
+			labels.push('' + i);
+		}
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 42,
+					right: 16,
+					bottom: 32,
+					left: 8
+				}
+			},
+			elements: {
+				line: {
+					fill: false
+				},
+				point: {
+					hoverRadius: 7,
+					radius: 5
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'doughnut',
+			data: {
+				labels: labels,
+				datasets: [{
+					backgroundColor: Samples.colors({
+						color: Samples.color(0),
+						count: DATA_COUNT
+					}),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						anchor: 'end'
+					}
+				}, {
+					backgroundColor: Samples.colors({
+						color: Samples.color(1),
+						count: DATA_COUNT
+					}),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						anchor: 'center',
+						backgroundColor: null,
+						borderWidth: 0
+					}
+				}, {
+					backgroundColor: Samples.colors({
+						color: Samples.color(2),
+						count: DATA_COUNT
+					}),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						anchor: 'start'
+					}
+				}]
+			},
+			options: {
+				plugins: {
+					datalabels: {
+						backgroundColor: function(context) {
+							return context.dataset.backgroundColor;
+						},
+						borderColor: 'white',
+						borderRadius: 25,
+						borderWidth: 2,
+						color: 'white',
+						display: function(context) {
+							var dataset = context.dataset;
+							var count = dataset.data.length;
+							var value = dataset.data[context.dataIndex];
+							return value > count * 1.5;
+						},
+						font: {
+							weight: 'bold'
+						},
+						formatter: Math.round
+					}
+				}
+			}
+		});
+	</script>
+
+	<script id="script-actions">
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.backgroundColor = dataset.data.map(function(value) {
+					return Samples.color();
+				});
+				dataset.data = dataset.data.map(function(value) {
+					return Samples.rand(0, 100);
+				});
+			});
+
+			chart.update();
+		}
+
+		function addData() {
+			chart.data.labels.push(chart.data.labels.length);
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.backgroundColor.push(Samples.color());
+				dataset.data.push(Samples.rand(0, 100));
+			});
+
+			chart.update();
+		}
+
+		function removeData() {
+			chart.data.labels.shift();
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.backgroundColor.shift();
+				dataset.data.shift();
+			});
+
+			chart.update();
+		}
+	</script>
+</body>
+</html>
