@@ -6,13 +6,18 @@
 		"-lunr",
 		"-search",
 		"search-plus",
-		"anchorjs"
+		"anchorjs",
+		"ga"
 	],
 	"pluginsConfig": {
 		"anchorjs": {
 			"icon": "#",
 			"placement": "left",
 			"visible": "always"
+		},
+		"ga": {
+			"token": "UA-99068522-2",
+			"configuration": "auto"
 		},
 		"theme-default": {
 			"showLevel": false,
