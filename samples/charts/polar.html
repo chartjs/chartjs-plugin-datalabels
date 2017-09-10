@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../style.css">
 	<link rel="icon" type="image/ico" href="../favicon.ico">
-	<script src="https://rawgit.com/chartjs/chartjs.github.io/master/dist/master/Chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.0/dist/Chart.min.js"></script>
 	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
 	<script src="../utils.js"></script>
 </head>
@@ -42,14 +42,10 @@
 		}
 
 		Chart.helpers.merge(Chart.defaults.global, {
+			maintainAspectRatio: false,
 			tooltips: false,
 			layout: {
-				padding: {
-					top: 42,
-					right: 16,
-					bottom: 32,
-					left: 8
-				}
+				padding: 16
 			},
 			elements: {
 				line: {
@@ -140,7 +136,6 @@
 		function removeData() {
 			chart.data.labels.shift();
 			chart.data.datasets.forEach(function(dataset, i) {
-				dataset.backgroundColor.shift();
 				dataset.data.shift();
 			});
 

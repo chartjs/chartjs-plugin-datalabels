@@ -36,10 +36,9 @@ button:hover {
 }
 
 #side {
-	-webkit-box-shadow: 4px 0px 4px -2px rgba(0,0,0,0.2);
-	-moz-box-shadow: 4px 0px 4px -2px rgba(0,0,0,0.2);
-	box-shadow: 4px 0px 4px -2px rgba(0,0,0,0.2);
-	background-color: #fafafa;
+	-webkit-box-shadow: -4px 0px 4px -2px rgba(0,0,0,0.1) inset;
+	-moz-box-shadow: -4px 0px 4px -2px rgba(0,0,0,0.1) inset;
+	box-shadow: -4px 0px 4px -2px rgba(0,0,0,0.1) inset;
 	min-width: 240px;
 	max-width: 320px;
 	overflow-y: auto;
@@ -85,7 +84,7 @@ button:hover {
 
 #actions,
 #options {
-	border-top: 1px solid #ddd;
+	border-top: 1px dashed #ddd;
 }
 
 #actions {
@@ -95,7 +94,11 @@ button:hover {
 }
 
 #actions button {
-	margin-bottom: 2px;
+	flex: 1 1 auto;
+	margin: 0 0 2px 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 #charts {
@@ -108,4 +111,31 @@ button:hover {
 
 #charts .wrapper {
 	position: relative;
+	max-height: 768px;
+	max-width: 768px;
+	height: 100%;
+	width: 100%;
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+	body {
+		flex-direction: column;
+	}
+
+	#side {
+		-webkit-box-shadow: 0px -4px 4px -2px rgba(0,0,0,0.1) inset;
+		-moz-box-shadow: 0px -4px 4px -2px rgba(0,0,0,0.1) inset;
+		box-shadow: 0px -4px 4px -2px rgba(0,0,0,0.1) inset;
+		max-height: 50vh;
+		max-width: initial;
+		flex: 0 1 auto;
+	}
+
+	#actions {
+		flex-direction: row;
+	}
+
+	#actions button {
+		margin: 0 2px 0 0;
+	}
 }

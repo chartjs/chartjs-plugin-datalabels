@@ -74,16 +74,16 @@ a:hover {
 	padding: 20px;
 }
 
-#header .title .name {
+#header .title .main {
 	color: #f27173;
 	display: inline-block;
 	font-size: 1.5rem;
 	font-weight: 600;
 }
 
-#header .title .name:after {
+#header .title .name:before {
 	content: '/';
-	margin-left: 0.5rem;
+	margin-right: 0.5rem;
 }
 
 #header .caption {
@@ -103,10 +103,6 @@ a:hover {
 
 #header .links .fa:before {
 	margin-right: 0.5em;
-}
-
-#categories {
-
 }
 
 .samples-category {
@@ -139,6 +135,7 @@ a:hover {
 }
 
 @media (max-width: 640px) {
+	#header {padding: 8px 0;}
 	.samples-category { width: 33%; }
 }
 

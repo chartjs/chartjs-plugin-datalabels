@@ -2,7 +2,7 @@
     <img src="docs/assets/banner.png"/>
 </div>
 
-[![npm](https://img.shields.io/npm/v/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://npmjs.com/package/chartjs-plugin-datalabels) [![bower](https://img.shields.io/bower/v/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://libraries.io/bower/chartjs-plugin-datalabels) [![cdn](https://img.shields.io/npm/v/chartjs-plugin-datalabels.svg?label=cdn&style=flat-square&maxAge=600)](https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@latest/dist/) [![Travis](https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://travis-ci.org/chartjs/chartjs-plugin-datalabels) [![Code Climate](https://img.shields.io/codeclimate/github/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels)
+[![github](https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://github.com/chartjs/chartjs-plugin-datalabels/releases/latest) [![travis](https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://travis-ci.org/chartjs/chartjs-plugin-datalabels) [![codeclimate](https://img.shields.io/codeclimate/github/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels)
 
 Highly customizable [Chart.js](http://www.chartjs.org/) plugin that displays labels on data for any type of charts.
 

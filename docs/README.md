@@ -10,4 +10,4 @@ Highly customizable [Chart.js](http://www.chartjs.org/) plugin that displays lab
 
 ## License
 
-chartjs-plugin-datalabels is available under the [MIT license](https://github.com/chartjs/chartjs-plugin-datalabels/blob/master/LICENSE.md).
+`chartjs-plugin-datalabels` is available under the [MIT license](https://github.com/chartjs/chartjs-plugin-datalabels/blob/master/LICENSE.md).
