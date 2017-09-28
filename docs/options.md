@@ -23,7 +23,7 @@ Available options:
 | `font.size` | `String` | - | - | [`defaultFontSize`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | `font.style` | `String` | - | - | [`defaultFontStyle`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | `font.weight` | `String` | - | - | `'normal'`
-| `font.lineHeight` | `Number|String` | - | - | `1.2`
+| `font.lineHeight` | `Number/String` | - | - | `1.2`
 | [`offset`](positioning.md#alignment-and-offset) | `Number` | Yes | Yes | `4`
 | `padding` | `Number/Object` | Yes | Yes | -
 | `padding.top` | `Number` | - | - | `4`
