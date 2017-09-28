@@ -11,8 +11,7 @@ const banner = `/*!
  */`;
 
 export default {
-	entry: 'src/plugin.js',
-	dest: 'dist/' + pkg.name + '.js',
+	input: 'src/plugin.js',
 	banner: banner,
 	format: 'umd',
 	external: [
