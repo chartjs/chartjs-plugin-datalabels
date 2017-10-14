@@ -19,6 +19,9 @@
 		}, {
 			title: 'Radar',
 			path: 'charts/radar.html'
+		}, {
+			title: 'Bubble',
+			path: 'charts/bubble.html'
 		}]
 	}, {
 		title: 'Scriptable',

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.0/dist/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<div id="actions">
+			<button onclick="randomize(this)">Randomize</button>
+			<button onclick="addData(this)">Add Data</button>
+			<button onclick="removeData(this)">Remove Data</button>
+		</div>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Charts',
+			name: 'Line',
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 8;
+		var labels = [];
+
+		Samples.srand(18);
+
+		function generatePoint() {
+			return {
+				x: Samples.rand(-100, 100),
+				y: Samples.rand(-50, 50),
+				v: Samples.rand(15, 100),
+			};
+		}
+
+		function generateData() {
+			var data = [];
+			for (var i = 0; i < DATA_COUNT; ++i) {
+				data.push(generatePoint());
+			}
+			return data;
+		}
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			aspectRatio: 1,
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 42,
+					right: 16,
+					bottom: 32,
+					left: 8
+				}
+			},
+			elements: {
+				point: {
+					radius: function(context) {
+						var value = context.dataset.data[context.dataIndex];
+						var size = context.chart.width;
+						var base = Math.abs(value.v) / 100;
+						return (size / 24) * base;
+					}
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'bubble',
+			data: {
+				datasets: [{
+					backgroundColor: Samples.color(0),
+					borderColor: Samples.color(0),
+					data: generateData()
+				}, {
+					backgroundColor: Samples.color(1),
+					borderColor: Samples.color(1),
+					data: generateData()
+				}]
+			},
+			options: {
+				plugins: {
+					datalabels: {
+						anchor: function(context) {
+							var value = context.dataset.data[context.dataIndex];
+							return value.v < 50 ? 'end' : 'center';
+						},
+						align: function(context) {
+							var value = context.dataset.data[context.dataIndex];
+							return value.v < 50 ? 'end' : 'center';
+						},
+						color: function(context) {
+							var value = context.dataset.data[context.dataIndex];
+							return value.v < 50 ? context.dataset.backgroundColor : 'white';
+						},
+						font: {
+							weight: 'bold'
+						},
+						formatter: function(value) {
+							return Math.round(value.v);
+						},
+						offset: 2,
+						padding: 0
+					}
+				}
+			}
+		});
+	</script>
+
+	<script id="script-actions">
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.backgroundColor = dataset.borderColor = Samples.color();
+				dataset.data = generateData();
+			});
+
+			chart.update();
+		}
+
+		function addData() {
+			chart.data.labels.push(chart.data.labels.length);
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.push(generatePoint());
+			});
+
+			chart.update();
+		}
+
+		function removeData() {
+			chart.data.labels.shift();
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.shift();
+			});
+
+			chart.update();
+		}
+	</script>
+</body>
+</html>
