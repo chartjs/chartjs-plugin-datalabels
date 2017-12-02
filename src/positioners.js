@@ -20,8 +20,52 @@ function orient(point, origin) {
 	};
 }
 
+function aligned(x, y, vx, vy, align) {
+	switch (align) {
+	case 'center':
+		vx = vy = 0;
+		break;
+	case 'bottom':
+		vx = 0;
+		vy = 1;
+		break;
+	case 'right':
+		vx = 1;
+		vy = 0;
+		break;
+	case 'left':
+		vx = -1;
+		vy = 0;
+		break;
+	case 'top':
+		vx = 0;
+		vy = -1;
+		break;
+	case 'start':
+		vx = -vx;
+		vy = -vy;
+		break;
+	case 'end':
+		// keep the natural orientation
+		break;
+	default:
+		// clockwise rotation (in degree)
+		align *= (Math.PI / 180);
+		vx = Math.cos(align);
+		vy = Math.sin(align);
+		break;
+	}
+
+	return {
+		x: x,
+		y: y,
+		vx: vx,
+		vy: vy
+	};
+}
+
 export default {
-	arc: function(vm, anchor) {
+	arc: function(vm, anchor, align) {
 		var angle = (vm.startAngle + vm.endAngle) / 2;
 		var vx = Math.cos(angle);
 		var vy = Math.sin(angle);
@@ -37,15 +81,15 @@ export default {
 			d = (r0 + r1) / 2;
 		}
 
-		return {
-			x: vm.x + vx * d,
-			y: vm.y + vy * d,
-			vx: vx,
-			vy: vy
-		};
+		return aligned(
+			vm.x + vx * d,
+			vm.y + vy * d,
+			vx,
+			vy,
+			align);
 	},
 
-	point: function(vm, anchor, origin) {
+	point: function(vm, anchor, align, origin) {
 		var v = orient(vm, origin);
 		var r = vm.radius;
 		var d = 0;
@@ -56,15 +100,15 @@ export default {
 			d = r;
 		}
 
-		return {
-			x: vm.x + v.x * d,
-			y: vm.y + v.y * d,
-			vx: v.x,
-			vy: v.y
-		};
+		return aligned(
+			vm.x + v.x * d,
+			vm.y + v.y * d,
+			v.x,
+			v.y,
+			align);
 	},
 
-	rect: function(vm, anchor, origin) {
+	rect: function(vm, anchor, align, origin) {
 		var horizontal = vm.horizontal;
 		var size = Math.abs(vm.base - (horizontal ? vm.x : vm.y));
 		var x = horizontal ? Math.min(vm.x, vm.base) : vm.x;
@@ -83,21 +127,21 @@ export default {
 			x += size;
 		}
 
-		return {
-			x: x,
-			y: y,
-			vx: v.x,
-			vy: v.y
-		};
+		return aligned(
+			x,
+			y,
+			v.x,
+			v.y,
+			align);
 	},
 
-	fallback: function(vm, anchor, origin) {
+	fallback: function(vm, anchor, align, origin) {
 		var v = orient(vm, origin);
-		return {
-			x: vm.x,
-			y: vm.y,
-			vx: v.x,
-			vy: v.y
-		};
+		return aligned(
+			vm.x,
+			vm.y,
+			v.x,
+			v.y,
+			align);
 	}
 };

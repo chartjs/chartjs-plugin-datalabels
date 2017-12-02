@@ -10,8 +10,16 @@ var helpers = Chart.helpers;
 
 export default {
 	/**
-	 * The label box alignment relative to `anchor` ('start'|'center'|'end')
-	 * @member {String|Array|Function}
+	 * The label box alignment relative to `anchor` that can be expressed either by a number
+	 * representing the clockwise angle (in degree) or by one of the following string presets:
+	 * - 'start': before the anchor point, following the same direction
+	 * - 'end': after the anchor point, following the same direction
+	 * - 'center': centered on the anchor point
+	 * - 'right': 0°
+	 * - 'bottom': 90°
+	 * - 'left': 180°
+	 * - 'top': 270°
+	 * @member {String|Number|Array|Function}
 	 * @default 'center'
 	 */
 	align: 'center',
@@ -108,7 +116,7 @@ export default {
 	},
 
 	/**
-	 * Rotation of the label relative to its center.
+	 * Clockwise rotation of the label relative to its center.
 	 * @member {Number|Array|Function}
 	 * @default 0
 	 */

@@ -87,9 +87,11 @@ function parseFont(value) {
 }
 
 function coordinates(el, model) {
-	var point = model.positioner(el._view, model.anchor, model.origin);
+	var point = model.positioner(el._view, model.anchor, model.align, model.origin);
+	var vx = point.vx;
+	var vy = point.vy;
 
-	if (model.align === 'center') {
+	if (!vx && !vy) {
 		// if aligned center, we don't want to offset the center point
 		return {x: point.x, y: point.y};
 	}
@@ -98,15 +100,8 @@ function coordinates(el, model) {
 	var rotation = model.rotation;
 	var th = model.size.height;
 	var tw = model.size.width;
-	var vx = point.vx;
-	var vy = point.vy;
 	var dx = 0;
 	var dy = 0;
-
-	if (model.align === 'start') {
-		vx = -vx;
-		vy = -vy;
-	}
 
 	// take in account the label rotation
 	dx += Math.abs(tw / 2 * Math.cos(rotation)) + Math.abs(th / 2 * Math.sin(rotation));

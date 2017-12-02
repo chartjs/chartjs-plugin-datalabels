@@ -10,7 +10,7 @@ Available options:
 
 | Name | Type | [Scriptable](#scriptable-options) | [Indexable](#indexable-options) |  Default
 | ---- | ---- | :----: | :----: | ----
-| [`align`](positioning.md#alignment-and-offset) | `String` | Yes | Yes | `'center'`
+| [`align`](positioning.md#alignment-and-offset) | `Number/String` | Yes | Yes | `'center'`
 | [`anchor`](positioning.md#anchoring) | `String` | Yes | Yes | `'center'`
 | `backgroundColor` | [`Style`](#style-options)/`null` | Yes | Yes | `null`
 | `borderColor` | [`Style`](#style-options)/`null` | Yes | Yes | `null`

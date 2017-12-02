@@ -13,12 +13,14 @@ Supported values for `anchor`:
 
 ## Alignment and Offset
 
-The `align` option defines the position of the label relative to the anchor point position and orientation.
-
-Supported values for `align`:
-- `start`: the label is positioned before the anchor point
+The `align` option defines the position of the label relative to the anchor point position and orientation. Its value can be expressed either by a number representing the clockwise angle (in degree) or by one of the following string presets:
+- `start`: the label is positioned before the anchor point, following the same direction
+- `end`: the label is positioned after the anchor point, following the same direction
 - `center` (default): the label is centered on the anchor point
-- `end`: the label is positioned after the anchor point
+- `right`: the label is positioned to the right of the anchor point (0°)
+- `bottom`: the label is positioned to the bottom of the anchor point (90°)
+- `left`: the label is positioned to the left of the anchor point (180°)
+- `top`: the label is positioned to the top of the anchor point (270°)
 
 The `offset` represents the distance (in pixels) to pull the label *away* from the anchor point. This option is **not applicable** when `align` is `center`. Also note that if `align` is `start`, the label is moved in the opposite direction. The default value is `4`.
 
