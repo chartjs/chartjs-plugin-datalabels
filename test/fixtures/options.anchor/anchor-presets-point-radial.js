@@ -1,0 +1,62 @@
+var datasets = [];
+var labels = [];
+var count = 12;
+
+for (var i = 0; i < count; ++i) {
+	labels.push(i);
+}
+
+['start', 'center', 'end'].forEach(function(anchor, v) {
+	datasets.push({
+		data: labels.map(function() {
+			return v + 2;
+		}),
+		datalabels: {
+			anchor: anchor
+		}
+	});
+});
+
+export default {
+	config: {
+		type: 'radar',
+		data: {
+			labels: labels,
+			datasets: datasets
+		},
+		options: {
+			layout: {
+				padding: 16
+			},
+			elements: {
+				line: {
+					backgroundColor: 'transparent',
+					borderColor: 'transparent'
+				},
+				point: {
+					radius: 16
+				}
+			},
+			scale: {
+				display: false
+			},
+			plugins: {
+				datalabels: {
+					backgroundColor: '#00ff77',
+					borderColor: 'black',
+					borderWidth: 2,
+					font: {
+						size: 0
+					},
+					padding: 8
+				}
+			}
+		}
+	},
+	options: {
+		canvas: {
+			height: 512,
+			width: 512
+		}
+	}
+};
