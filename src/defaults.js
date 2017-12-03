@@ -68,25 +68,20 @@ export default {
 	/**
 	 * The font options used to draw the label text.
 	 * @member {Object|Array|Function}
-	 * @prop {Boolean} font.family - defaults to Chart.defaults.global.defaultFontFamily
-	 * @prop {Boolean} font.size - defaults to Chart.defaults.global.defaultFontSize
-	 * @prop {Boolean} font.style - defaults to Chart.defaults.global.defaultFontStyle
-	 * @prop {Boolean} font.weight - defaults to 'normal'
+	 * @prop {String} font.family - defaults to Chart.defaults.global.defaultFontFamily
+	 * @prop {Number} font.lineHeight - defaults to 1.2
+	 * @prop {Number} font.size - defaults to Chart.defaults.global.defaultFontSize
+	 * @prop {String} font.style - defaults to Chart.defaults.global.defaultFontStyle
+	 * @prop {Number} font.weight - defaults to 'normal'
 	 * @default Chart.defaults.global.defaultFont.*
 	 */
 	font: {
 		family: undefined,
+		lineHeight: 1.2,
 		size: undefined,
 		style: undefined,
 		weight: null
 	},
-
-	/**
-	 * The line height (in pixel) to use for multi-lines labels.
-	 * @member {Number|Array|Function|undefined}
-	 * @default 1.2
-	 */
-	lineHeight: 1.2,
 
 	/**
 	 * The distance (in pixels) to pull the label away from the anchor point, the direction
@@ -138,9 +133,12 @@ export default {
 	 * @default data[index]
 	 */
 	formatter: function(value) {
+		if (helpers.isNullOrUndef(value)) {
+			return null;
+		}
+
 		var label = value;
 		var keys, klen, k;
-
 		if (helpers.isObject(value)) {
 			if (!helpers.isNullOrUndef(value.label)) {
 				label = value.label;
