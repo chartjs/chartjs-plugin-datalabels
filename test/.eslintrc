@@ -1,0 +1,11 @@
+env:
+  jasmine: true
+
+globals:
+  __karma__: true
+
+# http://eslint.org/docs/rules/
+rules:
+  # Best Practices
+  complexity: 0
+  no-new-func: 0

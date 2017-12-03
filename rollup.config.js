@@ -1,6 +1,7 @@
 const pkg = require('./package.json');
 
 const banner = `/*!
+ * @license
  * ` + pkg.name + `
  * http://chartjs.org/
  * Version: ` + pkg.version + `

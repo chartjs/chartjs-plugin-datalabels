@@ -9,6 +9,7 @@ var streamify = require('gulp-streamify');
 var uglify = require('gulp-uglify');
 var gutil = require('gulp-util');
 var zip = require('gulp-zip');
+var karma = require('karma');
 var merge = require('merge2');
 var path = require('path');
 var rollup = require('rollup-stream');
@@ -23,41 +24,55 @@ var argv = require('yargs')
 	.option('www-dir', {default: 'www'})
 	.argv;
 
-function watch(glob, task) {
+function watch(glob, task, done) {
 	gutil.log('Waiting for changes...');
-	return gulp.watch(glob, function(e) {
-		gutil.log('Changes detected for', path.relative('.', e.path), '(' + e.type + ')');
-		var r = task();
-		gutil.log('Waiting for changes...');
-		return r;
-	});
+	return gulp.watch(glob, task)
+		.on('end', done)
+		.on('change', function(e) {
+			gutil.log('Changes detected for', path.relative('.', e.path), '(' + e.type + ')');
+		});
 }
 
 gulp.task('default', ['build']);
 
-gulp.task('build', function() {
+gulp.task('build', function(done) {
 	var out = argv.output;
 	var task = function() {
 		return rollup('rollup.config.js')
 			.pipe(source(pkg.name + '.js'))
 			.pipe(gulp.dest(out))
 			.pipe(rename(pkg.name + '.min.js'))
-			.pipe(streamify(uglify({preserveComments: 'license'})))
+			.pipe(streamify(uglify({output: {comments: 'some'}})))
 			.pipe(gulp.dest(out));
 	};
 
-	var tasks = [task()];
-	if (argv.watch) {
-		tasks.push(watch('src/**/*.js', task));
-	}
+	return argv.watch
+		? [task(), watch('src/**/*.js', task, done)]
+		: task();
+});
 
-	return tasks;
+gulp.task('test', function(done) {
+	new karma.Server({
+		configFile: path.join(__dirname, 'karma.config.js'),
+		singleRun: !argv.watch,
+		args: {
+			inputs: argv.inputs
+				? argv.inputs.split(';')
+				: ['test/specs/**/*.js']
+		}
+	},
+	function(error) {
+		// https://github.com/karma-runner/gulp-karma/issues/18
+		error = error ? new Error('Karma returned with the error code: ' + error) : undefined;
+		done(error);
+	}).start();
 });
 
 gulp.task('lint', function() {
 	var files = [
 		'samples/**/*.js',
 		'src/**/*.js',
+		'test/**/*.js',
 		'*.js'
 	];
 
@@ -92,25 +107,28 @@ gulp.task('samples', function() {
 
 gulp.task('package', ['build', 'samples'], function() {
 	var out = argv.output;
-	return merge(
+	var streams = merge(
 		gulp.src(path.join(out, argv.samplesDir, '**/*'), {base: out}),
 		gulp.src([path.join(out, '*.js'), 'LICENSE.md'])
-	)
-	.pipe(zip(pkg.name + '.zip'))
-	.pipe(gulp.dest(out));
+	);
+
+	return streams
+		.pipe(zip(pkg.name + '.zip'))
+		.pipe(gulp.dest(out));
 });
 
 gulp.task('netlify', ['build', 'docs', 'samples'], function() {
 	var root = argv.output;
 	var out = path.join(root, argv.wwwDir);
-
-	return merge(
+	var streams = merge(
 		gulp.src(path.join(root, argv.docsDir, '**/*'), {base: path.join(root, argv.docsDir)}),
 		gulp.src(path.join(root, argv.samplesDir, '**/*'), {base: root}),
 		gulp.src(path.join(root, '*.js'))
-	)
-	.pipe(streamify(replace(/https?:\/\/chartjs-plugin-datalabels\.netlify\.com\/?/g, '/', {skipBinary: true})))
-	.pipe(gulp.dest(out));
+	);
+
+	return streams
+		.pipe(streamify(replace(/https?:\/\/chartjs-plugin-datalabels\.netlify\.com\/?/g, '/', {skipBinary: true})))
+		.pipe(gulp.dest(out));
 });
 
 gulp.task('bower', function() {
@@ -126,3 +144,12 @@ gulp.task('bower', function() {
 	return file('bower.json', json, {src: true})
 		.pipe(gulp.dest('./'));
 });
+
+// Workaround: Gulp process does not end because of karma/node process hanging
+// https://github.com/sindresorhus/gulp-mocha/issues/1#issuecomment-55710159
+// https://github.com/karma-runner/karma/issues/2867
+gulp.doneCallback = function(err) {
+	// eslint-disable-next-line no-process-exit
+	process.exit(err ? 1 : 0);
+};
+

@@ -2,4 +2,5 @@
 /jsdoc
 /node_modules
 .DS_Store
-bower.json
+/bower.json
+/package-lock.json

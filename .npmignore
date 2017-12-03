@@ -2,7 +2,7 @@
 /dist/*.zip
 /node_modules
 /scripts
-
-.codeclimate.yml
-.gitignore
-.travis.yml
+/.codeclimate.yml
+/.gitignore
+/.travis.yml
+/package-lock.json

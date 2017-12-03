@@ -26,6 +26,7 @@ The following commands will then be available from the repository root:
 
     > gulp build            // build dist files
     > gulp build --watch    // build and watch for changes
+    > gulp test             // run unit tests
     > gulp lint             // perform code linting
     > gulp package          // create an archive with dist files and samples
     > gulp docs             // generate GitBook documentation (`dist/docs`)
