@@ -1,4 +1,5 @@
 /.git
+/coverage
 /dist/*.zip
 /node_modules
 /scripts

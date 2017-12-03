@@ -56,6 +56,7 @@ gulp.task('test', function(done) {
 		configFile: path.join(__dirname, 'karma.config.js'),
 		singleRun: !argv.watch,
 		args: {
+			coverage: !!argv.coverage,
 			inputs: argv.inputs
 				? argv.inputs.split(';')
 				: ['test/specs/**/*.js']

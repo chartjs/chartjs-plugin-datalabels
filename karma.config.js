@@ -1,4 +1,5 @@
 var commonjs = require('rollup-plugin-commonjs');
+var istanbul = require('rollup-plugin-istanbul');
 var resolve = require('rollup-plugin-node-resolve');
 
 module.exports = function(karma) {
@@ -7,7 +8,8 @@ module.exports = function(karma) {
 	karma.set({
 		browsers: ['Firefox'],
 		frameworks: ['jasmine'],
-		reporters: ['spec', 'kjhtml'],
+		reporters: ['spec', 'kjhtml'].concat(
+			args.coverage ? ['coverage'] : []),
 
 		files: [
 			{pattern: './test/fixtures/**/*.js', included: false},
@@ -28,7 +30,10 @@ module.exports = function(karma) {
 			format: 'umd',
 			plugins: [
 				resolve(),
-				commonjs()
+				commonjs(),
+				istanbul({
+					include: 'src/**/*.js'
+				})
 			],
 			external: [
 				'chart.js'
@@ -46,6 +51,14 @@ module.exports = function(karma) {
 					name: 'fixture',
 				}
 			}
+		},
+
+		coverageReporter: {
+			dir: 'coverage/',
+			reporters: [
+				{type: 'html', subdir: 'html'},
+				{type: 'lcovonly', subdir: '.'}
+			]
 		}
 	});
 };

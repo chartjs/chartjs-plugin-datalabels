@@ -2,15 +2,21 @@ language: node_js
 node_js:
   - "8"
 
-before_install:
+before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
-  - gulp test
+  - gulp test --coverage
   - gulp lint
   - gulp package
   - gulp bower
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 # IMPORTANT: scripts require GITHUB_AUTH_TOKEN and GITHUB_AUTH_EMAIL environment variables
 # IMPORTANT: scripts has to be set executables in the Git repository (error 127)
