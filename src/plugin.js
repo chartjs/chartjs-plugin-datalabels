@@ -86,7 +86,7 @@ function parseFont(value) {
 	return font;
 }
 
-function coordinates(el, model) {
+function coordinates(el, model, rect) {
 	var point = model.positioner(el._view, model.anchor, model.align, model.origin);
 	var vx = point.vx;
 	var vy = point.vy;
@@ -96,32 +96,30 @@ function coordinates(el, model) {
 		return {x: point.x, y: point.y};
 	}
 
-	var padding = model.padding;
-	var rotation = model.rotation;
-	var th = model.size.height;
-	var tw = model.size.width;
-	var dx = 0;
-	var dy = 0;
+
+	// include borders to the bounding rect
+	var borderWidth = model.borderWidth || 0;
+	var w = (rect.w + borderWidth * 2);
+	var h = (rect.h + borderWidth * 2);
 
 	// take in account the label rotation
-	dx += Math.abs(tw / 2 * Math.cos(rotation)) + Math.abs(th / 2 * Math.sin(rotation));
-	dy += Math.abs(tw / 2 * Math.sin(rotation)) + Math.abs(th / 2 * Math.cos(rotation));
+	var rotation = model.rotation;
+	var dx = Math.abs(w / 2 * Math.cos(rotation)) + Math.abs(h / 2 * Math.sin(rotation));
+	var dy = Math.abs(w / 2 * Math.sin(rotation)) + Math.abs(h / 2 * Math.cos(rotation));
 
-	// ... and padding
-	dx += vx > 0 ? padding.right : padding.left;
-	dy += vy > 0 ? padding.bottom : padding.top;
+	// scale the unit vector (vx, vy) to get at least dx or dy equal to w or h respectively
+	// (else we would calculate the distance to the ellipse inscribed in the bounding rect)
+	var vs = 1 / Math.max(Math.abs(vx), Math.abs(vy));
+	dx *= vx * vs;
+	dy *= vy * vs;
 
-	// ... and borders
-	dx += model.borderWidth || 0;
-	dy += model.borderWidth || 0;
-
-	// ... and explicit offset
-	dx += model.offset;
-	dy += model.offset;
+	// finally, include the explicit offset
+	dx += model.offset * vx;
+	dy += model.offset * vy;
 
 	return {
-		x: point.x + dx * vx,
-		y: point.y + dy * vy
+		x: point.x + dx,
+		y: point.y + dy
 	};
 }
 
@@ -341,8 +339,8 @@ Chart.plugins.register({
 				continue;
 			}
 
-			center = coordinates(el, model);
 			rects = boundingRects(model.size, model.padding);
+			center = coordinates(el, model, rects.frame);
 
 			ctx.save();
 			ctx.translate(Math.round(center.x), Math.round(center.y));
