@@ -10,9 +10,6 @@ plugins:
     config:
       languages:
         - javascript
-  eslint:
-    enabled: true
-    channel: 'eslint-4'
   fixme:
     enabled: true
 exclude_patterns:
