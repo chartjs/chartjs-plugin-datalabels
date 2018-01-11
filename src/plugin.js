@@ -5,6 +5,7 @@
 'use strict';
 
 import Chart from 'chart.js';
+import utils from './utils.js';
 import defaults from './defaults.js';
 import positioners from './positioners.js';
 
@@ -12,79 +13,6 @@ Chart.defaults.global.plugins.datalabels = defaults;
 
 var helpers = Chart.helpers;
 var MODEL_KEY = '$datalabels';
-
-// @todo move this in Chart.helpers.toTextLines
-function toTextLines(inputs) {
-	var lines = [];
-	var input;
-
-	inputs = [].concat(inputs);
-	while (inputs.length) {
-		input = inputs.pop();
-		if (typeof input === 'string') {
-			lines.unshift.apply(lines, input.split('\n'));
-		} else if (Array.isArray(input)) {
-			inputs.push.apply(inputs, input);
-		} else if (!helpers.isNullOrUndef(inputs)) {
-			lines.unshift('' + input);
-		}
-	}
-
-	return lines;
-}
-
-// @todo move this method in Chart.helpers.canvas.toFont (deprecates helpers.fontString)
-// @see https://developer.mozilla.org/en-US/docs/Web/CSS/font
-function toFontString(font) {
-	if (!font || helpers.isNullOrUndef(font.size) || helpers.isNullOrUndef(font.family)) {
-		return null;
-	}
-
-	return (font.style ? font.style + ' ' : '')
-		+ (font.weight ? font.weight + ' ' : '')
-		+ font.size + 'px '
-		+ font.family;
-}
-
-// @todo move this in Chart.helpers.canvas.textSize
-// @todo cache calls of measureText if font doesn't change?!
-function textSize(ctx, lines, font) {
-	var items = [].concat(lines);
-	var ilen = items.length;
-	var prev = ctx.font;
-	var width = 0;
-	var i;
-
-	ctx.font = font.string;
-
-	for (i = 0; i < ilen; ++i) {
-		width = Math.max(ctx.measureText(items[i]).width, width);
-	}
-
-	ctx.font = prev;
-
-	return {
-		height: ilen * font.lineHeight,
-		width: width
-	};
-}
-
-// @todo move this method in Chart.helpers.options.toFont
-function parseFont(value) {
-	var global = Chart.defaults.global;
-	var size = helpers.valueOrDefault(value.size, global.defaultFontSize);
-	var font = {
-		family: helpers.valueOrDefault(value.family, global.defaultFontFamily),
-		lineHeight: helpers.options.toLineHeight(value.lineHeight, size),
-		size: size,
-		style: helpers.valueOrDefault(value.style, global.defaultFontStyle),
-		weight: helpers.valueOrDefault(value.weight, null),
-		string: ''
-	};
-
-	font.string = toFontString(font);
-	return font;
-}
 
 function coordinates(el, model, rect) {
 	var point = model.positioner(el._view, model.anchor, model.align, model.origin);
@@ -95,7 +23,6 @@ function coordinates(el, model, rect) {
 		// if aligned center, we don't want to offset the center point
 		return {x: point.x, y: point.y};
 	}
-
 
 	// include borders to the bounding rect
 	var borderWidth = model.borderWidth || 0;
@@ -255,12 +182,12 @@ function modelize(el, index, ctx, config, context) {
 
 	var value = context.dataset.data[index];
 	var label = helpers.valueOrDefault(helpers.callback(config.formatter, [value, context]), value);
-	var lines = helpers.isNullOrUndef(label) ? [] : toTextLines(label);
+	var lines = helpers.isNullOrUndef(label) ? [] : utils.toTextLines(label);
 	if (!lines.length) {
 		return null;
 	}
 
-	var font = parseFont(resolve([config.font, {}], context, index));
+	var font = utils.parseFont(resolve([config.font, {}], context, index));
 	var model = {
 		align: resolve([config.align, 'center'], context, index),
 		anchor: resolve([config.anchor, 'center'], context, index),
@@ -277,7 +204,7 @@ function modelize(el, index, ctx, config, context) {
 		textAlign: resolve([config.textAlign, 'start'], context, index),
 		origin: getScaleOrigin(el),
 		positioner: getPositioner(el),
-		size: textSize(ctx, lines, font)
+		size: utils.textSize(ctx, lines, font)
 	};
 
 	return model;
