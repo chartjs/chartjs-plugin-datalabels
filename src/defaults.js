@@ -100,6 +100,15 @@ export default {
 	offset: 4,
 
 	/**
+	 * The label global opacity, including the text, background, borders, etc., specified as
+	 * a number between 0.0 (fully transparent) and 1.0 (fully opaque).
+	 * https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalAlpha
+	 * @member {Number|Array|Function}
+	 * @default 1
+	 */
+	opacity: 1,
+
+	/**
 	 * The padding (in pixels) to apply between the text and the surrounding frame.
 	 * @member {Number|Object|Array|Function}
 	 * @prop {Number} padding.top - Space above the text.

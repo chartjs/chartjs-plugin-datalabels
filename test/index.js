@@ -46,7 +46,7 @@ beforeEach(function() {
 				borderColor: 'rgba(0, 0, 0, 0.1)',
 				borderWidth: 1
 			}
-		},
+		}
 	});
 
 	Chart.helpers.merge(Chart.defaults.scale, {

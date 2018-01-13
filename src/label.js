@@ -195,6 +195,7 @@ helpers.extend(Label.prototype, {
 			font: font,
 			lines: lines,
 			offset: resolve([config.offset, 0], context, index),
+			opacity: resolve([config.opacity, 1], context, index),
 			origin: getScaleOrigin(me._el),
 			padding: helpers.options.toPadding(resolve([config.padding, 0], context, index)),
 			positioner: getPositioner(me._el),
@@ -225,7 +226,7 @@ helpers.extend(Label.prototype, {
 		var model = me._model;
 		var rects, center;
 
-		if (!model) {
+		if (!model || !model.opacity) {
 			return;
 		}
 
@@ -233,6 +234,7 @@ helpers.extend(Label.prototype, {
 		center = coordinates(me._el, model, rects.frame);
 
 		ctx.save();
+		ctx.globalAlpha = utils.bound(0, model.opacity, 1);
 		ctx.translate(Math.round(center.x), Math.round(center.y));
 		ctx.rotate(model.rotation);
 

@@ -76,6 +76,15 @@ var utils = {
 
 		font.string = utils.toFontString(font);
 		return font;
+	},
+
+	/**
+	 * Returns value bounded by min and max. This is equivalent to max(min, min(value, max)).
+	// @todo move this method in Chart.helpers.bound
+	 * https://doc.qt.io/qt-5/qtglobal.html#qBound
+	 */
+	bound: function(min, value, max) {
+		return Math.max(min, Math.min(value, max));
 	}
 };
 

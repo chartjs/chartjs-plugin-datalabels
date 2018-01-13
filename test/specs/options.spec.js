@@ -1,7 +1,8 @@
 describe('options (scriptable)', function() {
 	[
 		'align',
-		'anchor'
+		'anchor',
+		'opacity'
 	].forEach(function(key) {
 		it(key + ' should be called with a valid context', function() {
 			var options = {};
@@ -48,4 +49,8 @@ describe('option.align', function() {
 
 describe('option.anchor', function() {
 	describe('auto', jasmine.fixture.specs('options.anchor'));
+});
+
+describe('option.opacity', function() {
+	describe('auto', jasmine.fixture.specs('options.opacity'));
 });

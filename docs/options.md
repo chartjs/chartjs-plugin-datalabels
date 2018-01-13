@@ -1,10 +1,10 @@
 # Options
 
-The plugin options can be changed at 3 different levels:
+The plugin options can be changed at 3 different levels and with the following priority:
 
-- globally: `Chart.defaults.global.plugins.datalabels.*`
-- per chart: `options.plugins.datalabels.*`
 - per dataset: `dataset.datalabels.*`
+- per chart: `options.plugins.datalabels.*`
+- globally: `Chart.defaults.global.plugins.datalabels.*`
 
 Available options:
 
@@ -25,6 +25,7 @@ Available options:
 | `font.weight` | `String` | - | - | `'normal'`
 | `font.lineHeight` | `Number/String` | - | - | `1.2`
 | [`offset`](positioning.md#alignment-and-offset) | `Number` | Yes | Yes | `4`
+| `opacity` | `Number` | Yes | Yes | `1`
 | `padding` | `Number/Object` | Yes | Yes | -
 | `padding.top` | `Number` | - | - | `4`
 | `padding.right` | `Number` | - | - | `4`
