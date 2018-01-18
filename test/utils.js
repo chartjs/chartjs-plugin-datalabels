@@ -92,11 +92,26 @@ function releaseChart(chart) {
 	}
 }
 
+function triggerMouseEvent(chart, type, el) {
+	var node = chart.canvas;
+	var rect = node.getBoundingClientRect();
+	var event = new MouseEvent(type, {
+		clientX: el ? rect.left + el._model.x : undefined,
+		clientY: el ? rect.top + el._model.y : undefined,
+		cancelable: true,
+		bubbles: true,
+		view: window
+	});
+
+	node.dispatchEvent(event);
+}
+
 export default {
 	acquireChart: acquireChart,
 	releaseChart: releaseChart,
 	createCanvas: createCanvas,
 	createImageData: createImageData,
 	canvasFromImageData: canvasFromImageData,
-	readImageData: readImageData
+	readImageData: readImageData,
+	triggerMouseEvent: triggerMouseEvent
 };

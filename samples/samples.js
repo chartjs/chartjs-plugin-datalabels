@@ -26,6 +26,9 @@
 	}, {
 		title: 'Scriptable',
 		items: [{
+			title: 'Interactions',
+			path: 'scriptable/interactions.html'
+		}, {
 			title: 'Data',
 			path: 'scriptable/data.html'
 		}, {

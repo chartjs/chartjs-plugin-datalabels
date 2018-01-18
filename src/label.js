@@ -166,19 +166,21 @@ function drawText(ctx, lines, rect, model) {
 	}
 }
 
-var Label = function(el, index) {
+var Label = function(config, ctx, el, index) {
 	var me = this;
 
-	me._el = el;
+	me._config = config;
 	me._index = index;
 	me._model = null;
+	me._ctx = ctx;
+	me._el = el;
 };
 
 helpers.extend(Label.prototype, {
 	/**
 	 * @private
 	 */
-	_modelize: function(ctx, lines, config, context) {
+	_modelize: function(lines, config, context) {
 		var me = this;
 		var index = me._index;
 		var resolve = helpers.options.resolve;
@@ -200,22 +202,23 @@ helpers.extend(Label.prototype, {
 			padding: helpers.options.toPadding(resolve([config.padding, 0], context, index)),
 			positioner: getPositioner(me._el),
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
-			size: utils.textSize(ctx, lines, font),
+			size: utils.textSize(me._ctx, lines, font),
 			textAlign: resolve([config.textAlign, 'start'], context, index)
 		};
 	},
 
-	update: function(ctx, config, context) {
+	update: function(context) {
 		var me = this;
 		var model = null;
 		var index = me._index;
+		var config = me._config;
 		var value, label, lines;
 
 		if (helpers.options.resolve([config.display, true], context, index)) {
 			value = context.dataset.data[index];
 			label = helpers.valueOrDefault(helpers.callback(config.formatter, [value, context]), value);
 			lines = helpers.isNullOrUndef(label) ? [] : utils.toTextLines(label);
-			model = lines.length ? me._modelize(ctx, lines, config, context) : null;
+			model = lines.length ? me._modelize(lines, config, context) : null;
 		}
 
 		me._model = model;

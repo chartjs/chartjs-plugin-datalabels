@@ -20,6 +20,7 @@ jasmine.chart = {
 };
 
 jasmine.fixture = fixture;
+jasmine.triggerMouseEvent = utils.triggerMouseEvent;
 
 beforeEach(function() {
 	jasmine.addMatchers(matchers);

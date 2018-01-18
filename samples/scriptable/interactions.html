@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.0/dist/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<div id="actions">
+			<button onclick="randomize(this)">Randomize</button>
+			<button onclick="addData(this)">Add Data</button>
+			<button onclick="removeData(this)">Remove Data</button>
+		</div>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Scriptable',
+			name: 'Interactions',
+			desc: 'This example demonstrates how to levrage scriptable ' +
+				'options to change the style and content of the labels ' +
+				'when the user interacts with the chart elements'
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 8;
+		var labels = [];
+
+		Samples.srand(100);
+
+		for (var i = 0; i < DATA_COUNT; ++i) {
+			labels.push('' + i);
+		}
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			aspectRatio: 4/3,
+            tooltips: false,
+			layout: {
+				padding: {
+					bottom: 25,
+					right: 50,
+					left: 25,
+					top: 50
+				}
+			},
+			elements: {
+				line: {
+					fill: false
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: 'France',
+					backgroundColor: Samples.color(0),
+					borderColor: Samples.color(0),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 10,
+						max: 100
+					}),
+					datalabels: {
+						align: function(context) {
+							return context.active ? 'start' : 'center';
+						}
+					}
+				}, {
+					label: 'Canada',
+					backgroundColor: Samples.color(1),
+					borderColor: Samples.color(1),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					})
+				}, {
+					label: 'USA',
+					backgroundColor: Samples.color(2),
+					borderColor: Samples.color(2),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						align: function(context) {
+							return context.active ? 'end' : 'center';
+						}
+					}
+				}]
+			},
+			options: {
+				hover: {
+					mode: 'index',
+					intersect: false
+				},
+				plugins: {
+					datalabels: {
+						backgroundColor: function(context) {
+							return context.active ? context.dataset.backgroundColor : 'white';
+						},
+						borderColor: function(context) {
+							return context.dataset.backgroundColor;
+                        },
+						borderRadius: function(context) {
+							return context.active ? 0 : 32;
+                        },
+                        borderWidth: 1,
+						color: function(context) {
+							return context.active ? 'white' : context.dataset.backgroundColor;
+						},
+						font: {
+							weight: 'bold'
+						},
+                        formatter: function(value, context) {
+							value = Math.round(value * 100) / 100;
+                            return context.active
+                                ? context.dataset.label + '\n' + value + '%'
+                                : Math.round(value);
+						},
+						offset: 8,
+                        textAlign: 'center'
+					}
+				},
+				scales: {
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
+		});
+	</script>
+
+	<script id="script-actions">
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.backgroundColor = dataset.borderColor = Samples.color();
+				dataset.data = dataset.data.map(function(value) {
+					return Samples.rand(0, 100);
+				});
+			});
+
+			chart.update();
+		}
+
+		function addData() {
+			chart.data.labels.push(chart.data.labels.length);
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.push(Samples.rand(0, 100));
+			});
+
+			chart.update();
+		}
+
+		function removeData() {
+			chart.data.labels.shift();
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.shift();
+			});
+
+			chart.update();
+		}
+	</script>
+</body>
+</html>

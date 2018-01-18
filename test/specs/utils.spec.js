@@ -102,4 +102,44 @@ describe('utils.js', function() {
 			});
 		});
 	});
+
+	describe('arrayDiff', function() {
+		var arrayDiff = utils.arrayDiff;
+
+		it ('should return an empty array if inputs are also empty', function() {
+			expect(arrayDiff([], [])).toEqual([]);
+		});
+		it ('should return an array of [value, state] with proper state', function() {
+			var a0 = [42, 51, 22];
+			var a1 = [42, 11];
+
+			expect(arrayDiff(a0, a1)).toEqual([[11, 1], [51, -1], [22, -1]]);
+			expect(arrayDiff(a1, a0)).toEqual([[51, 1], [22, 1], [11, -1]]);
+			expect(arrayDiff(a0, [])).toEqual([[42, -1], [51, -1], [22, -1]]);
+			expect(arrayDiff([], a0)).toEqual([[42, 1], [51, 1], [22, 1]]);
+			expect(arrayDiff(a0, a0)).toEqual([]);
+		});
+		it ('should not modify input arrays', function() {
+			var a0 = [42, 51];
+			var a1 = [42, 11];
+
+			arrayDiff(a0, a1);
+
+			expect(a0).toEqual([42, 51]);
+			expect(a1).toEqual([42, 11]);
+		});
+		it ('should preserve value references', function() {
+			var o0 = {};
+			var o1 = {};
+			var o2 = {};
+			var a0 = [o0];
+			var a1 = [o1, o2];
+			var diff = arrayDiff(a0, a1);
+
+			expect(diff).toEqual([[o1, 1], [o2, 1], [o0, -1]]);
+			expect(diff[0][0]).toBe(o1);
+			expect(diff[1][0]).toBe(o2);
+			expect(diff[2][0]).toBe(o0);
+		});
+	});
 });

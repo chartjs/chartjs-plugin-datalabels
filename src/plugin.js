@@ -6,10 +6,13 @@
 
 import Chart from 'chart.js';
 import Label from './label';
+import utils from './utils';
 import defaults from './defaults';
 
 var helpers = Chart.helpers;
-var MODEL_KEY = '$datalabels';
+var EXPANDO_KEY = '$datalabels';
+
+Chart.defaults.global.plugins.datalabels = defaults;
 
 function configure(dataset, options) {
 	var override = dataset.datalabels;
@@ -30,6 +33,12 @@ Chart.defaults.global.plugins.datalabels = defaults;
 Chart.plugins.register({
 	id: 'datalabels',
 
+	beforeInit: function(chart) {
+		chart[EXPANDO_KEY] = {
+			actives: []
+		};
+	},
+
 	afterDatasetUpdate: function(chart, args, options) {
 		var dataset = chart.data.datasets[args.index];
 		var config = configure(dataset, options);
@@ -44,8 +53,9 @@ Chart.plugins.register({
 			el = elements[i];
 
 			if (el && !el.hidden) {
-				label = new Label(el, i);
-				label.update(ctx, config, {
+				label = new Label(config, ctx, el, i);
+				label.update(label.$context = {
+					active: false,
 					chart: chart,
 					dataIndex: i,
 					dataset: dataset,
@@ -55,7 +65,7 @@ Chart.plugins.register({
 				label = null;
 			}
 
-			el[MODEL_KEY] = label;
+			el[EXPANDO_KEY] = label;
 		}
 
 		ctx.restore();
@@ -68,10 +78,31 @@ Chart.plugins.register({
 
 		for (i = 0; i < ilen; ++i) {
 			el = elements[i];
-			label = el[MODEL_KEY];
+			label = el[EXPANDO_KEY];
 			if (label) {
 				label.draw(chart.ctx);
 			}
+		}
+	},
+
+	afterEvent: function(chart) {
+		var expando = chart[EXPANDO_KEY];
+		var previous = expando.actives;
+		var actives = expando.actives = chart.lastActive || [];  // public API?!
+		var updates = utils.arrayDiff(previous, actives);
+		var i, ilen, update, label;
+
+		for (i = 0, ilen = updates.length; i < ilen; ++i) {
+			update = updates[i];
+			if (update[1]) {
+				label = update[0][EXPANDO_KEY];
+				label.$context.active = (update[1] === 1);
+				label.update(label.$context);
+			}
+		}
+
+		if (updates.length && !chart.animating) {
+			chart.render();
 		}
 	}
 });

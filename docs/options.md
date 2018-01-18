@@ -53,14 +53,15 @@ color: function(context) {
 
 ## Option Context
 
-The option context is used to give contextual information when resolving options. It mainly applies to [scriptable options](#scriptable-options) but also to some function based options such as [`formatter`](formatting.md#data-transformation).
+The option context is used to give contextual information when resolving options. It mainly applies to [scriptable options](#scriptable-options) but also to some function options such as [`formatter`](formatting.md#data-transformation).
 
 The context object contains the following properties:
 
-- `chart`: the associated chart
-- `dataIndex`: index of the current data
-- `dataset`: dataset at index `datasetIndex`
-- `datasetIndex`: index of the current dataset
+- `active` (bool): whether the associated element is hovered ([see interactions](http://www.chartjs.org/docs/latest/general/interactions/))
+- `chart` (Chart): the associated chart
+- `dataIndex` (int): index of the associated data
+- `dataset` (object): the dataset at index `datasetIndex`
+- `datasetIndex` (int): index of the associated dataset
 
 ## Indexable Options
 

@@ -62,6 +62,7 @@ button:hover {
 	border-radius: 4px;
 	color: #888;
 	padding: 0.25rem;
+	margin: 0.25rem 0;
 }
 
 #header .title .name {

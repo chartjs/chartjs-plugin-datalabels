@@ -33,10 +33,11 @@ describe('options (scriptable)', function() {
 				{dataIndex: 0, datasetIndex: 1}
 			].forEach(function(e, i) {
 				expect(options[key].calls.argsFor(i)[0]).toEqual({
-					dataset: chart.data.datasets[e.datasetIndex],
-					datasetIndex: e.datasetIndex,
+					active: false,
+					chart: chart,
 					dataIndex: e.dataIndex,
-					chart: chart
+					dataset: chart.data.datasets[e.datasetIndex],
+					datasetIndex: e.datasetIndex
 				});
 			});
 		});

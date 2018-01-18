@@ -80,11 +80,39 @@ var utils = {
 
 	/**
 	 * Returns value bounded by min and max. This is equivalent to max(min, min(value, max)).
-	// @todo move this method in Chart.helpers.bound
+	 * @todo move this method in Chart.helpers.bound
 	 * https://doc.qt.io/qt-5/qtglobal.html#qBound
 	 */
 	bound: function(min, value, max) {
 		return Math.max(min, Math.min(value, max));
+	},
+
+	/**
+	 * Returns an array of pair [value, state] where state is:
+	 * * -1: value is only in a0 (removed)
+	 * *  1: value is only in a1 (added)
+	 */
+	arrayDiff: function(a0, a1) {
+		var prev = a0.slice();
+		var updates = [];
+		var i, j, ilen, v;
+
+		for (i = 0, ilen = a1.length; i < ilen; ++i) {
+			v = a1[i];
+			j = prev.indexOf(v);
+
+			if (j === -1) {
+				updates.push([v, 1]);
+			} else {
+				prev.splice(j, 1);
+			}
+		}
+
+		for (i = 0, ilen = prev.length; i < ilen; ++i) {
+			updates.push([prev[i], -1]);
+		}
+
+		return updates;
 	}
 };
 
