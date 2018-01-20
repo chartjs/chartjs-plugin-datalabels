@@ -21,7 +21,7 @@ formatter: function(value, context) {
 }
 
 // label for data at index 0 with value 0.23: "0: 23%"
-// label for data at index 0 with value 0.42: "1: 42%"
+// label for data at index 1 with value 0.42: "1: 42%"
 // ...
 ```
 
@@ -31,6 +31,44 @@ formatter: function(value, context) {
 formatter: Math.round
 formatter: Math.floor
 formatter: Math.ceil
+// ...
+```
+
+## Custom Labels
+
+It's also possible to display text other than the data values, for example, the associated labels:
+
+```javascript
+new Chart('id', {
+    type: 'bar',
+    data: {
+        labels: ['foo', 'bar'],
+        datasets: [{
+            data: [42, 24]
+        }]
+    },
+    options: {
+        plugins: {
+            datalabels: {
+                formatter: function(value, context) {
+                    return context.chart.data.labels[context.dataIndex];
+                }
+            }
+        }
+    }
+});
+
+// label for data at index 0: "foo"
+// label for data at index 1: "bar"
+// ...
+```
+
+> **Tip:** `chart.data.labels` is given as an example but it works with any source:
+
+```javascript
+context.dataset.data[context.dataIndex].label;  // labels in each data object
+context.dataset.labels[context.dataIndex];      // labels store in the dataset
+globalLabels[context.dataIndex];                // labels store outside the chart
 // ...
 ```
 

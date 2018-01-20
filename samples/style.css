@@ -103,9 +103,8 @@ button:hover {
 }
 
 #charts {
-	max-width: 1200px;
 	min-width: 200px;
-	overflow-y: auto;
+	overflow-y: scroll;
 	padding: 16px;
 	flex: 5;
 }
@@ -115,7 +114,6 @@ button:hover {
 	max-height: 768px;
 	max-width: 768px;
 	height: 100%;
-	width: 100%;
 }
 
 @media (max-width: 640px) and (orientation: portrait) {

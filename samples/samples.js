@@ -41,6 +41,12 @@
 			title: 'Mirror',
 			path: 'scriptable/mirror.html'
 		}]
+	}, {
+		title: 'Formatting',
+		items: [{
+			title: 'Custom Labels',
+			path: 'formatting/custom-labels.html'
+		}]
 	}];
 
 }(this));

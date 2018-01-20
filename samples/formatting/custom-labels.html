@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.0/dist/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<div id="actions">
+			<button onclick="randomize(this)">Randomize</button>
+		</div>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+		<div class="wrapper"><canvas id="chart-1"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Formatting',
+			name: 'Custom Labels',
+			desc: 'This example displays the data labels instead '+
+				'of the data values, using a custom formatter'
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 5;
+		var labels = [
+            'Earth',
+            'Mars',
+            'Saturn',
+            'Jupiter',
+            'Others'
+        ];
+
+		Samples.srand(0);
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			aspectRatio: 4/3,
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 32
+				}
+			},
+			elements: {
+				line: {
+					fill: false
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'bar',
+			data: {
+				labels: labels,
+				datasets: [{
+					backgroundColor: Samples.color(0),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					})
+				}]
+			},
+			options: {
+				plugins: {
+					datalabels: {
+                        align: 'end',
+                        anchor: 'end',
+						color: function(context) {
+							return context.dataset.backgroundColor;
+						},
+						font: function(context) {
+                            var w = context.chart.width;
+                            return {
+                                size: w < 512 ? 12 : 14
+                            }
+                        },
+						formatter: function(value, context) {
+                            return context.chart.data.labels[context.dataIndex];
+                        }
+					}
+				},
+				scales: {
+					xAxes: [{
+                        display: false,
+                        offset: true
+					}],
+					yAxes: [{
+                        ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
+		});
+	</script>
+
+	<script id="script-actions">
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.backgroundColor = Samples.color(),
+				dataset.data = dataset.data.map(function(value) {
+					return Samples.rand(0, 100);
+				});
+			});
+
+			chart.update();
+		}
+	</script>
+</body>
+</html>
