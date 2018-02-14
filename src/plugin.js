@@ -28,6 +28,21 @@ function configure(dataset, options) {
 	return helpers.merge(config, [options, override]);
 }
 
+function drawLabels(chart, datasetIndex) {
+	var meta = chart.getDatasetMeta(datasetIndex);
+	var elements = meta.data || [];
+	var ilen = elements.length;
+	var i, el, label;
+
+	for (i = 0; i < ilen; ++i) {
+		el = elements[i];
+		label = el[EXPANDO_KEY];
+		if (label) {
+			label.draw(chart.ctx);
+		}
+	}
+}
+
 Chart.defaults.global.plugins.datalabels = defaults;
 
 Chart.plugins.register({
@@ -71,17 +86,12 @@ Chart.plugins.register({
 		ctx.restore();
 	},
 
-	afterDatasetDraw: function(chart, args) {
-		var elements = args.meta.data || [];
-		var ilen = elements.length;
-		var i, el, label;
-
-		for (i = 0; i < ilen; ++i) {
-			el = elements[i];
-			label = el[EXPANDO_KEY];
-			if (label) {
-				label.draw(chart.ctx);
-			}
+	// Draw labels on top of all dataset elements
+	// https://github.com/chartjs/chartjs-plugin-datalabels/issues/29
+	// https://github.com/chartjs/chartjs-plugin-datalabels/issues/32
+	afterDatasetsDraw: function(chart) {
+		for (var i = 0, ilen = chart.data.datasets.length; i < ilen; ++i) {
+			drawLabels(chart, i);
 		}
 	},
 
