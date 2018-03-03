@@ -67,7 +67,7 @@ Chart.plugins.register({
 		for (i = 0; i < ilen; ++i) {
 			el = elements[i];
 
-			if (el && !el.hidden) {
+			if (el && !el.hidden && !el._model.skip) {
 				label = new Label(config, ctx, el, i);
 				label.update(label.$context = {
 					active: false,

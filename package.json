@@ -10,7 +10,7 @@
     "url": "https://github.com/chartjs/chartjs-plugin-datalabels.git"
   },
   "devDependencies": {
-    "chart.js": "^2.7.1",
+    "chart.js": "2.7.1",
     "eslint-config-chartjs": "^0.1.0",
     "gitbook-cli": "^2.3.0",
     "gulp": "^3.9.1",
