@@ -42,6 +42,8 @@ button:hover {
 	min-width: 240px;
 	max-width: 320px;
 	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
 	flex: 1;
 }
 
@@ -102,6 +104,26 @@ button:hover {
 	white-space: nowrap;
 }
 
+#logs {
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	font-size: 0.7rem;
+	flex: 1 1 auto;
+}
+
+#logs > div {
+	border-bottom: 1px dashed #ddd;
+	padding: 0.5em 1em;
+}
+
+#logs > div:nth-child(n) { opacity: 0.2; }
+#logs > div:nth-child(5) { opacity: 0.4; }
+#logs > div:nth-child(4) { opacity: 0.6; }
+#logs > div:nth-child(3) { opacity: 0.8; }
+#logs > div:nth-child(2) { opacity: 1.0; }
+#logs > div:nth-child(1) { opacity: 1.0; font-weight: bold; }
+
 #charts {
 	min-width: 200px;
 	overflow-y: scroll;
@@ -136,5 +158,10 @@ button:hover {
 
 	#actions button {
 		margin: 0 2px 0 0;
+	}
+
+	#logs {
+		min-height: 15vh;
+		max-height: 15vh;
 	}
 }

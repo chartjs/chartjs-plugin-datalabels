@@ -24,6 +24,7 @@ Available options:
 | `font.style` | `String` | - | - | [`defaultFontStyle`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | `font.weight` | `String` | - | - | `'normal'`
 | `font.lineHeight` | `Number/String` | - | - | `1.2`
+| [`listeners`](events.md) | `Object` | - | - | `{}`
 | [`offset`](positioning.md#alignment-and-offset) | `Number` | Yes | Yes | `4`
 | `opacity` | `Number` | Yes | Yes | `1`
 | `padding` | `Number/Object` | Yes | Yes | -

@@ -170,5 +170,22 @@ export default {
 			}
 		}
 		return '' + label;
-	}
+	},
+
+	/**
+	 * Event listeners, where the property is the type of the event to listen and the value
+	 * a callback with a unique `context` argument containing the same information as for
+	 * scriptable options. If a callback explicitly returns `true`, the label is updated
+	 * with the current context and the chart re-rendered. This allows to implement visual
+	 * interactions with labels such as highlight, selection, etc.
+	 *
+	 * Event currently supported are:
+	 * - 'click': a mouse click is detected within a label
+	 * - 'enter': the mouse enters a label
+	 * -' leave': the mouse leaves a label
+	 *
+	 * @member {Object}
+	 * @default {}
+	 */
+	listeners: {}
 };

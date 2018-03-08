@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.x/dist/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<code id="logs"></code>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Events',
+			name: 'Selection',
+			desc: 'Click events are handled to select labels, returning true to '
+				+ 're-render the chart and thus update the labels appearance.'
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 8;
+		var selection = [];
+		var labels = [];
+
+		Samples.srand(7);
+
+		for (var i = 0; i < DATA_COUNT; ++i) {
+			labels.push('' + i);
+		}
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			aspectRatio: 4/3,
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 42,
+					right: 16,
+					bottom: 32,
+					left: 8
+				}
+			},
+			elements: {
+				line: {
+					fill: false
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+
+		function lookup(context) {
+			var dataset = context.datasetIndex;
+			var index = context.dataIndex;
+			var i, ilen;
+
+			for (i = 0, ilen = selection.length; i < ilen; ++i) {
+				if (selection[i].dataset === dataset && selection[i].index === index) {
+					return i;
+				}
+			}
+
+			return -1;
+		}
+
+		function isSelected(context) {
+			return lookup(context) !== -1;
+		}
+
+		function select(context) {
+			var dataset = context.datasetIndex;
+			var index = context.dataIndex;
+			var value = context.dataset.data[index];
+
+			selection.push({
+				dataset: dataset,
+				index: index,
+				value: value})
+
+			log(selection);
+		}
+
+		function deselect(context) {
+			var index = lookup(context);
+			if (index !== -1) {
+				selection.splice(index, 1);
+				log(selection);
+			}
+		}
+
+		function log(selection) {
+			var line = document.createElement('div');
+			var logs = document.getElementById('logs');
+
+			line.innerHTML = 'selection: ' + selection.map(function(item) {
+				return item.value;
+			}).join(', ');
+
+			logs.insertBefore(line, logs.firstChild);
+
+			if (logs.childNodes.length > 8) {
+				logs.removeChild(logs.lastChild);
+			}
+		}
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [{
+					backgroundColor: Samples.color(0),
+					borderColor: Samples.color(0),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						decimals: 0,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						align: 'start'
+					}
+				}, {
+					backgroundColor: Samples.color(1),
+					borderColor: Samples.color(1),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						decimals: 0,
+						min: 0,
+						max: 100
+					})
+				}, {
+					backgroundColor: Samples.color(2),
+					borderColor: Samples.color(2),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						decimals: 0,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						align: 'end'
+					}
+				}]
+			},
+			options: {
+				plugins: {
+					datalabels: {
+						backgroundColor: function(context) {
+							return isSelected(context)
+								? context.dataset.backgroundColor
+								: 'white';
+						},
+						borderColor: function(context) {
+							return context.dataset.backgroundColor;
+						},
+						borderWidth: 1,
+						color: function(context) {
+							return isSelected(context)
+								? 'white'
+								: context.dataset.backgroundColor;
+						},
+						font: {
+							weight: 'bold'
+						},
+						offset: 8,
+						padding: 4,
+						listeners: {
+							click: function(context) {
+								if (isSelected(context)) {
+									deselect(context);
+								} else {
+									select(context);
+								}
+
+								return true;
+							}
+						}
+					}
+				},
+				scales: {
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
+		});
+	</script>
+</body>
+</html>

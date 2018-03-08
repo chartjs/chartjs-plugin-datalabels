@@ -42,6 +42,18 @@
 			path: 'scriptable/mirror.html'
 		}]
 	}, {
+		title: 'Events',
+		items: [{
+			title: 'Listeners',
+			path: 'events/listeners.html'
+		}, {
+			title: 'Highlight',
+			path: 'events/highlight.html'
+		}, {
+			title: 'Selection',
+			path: 'events/selection.html'
+		}]
+	}, {
 		title: 'Formatting',
 		items: [{
 			title: 'Custom Labels',

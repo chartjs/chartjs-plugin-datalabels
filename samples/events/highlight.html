@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.x/dist/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<div id="actions">
+			<button onclick="randomize(this)">Randomize</button>
+			<button onclick="addData(this)">Add Data</button>
+			<button onclick="removeData(this)">Remove Data</button>
+		</div>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Events',
+			name: 'Highlight',
+			desc: 'Listen the <em>enter</em> and <em>leave</em> events to '
+				+ 'modify the label appearance when hovered by the mouse, '
+				+ 'using scriptable options.'
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 8;
+		var labels = [];
+
+		Samples.srand(0);
+
+		for (var i = 0; i < DATA_COUNT; ++i) {
+			labels.push('' + i);
+		}
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			aspectRatio: 4/3,
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 42,
+					right: 16,
+					bottom: 32,
+					left: 8
+				}
+			},
+			elements: {
+				line: {
+					fill: false
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [{
+					backgroundColor: Samples.color(0),
+					borderColor: Samples.color(0),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						align: 'start'
+					}
+				}, {
+					backgroundColor: Samples.color(1),
+					borderColor: Samples.color(1),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					})
+				}, {
+					backgroundColor: Samples.color(2),
+					borderColor: Samples.color(2),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						align: 'end'
+					}
+				}]
+			},
+			options: {
+				plugins: {
+					datalabels: {
+						backgroundColor: function(context) {
+							return context.hovered ? context.dataset.backgroundColor : 'white';
+						},
+						borderColor: function(context) {
+							return context.dataset.backgroundColor;
+						},
+						borderRadius: 16,
+						borderWidth: 1,
+						color: function(context) {
+							return context.hovered ? 'white' : context.dataset.backgroundColor;
+						},
+						font: {
+							weight: 'bold'
+						},
+						offset: 8,
+						formatter: Math.round,
+						listeners: {
+							enter: function(context) {
+								context.hovered = true;
+								return true;
+							},
+							leave: function(context) {
+								context.hovered = false;
+								return true;
+							}
+						}
+					}
+				},
+				scales: {
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
+		});
+	</script>
+
+	<script id="script-actions">
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.backgroundColor = dataset.borderColor = Samples.color();
+				dataset.data = dataset.data.map(function(value) {
+					return Samples.rand(0, 100);
+				});
+			});
+
+			chart.update();
+		}
+
+		function addData() {
+			chart.data.labels.push(chart.data.labels.length);
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.push(Samples.rand(0, 100));
+			});
+
+			chart.update();
+		}
+
+		function removeData() {
+			chart.data.labels.shift();
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.data.shift();
+			});
+
+			chart.update();
+		}
+	</script>
+</body>
+</html>
