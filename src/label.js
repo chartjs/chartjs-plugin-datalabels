@@ -1,6 +1,7 @@
 'use strict';
 
 import Chart from 'chart.js';
+import HitBox from './hitbox';
 import utils from './utils';
 import positioners from './positioners';
 
@@ -169,6 +170,7 @@ function drawText(ctx, lines, rect, model) {
 var Label = function(config, ctx, el, index) {
 	var me = this;
 
+	me._hitbox = new HitBox();
 	me._config = config;
 	me._index = index;
 	me._model = null;
@@ -235,6 +237,7 @@ helpers.extend(Label.prototype, {
 
 		rects = boundingRects(model.size, model.padding);
 		center = coordinates(me._el, model, rects.frame);
+		me._hitbox.update(center, rects.frame, model.rotation);
 
 		ctx.save();
 		ctx.globalAlpha = utils.bound(0, model.opacity, 1);
@@ -245,6 +248,10 @@ helpers.extend(Label.prototype, {
 		drawText(ctx, model.lines, rects.text, model);
 
 		ctx.restore();
+	},
+
+	contains: function(x, y) {
+		return this._hitbox.contains(x, y);
 	}
 });
 

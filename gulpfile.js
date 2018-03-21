@@ -89,7 +89,7 @@ gulp.task('docs', function(done) {
 	var cmd = process.execPath;
 
 	exec([cmd, script, 'install', './'].join(' ')).then(() => {
-		return exec([cmd, script, 'build', './', out].join(' '));
+		return exec([cmd, script, argv.watch ? 'serve' : 'build', './', out].join(' '));
 	}).then(() => {
 		done();
 	}).catch((err) => {

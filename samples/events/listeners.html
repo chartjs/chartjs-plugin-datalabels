@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.x/dist/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<code id="logs"></code>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Events',
+			name: 'Listeners'
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 6;
+		var labels = [];
+
+		Samples.srand(8);
+
+		for (var i = 0; i < DATA_COUNT; ++i) {
+			labels.push('' + i);
+		}
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			aspectRatio: 4/3,
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 42,
+					right: 16,
+					bottom: 32,
+					left: 8
+				}
+			},
+			elements: {
+				line: {
+					fill: false
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+
+		function log(type, context) {
+			var line = document.createElement('div');
+			var logs = document.getElementById('logs');
+			var i = context.datasetIndex;
+			var j = context.dataIndex;
+			var v = context.dataset.data[j];
+
+			line.innerHTML = '> ' + type + ': ' + i + '-' + j + ' (' + v + ')';
+
+			logs.insertBefore(line, logs.firstChild);
+
+			if (logs.childNodes.length > 8) {
+				logs.removeChild(logs.lastChild);
+			}
+		}
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [{
+					backgroundColor: Samples.color(0),
+					borderColor: Samples.color(0),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						align: 'start'
+					}
+				}, {
+					backgroundColor: Samples.color(1),
+					borderColor: Samples.color(1),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					})
+				}, {
+					backgroundColor: Samples.color(2),
+					borderColor: Samples.color(2),
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						align: 'end'
+					}
+				}]
+			},
+			options: {
+				plugins: {
+					datalabels: {
+						backgroundColor: function(context) {
+							return context.dataset.backgroundColor;
+						},
+						color: 'white',
+						font: {
+							weight: 'bold'
+						},
+						offset: 8,
+						padding: 4,
+						formatter: Math.round,
+						listeners: {
+							enter: function(context) {
+								log('enter', context);
+							},
+							leave: function(context) {
+								log('leave', context);
+							},
+							click: function(context) {
+								log('click', context);
+							}
+						}
+					}
+				},
+				scales: {
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
+		});
+	</script>
+</body>
+</html>
