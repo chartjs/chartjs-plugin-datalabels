@@ -14,6 +14,7 @@ Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or l
 - [Options](https://chartjs-plugin-datalabels.netlify.com/options)
 - [Positioning](https://chartjs-plugin-datalabels.netlify.com/positioning)
 - [Formating](https://chartjs-plugin-datalabels.netlify.com/formatting)
+- [Events](https://chartjs-plugin-datalabels.netlify.com/events)
 - [Samples](https://chartjs-plugin-datalabels.netlify.com/samples)
 
 ## Development
