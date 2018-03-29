@@ -1,8 +1,8 @@
-/coverage
-/dist
-/jsdoc
-/node_modules
 .DS_Store
+bower.json
+cc-test-reporter
+coverage/
+dist/
+node_modules/
+package-lock.json
 *.stackdump
-/bower.json
-/package-lock.json
