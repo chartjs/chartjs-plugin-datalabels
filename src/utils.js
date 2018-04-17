@@ -35,7 +35,7 @@ var utils = {
 		return (font.style ? font.style + ' ' : '')
 			+ (font.weight ? font.weight + ' ' : '')
 			+ font.size + 'px '
-			+ '"' + font.family + '"';
+			+ ((font.family.indexOf(' ')===-1) ? font.family : '"' + font.family + '"');
 	},
 
 	// @todo move this in Chart.helpers.canvas.textSize
