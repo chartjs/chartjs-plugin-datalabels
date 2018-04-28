@@ -232,8 +232,10 @@ Chart.plugins.register({
 			update = updates[i];
 			if (update[1]) {
 				label = update[0][EXPANDO_KEY];
-				label.$context.active = (update[1] === 1);
-				label.update(label.$context);
+				if (label) {
+					label.$context.active = (update[1] === 1);
+					label.update(label.$context);
+				}
 			}
 		}
 
