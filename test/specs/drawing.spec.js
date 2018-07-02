@@ -22,4 +22,55 @@ describe('drawing', function() {
 			expect(ds0.data[i].$datalabels).toBeNull();
 		}
 	});
+
+	// https://github.com/chartjs/chartjs-plugin-datalabels/issues/51
+	it ('should not create labels for hidden dataset', function() {
+		var chart = jasmine.chart.acquire({
+			type: 'line',
+			data: {
+				datasets: [{
+					data: [42, 43, 44, 45],
+					hidden: true
+				}]
+			}
+		});
+
+		var ds0 = chart.getDatasetMeta(0);
+
+		expect(chart.isDatasetVisible(0)).toBeFalsy();
+
+		for (var i = 0; i <= 3; ++i) {
+			expect(ds0.data[i].$datalabels).toBeNull();
+		}
+	});
+
+	// https://github.com/chartjs/chartjs-plugin-datalabels/issues/51
+	it ('should destroy labels when dataset become hidden', function() {
+		var chart = jasmine.chart.acquire({
+			type: 'line',
+			data: {
+				datasets: [{
+					data: [42, 43, 44, 45]
+				}]
+			}
+		});
+
+		var ds0 = chart.getDatasetMeta(0);
+		var i;
+
+		expect(chart.isDatasetVisible(0)).toBeTruthy();
+
+		for (i = 0; i <= 3; ++i) {
+			expect(ds0.data[i].$datalabels).not.toBeNull();
+		}
+
+		chart.data.datasets[0].hidden = true;
+		chart.update();
+
+		expect(chart.isDatasetVisible(0)).toBeFalsy();
+
+		for (i = 0; i <= 3; ++i) {
+			expect(ds0.data[i].$datalabels).toBeNull();
+		}
+	});
 });

@@ -153,6 +153,7 @@ Chart.plugins.register({
 		var datasetIndex = args.index;
 		var expando = chart[EXPANDO_KEY];
 		var labels = expando.labels[datasetIndex] = [];
+		var visible = chart.isDatasetVisible(datasetIndex);
 		var dataset = chart.data.datasets[datasetIndex];
 		var config = configure(dataset, options);
 		var elements = args.meta.data || [];
@@ -165,7 +166,7 @@ Chart.plugins.register({
 		for (i = 0; i < ilen; ++i) {
 			el = elements[i];
 
-			if (el && !el.hidden && !el._model.skip) {
+			if (visible && el && !el.hidden && !el._model.skip) {
 				labels.push(label = new Label(config, ctx, el, i));
 				label.update(label.$context = {
 					active: false,
