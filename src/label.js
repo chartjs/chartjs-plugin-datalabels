@@ -6,6 +6,7 @@ import utils from './utils';
 import positioners from './positioners';
 
 var helpers = Chart.helpers;
+var rasterize = utils.rasterize;
 
 function boundingRects(size, padding) {
 	var th = size.height;
@@ -109,10 +110,10 @@ function drawFrame(ctx, rect, model) {
 
 	helpers.canvas.roundedRect(
 		ctx,
-		Math.round(rect.x) - borderWidth / 2,
-		Math.round(rect.y) - borderWidth / 2,
-		Math.round(rect.w) + borderWidth,
-		Math.round(rect.h) + borderWidth,
+		rasterize(rect.x) - borderWidth / 2,
+		rasterize(rect.y) - borderWidth / 2,
+		rasterize(rect.w) + borderWidth,
+		rasterize(rect.h) + borderWidth,
 		model.borderRadius);
 
 	ctx.closePath();
@@ -159,9 +160,9 @@ function drawText(ctx, lines, rect, model) {
 	for (i = 0; i < ilen; ++i) {
 		ctx.fillText(
 			lines[i],
-			Math.round(x),
-			Math.round(y),
-			Math.round(rect.w));
+			rasterize(x),
+			rasterize(y),
+			rasterize(rect.w));
 
 		y += lh;
 	}
@@ -255,7 +256,7 @@ helpers.extend(Label.prototype, {
 		}
 
 		ctx.globalAlpha = utils.bound(0, model.opacity, 1);
-		ctx.translate(Math.round(center.x), Math.round(center.y));
+		ctx.translate(rasterize(center.x), rasterize(center.y));
 		ctx.rotate(model.rotation);
 
 		drawFrame(ctx, rects.frame, model);

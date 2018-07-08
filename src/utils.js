@@ -4,6 +4,10 @@ import Chart from 'chart.js';
 
 var helpers = Chart.helpers;
 
+var devicePixelRatio = typeof window !== 'undefined'
+	? window.devicePixelRatio
+	: 1;
+
 var utils = {
 	// @todo move this in Chart.helpers.toTextLines
 	toTextLines: function(inputs) {
@@ -113,6 +117,13 @@ var utils = {
 		}
 
 		return updates;
+	},
+
+	/**
+	 * https://github.com/chartjs/chartjs-plugin-datalabels/issues/70
+	 */
+	rasterize: function(v) {
+		return Math.round(v * devicePixelRatio) / devicePixelRatio;
 	}
 };
 
