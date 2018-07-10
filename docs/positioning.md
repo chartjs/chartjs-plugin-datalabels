@@ -39,3 +39,5 @@ display: function(context) {
     return context.dataIndex % 2; // display labels with an odd index
 }
 ```
+
+When the `clip` option is `true`, the part of the label which is outside the chart area will be masked (see [CanvasRenderingContext2D.clip()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clip))

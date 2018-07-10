@@ -60,6 +60,13 @@ export default {
 	borderWidth: 0,
 
 	/**
+	 * Clip the label drawing to the chart area.
+	 * @member {Boolean|Array|Function}
+	 * @default false (no clipping)
+	 */
+	clip: false,
+
+	/**
 	 * The color used to draw the label text.
 	 * @member {String|Array|Function}
 	 * @default undefined (use Chart.defaults.global.defaultFontColor)

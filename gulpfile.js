@@ -86,7 +86,7 @@ gulp.task('lint', function() {
 gulp.task('docs', function(done) {
 	var script = require.resolve('gitbook-cli/bin/gitbook.js');
 	var out = path.join(argv.output, argv.docsDir);
-	var cmd = process.execPath;
+	var cmd = '"' + process.execPath + '"';
 
 	exec([cmd, script, 'install', './'].join(' ')).then(() => {
 		return exec([cmd, script, argv.watch ? 'serve' : 'build', './', out].join(' '));

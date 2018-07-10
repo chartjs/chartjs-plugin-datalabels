@@ -38,7 +38,7 @@ function drawLabels(chart, datasetIndex) {
 		el = elements[i];
 		label = el[EXPANDO_KEY];
 		if (label) {
-			label.draw(chart.ctx);
+			label.draw(chart);
 		}
 	}
 }

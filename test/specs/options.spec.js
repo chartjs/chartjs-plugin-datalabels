@@ -2,6 +2,7 @@ describe('options (scriptable)', function() {
 	[
 		'align',
 		'anchor',
+		'clip',
 		'opacity'
 	].forEach(function(key) {
 		it(key + ' should be called with a valid context', function() {
@@ -46,6 +47,10 @@ describe('options (scriptable)', function() {
 
 describe('option.align', function() {
 	describe('auto', jasmine.fixture.specs('options.align'));
+});
+
+describe('option.clip', function() {
+	describe('auto', jasmine.fixture.specs('options.clip'));
 });
 
 describe('option.anchor', function() {

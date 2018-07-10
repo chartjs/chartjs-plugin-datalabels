@@ -195,6 +195,7 @@ helpers.extend(Label.prototype, {
 			borderColor: resolve([config.borderColor, null], context, index),
 			borderRadius: resolve([config.borderRadius, 0], context, index),
 			borderWidth: resolve([config.borderWidth, 0], context, index),
+			clip: resolve([config.clip, false], context, index),
 			color: resolve([config.color, Chart.defaults.global.defaultFontColor], context, index),
 			font: font,
 			lines: lines,
@@ -226,10 +227,11 @@ helpers.extend(Label.prototype, {
 		me._model = model;
 	},
 
-	draw: function(ctx) {
+	draw: function(chart) {
 		var me = this;
+		var ctx = chart.ctx;
 		var model = me._model;
-		var rects, center;
+		var rects, center, area;
 
 		if (!model || !model.opacity) {
 			return;
@@ -240,6 +242,18 @@ helpers.extend(Label.prototype, {
 		me._hitbox.update(center, rects.frame, model.rotation);
 
 		ctx.save();
+
+		if (model.clip) {
+			area = chart.chartArea;
+			ctx.beginPath();
+			ctx.rect(
+				area.left,
+				area.top,
+				area.right - area.left,
+				area.bottom - area.top);
+			ctx.clip();
+		}
+
 		ctx.globalAlpha = utils.bound(0, model.opacity, 1);
 		ctx.translate(Math.round(center.x), Math.round(center.y));
 		ctx.rotate(model.rotation);
