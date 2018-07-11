@@ -38,13 +38,20 @@ function getScaleOrigin(el) {
 	}
 
 	if (scale.xCenter !== undefined && scale.yCenter !== undefined) {
-		return {x: scale.xCenter, y: scale.yCenter};
+		return {
+			x: scale.xCenter,
+			y: scale.yCenter
+		};
 	}
 
 	var pixel = scale.getBasePixel();
-	return horizontal ?
-		{x: pixel, y: null} :
-		{x: null, y: pixel};
+	return horizontal ? {
+		x: pixel,
+		y: null
+	} : {
+		x: null,
+		y: pixel
+	};
 }
 
 function getPositioner(el) {
@@ -61,13 +68,23 @@ function getPositioner(el) {
 }
 
 function coordinates(el, model, rect) {
+	var chart = el._chart;
+	var config = chart.controller.config;
+	if (model.autoAdjust === true && config.type === "bar") {
+		let maxHeigth = el._chart.scales["y-axis-0"].maxHeight;
+		let y = el._view.y;
+		if (y < maxHeigth * 0.1) model.align = 'bottom';
+	}
 	var point = model.positioner(el._view, model.anchor, model.align, model.origin);
 	var vx = point.vx;
 	var vy = point.vy;
 
 	if (!vx && !vy) {
 		// if aligned center, we don't want to offset the center point
-		return {x: point.x, y: point.y};
+		return {
+			x: point.x,
+			y: point.y
+		};
 	}
 
 	// include borders to the bounding rect
@@ -167,7 +184,7 @@ function drawText(ctx, lines, rect, model) {
 	}
 }
 
-var Label = function(config, ctx, el, index) {
+var Label = function (config, ctx, el, index) {
 	var me = this;
 
 	me._hitbox = new HitBox();
@@ -182,7 +199,7 @@ helpers.extend(Label.prototype, {
 	/**
 	 * @private
 	 */
-	_modelize: function(lines, config, context) {
+	_modelize: function (lines, config, context) {
 		var me = this;
 		var index = me._index;
 		var resolve = helpers.options.resolve;
@@ -205,11 +222,12 @@ helpers.extend(Label.prototype, {
 			positioner: getPositioner(me._el),
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
 			size: utils.textSize(me._ctx, lines, font),
-			textAlign: resolve([config.textAlign, 'start'], context, index)
+			textAlign: resolve([config.textAlign, 'start'], context, index),
+			autoAdjust: resolve([config.autoAdjust, true], context, index)
 		};
 	},
 
-	update: function(context) {
+	update: function (context) {
 		var me = this;
 		var model = null;
 		var index = me._index;
@@ -226,7 +244,7 @@ helpers.extend(Label.prototype, {
 		me._model = model;
 	},
 
-	draw: function(ctx) {
+	draw: function (ctx) {
 		var me = this;
 		var model = me._model;
 		var rects, center;
@@ -250,7 +268,7 @@ helpers.extend(Label.prototype, {
 		ctx.restore();
 	},
 
-	contains: function(x, y) {
+	contains: function (x, y) {
 		return this._hitbox.contains(x, y);
 	}
 });
