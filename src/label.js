@@ -180,7 +180,7 @@ function drawText(ctx, lines, rect, model) {
 	}
 }
 
-var Label = function (config, ctx, el, index) {
+var Label = function(config, ctx, el, index) {
 	var me = this;
 
 	me._hitbox = new HitBox();
@@ -195,7 +195,7 @@ helpers.extend(Label.prototype, {
 	/**
 	 * @private
 	 */
-	_modelize: function (lines, config, context) {
+	_modelize: function(lines, config, context) {
 		var me = this;
 		var index = me._index;
 		var resolve = helpers.options.resolve;
@@ -223,7 +223,7 @@ helpers.extend(Label.prototype, {
 		};
 	},
 
-	update: function (context) {
+	update: function(context) {
 		var me = this;
 		var model = null;
 		var index = me._index;
@@ -240,7 +240,7 @@ helpers.extend(Label.prototype, {
 		me._model = model;
 	},
 
-	draw: function (ctx) {
+	draw: function(ctx) {
 		var me = this;
 		var model = me._model;
 		var rects, center;
@@ -264,7 +264,7 @@ helpers.extend(Label.prototype, {
 		ctx.restore();
 	},
 
-	contains: function (x, y) {
+	contains: function(x, y) {
 		return this._hitbox.contains(x, y);
 	}
 });
