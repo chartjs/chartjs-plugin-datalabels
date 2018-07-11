@@ -67,14 +67,38 @@ function getPositioner(el) {
 	return positioners.fallback;
 }
 
-function coordinates(el, model, rect) {
-	var chart = el._chart;
-	var config = chart.controller.config;
-	if (model.autoAdjust === true && config.type === "bar") {
-		let maxHeigth = el._chart.scales["y-axis-0"].maxHeight;
-		let y = el._view.y;
-		if (y < maxHeigth * 0.1) model.align = 'bottom';
+function barChartLableAdjuster(el, chart, model) {
+	let maxHeigth = chart.scales["y-axis-0"].maxHeight;
+	let y = el._view.y;
+	if (y < maxHeigth * 0.1) model.align = 'bottom';
+	return model;
+}
+
+function horizontalBarChartLableAdjuster(el, chart, model) {
+	let maxWidth = chart.scales["x-axis-0"].maxWidth;
+	let x = el._view.x;
+	if (x > maxWidth - (maxWidth * 0.1)) model.align = 'left';
+	return model;
+}
+
+function adjuster(el, model) {
+	if (model.autoAdjust === true) {
+		var chart = el._chart;
+		var config = chart.controller.config;
+		switch (config.type) {
+			case 'bar':
+				return barChartLableAdjuster(el, chart, model);
+			case 'horizontalBar':
+				return horizontalBarChartLableAdjuster(el, chart, model);
+			default:
+				return model;
+		}
 	}
+	return model;
+}
+
+function coordinates(el, model, rect) {
+	model = adjuster(el, model);
 	var point = model.positioner(el._view, model.anchor, model.align, model.origin);
 	var vx = point.vx;
 	var vy = point.vy;
