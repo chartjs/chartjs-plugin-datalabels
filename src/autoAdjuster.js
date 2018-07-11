@@ -19,7 +19,7 @@ function fontAdjuster(model, fontSize, relevanceTo) {
 function barChartLableAdjuster(el, chart, model) {
     var fontSize = model.font.size;
     var barWidth = el._view.width;
-    var maxHeigth = chart.scales["y-axis-0"].maxHeight;
+    var maxHeigth = chart.scales['y-axis-0'].maxHeight;
     var y = el._view.y;
     if (y < maxHeigth * 0.1) model.align = 'bottom';
     model = fontAdjuster(model, fontSize, barWidth);
@@ -29,7 +29,7 @@ function barChartLableAdjuster(el, chart, model) {
 function horizontalBarChartLableAdjuster(el, chart, model) {
     var fontSize = model.font.size;
     var barHeight = el._view.height;
-    var maxWidth = chart.scales["x-axis-0"].maxWidth;
+    var maxWidth = chart.scales['x-axis-0'].maxWidth;
     var x = el._view.x;
     if (x > maxWidth - (maxWidth * 0.1)) model.align = 'left';
     model = fontAdjuster(model, fontSize, barHeight);

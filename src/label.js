@@ -219,7 +219,7 @@ helpers.extend(Label.prototype, {
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
 			size: utils.textSize(me._ctx, lines, font),
 			textAlign: resolve([config.textAlign, 'start'], context, index),
-			autoAdjust: resolve([config.autoAdjust, true], context, index)
+			autoAdjust: resolve([config.autoAdjust, false], context, index)
 		};
 	},
 
