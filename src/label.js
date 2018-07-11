@@ -67,19 +67,37 @@ function getPositioner(el) {
 	return positioners.fallback;
 }
 
+function fontAdjuster(model, fontSize, relevanceTo) {
+	if (relevanceTo > 100 && (fontSize / relevanceTo) * 100 >= 40) {
+		model.font.size = 0.4 * relevanceTo;
+		model.font.string = utils.toFontString(model.font)
+	} else if (relevanceTo < 100 && (fontSize / relevanceTo) * 100 >= 60) {
+		model.font.size = 0.6 * relevanceTo;
+		model.font.string = utils.toFontString(model.font)
+	}
+	return model;
+}
+
 function barChartLableAdjuster(el, chart, model) {
-	let maxHeigth = chart.scales["y-axis-0"].maxHeight;
-	let y = el._view.y;
+	var fontSize = model.font.size;
+	var barWidth = el._view.width;
+	var maxHeigth = chart.scales["y-axis-0"].maxHeight;
+	var y = el._view.y;
 	if (y < maxHeigth * 0.1) model.align = 'bottom';
+	model = fontAdjuster(model, fontSize, barWidth);
 	return model;
 }
 
 function horizontalBarChartLableAdjuster(el, chart, model) {
-	let maxWidth = chart.scales["x-axis-0"].maxWidth;
-	let x = el._view.x;
+	var fontSize = model.font.size;
+	var barHeight = el._view.height;
+	var maxWidth = chart.scales["x-axis-0"].maxWidth;
+	var x = el._view.x;
 	if (x > maxWidth - (maxWidth * 0.1)) model.align = 'left';
+	model = fontAdjuster(model, fontSize, barHeight);
 	return model;
 }
+
 
 function adjuster(el, model) {
 	if (model.autoAdjust === true) {
