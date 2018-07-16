@@ -4,6 +4,7 @@ import Chart from 'chart.js';
 import HitBox from './hitbox';
 import utils from './utils';
 import positioners from './positioners';
+import autoAdjuster from './autoAdjuster';
 
 var helpers = Chart.helpers;
 
@@ -38,13 +39,20 @@ function getScaleOrigin(el) {
 	}
 
 	if (scale.xCenter !== undefined && scale.yCenter !== undefined) {
-		return {x: scale.xCenter, y: scale.yCenter};
+		return {
+			x: scale.xCenter,
+			y: scale.yCenter
+		};
 	}
 
 	var pixel = scale.getBasePixel();
-	return horizontal ?
-		{x: pixel, y: null} :
-		{x: null, y: pixel};
+	return horizontal ? {
+		x: pixel,
+		y: null
+	} : {
+		x: null,
+		y: pixel
+	};
 }
 
 function getPositioner(el) {
@@ -60,14 +68,19 @@ function getPositioner(el) {
 	return positioners.fallback;
 }
 
+
 function coordinates(el, model, rect) {
+	model = autoAdjuster(el, model);
 	var point = model.positioner(el._view, model.anchor, model.align, model.origin);
 	var vx = point.vx;
 	var vy = point.vy;
 
 	if (!vx && !vy) {
 		// if aligned center, we don't want to offset the center point
-		return {x: point.x, y: point.y};
+		return {
+			x: point.x,
+			y: point.y
+		};
 	}
 
 	// include borders to the bounding rect
@@ -206,7 +219,8 @@ helpers.extend(Label.prototype, {
 			positioner: getPositioner(me._el),
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
 			size: utils.textSize(me._ctx, lines, font),
-			textAlign: resolve([config.textAlign, 'start'], context, index)
+			textAlign: resolve([config.textAlign, 'start'], context, index),
+			autoAdjust: resolve([config.autoAdjust, false], context, index)
 		};
 	},
 
