@@ -229,6 +229,8 @@ helpers.extend(Label.prototype, {
 	draw: function(ctx) {
 		var me = this;
 		var model = me._model;
+		var context = me.$context;
+		var chartArea = context.chart.chartArea;
 		var rects, center;
 
 		if (!model || !model.opacity) {
@@ -240,6 +242,8 @@ helpers.extend(Label.prototype, {
 		me._hitbox.update(center, rects.frame, model.rotation);
 
 		ctx.save();
+		ctx.rect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+		ctx.clip();
 		ctx.globalAlpha = utils.bound(0, model.opacity, 1);
 		ctx.translate(Math.round(center.x), Math.round(center.y));
 		ctx.rotate(model.rotation);
