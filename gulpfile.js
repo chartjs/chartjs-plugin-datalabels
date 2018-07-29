@@ -7,7 +7,7 @@ var rename = require('gulp-rename');
 var replace = require('gulp-replace');
 var streamify = require('gulp-streamify');
 var uglify = require('gulp-uglify');
-var gutil = require('gulp-util');
+var log = require('fancy-log');
 var zip = require('gulp-zip');
 var karma = require('karma');
 var merge = require('merge2');
@@ -25,11 +25,11 @@ var argv = require('yargs')
 	.argv;
 
 function watch(glob, task, done) {
-	gutil.log('Waiting for changes...');
+	log('Waiting for changes...');
 	return gulp.watch(glob, task)
 		.on('end', done)
 		.on('change', function(e) {
-			gutil.log('Changes detected for', path.relative('.', e.path), '(' + e.type + ')');
+			log('Changes detected for', path.relative('.', e.path), '(' + e.type + ')');
 		});
 }
 
