@@ -6,10 +6,9 @@ module.exports = function(karma) {
 	var args = karma.args || {};
 
 	karma.set({
-		browsers: ['Firefox'],
+		browsers: ['firefox'],
 		frameworks: ['jasmine'],
-		reporters: ['spec', 'kjhtml'].concat(
-			args.coverage ? ['coverage'] : []),
+		reporters: ['spec', 'kjhtml'].concat(args.coverage ? ['coverage'] : []),
 
 		files: [
 			{pattern: './test/fixtures/**/*.js', included: false},
@@ -18,6 +17,18 @@ module.exports = function(karma) {
 			'test/index.js',
 			'src/plugin.js'
 		].concat(args.inputs),
+
+		// Explicitly disable hardware acceleration to make image
+		// diff more stable when ran on Travis and dev machine.
+		// https://github.com/chartjs/Chart.js/pull/5629
+		customLaunchers: {
+			firefox: {
+				base: 'Firefox',
+				prefs: {
+					'layers.acceleration.disabled': true
+				}
+			}
+		},
 
 		preprocessors: {
 			'test/fixtures/**/*.js': ['fixtures'],
