@@ -140,7 +140,7 @@ var utils = {
 	 */
 	doPolygonsIntersect: function(a, b) {
 		var polygons = [a, b];
-		var minA, maxA, projected, i, i1, j, minB, maxB;
+		var i, i1;
 
 		for (i = 0; i < polygons.length; i++) {
 
@@ -157,35 +157,12 @@ var utils = {
 				// find the line perpendicular to this edge
 				var normal = {x: p2.y - p1.y, y: p1.x - p2.x};
 
-				minA = maxA = undefined;
-				// for each vertex in the first shape, project it onto the line perpendicular to the edge
-				// and keep track of the min and max of these values
-				for (j = 0; j < a.length; j++) {
-					projected = normal.x * a[j].x + normal.y * a[j].y;
-					if (isUndefined(minA) || projected < minA) {
-						minA = projected;
-					}
-					if (isUndefined(maxA) || projected > maxA) {
-						maxA = projected;
-					}
-				}
-
-				// for each vertex in the second shape, project it onto the line perpendicular to the edge
-				// and keep track of the min and max of these values
-				minB = maxB = undefined;
-				for (j = 0; j < b.length; j++) {
-					projected = normal.x * b[j].x + normal.y * b[j].y;
-					if (isUndefined(minB) || projected < minB) {
-						minB = projected;
-					}
-					if (isUndefined(maxB) || projected > maxB) {
-						maxB = projected;
-					}
-				}
+				var projectionA = utils.projectVertex(a, normal);
+				var projectionB = utils.projectVertex(b, normal);
 
 				// if there is no overlap between the projects, the edge we are looking at separates the two
 				// polygons, and we know there is no overlap
-				if (maxA < minB || maxB < minA) {
+				if (projectionA.max < projectionB.min || projectionB.max < projectionA.min) {
 					return false;
 				}
 			}
@@ -193,24 +170,46 @@ var utils = {
 		return true;
 	},
 
-	rotatePolygon: function(cx, cy, polygon, rotation) {
+	/**
+	 * For each vertex in the shape, project it onto the line perpendicular to the edge
+	 * and keep track of the min and max of these values
+	 */
+	projectVertex: function(shape, normal) {
+		var i, projected, min, max;
+
+		min = max = undefined;
+
+		for (i = 0; i < shape.length; i++) {
+			projected = normal.x * shape[i].x + normal.y * shape[i].y;
+			if (isUndefined(min) || projected < min) {
+				min = projected;
+			}
+			if (isUndefined(max) || projected > max) {
+				max = projected;
+			}
+		}
+
+		return {min: min, max: max};
+	},
+
+	rotatePolygon: function(center, polygon, rotation) {
 		var newPolygon = [];
 		var ilen = polygon.length;
 		var i;
 
 		for (i = 0; i < ilen; ++i) {
 			var point = polygon[i];
-			newPolygon.push(utils.rotatePoint(cx, cy, point.x, point.y, rotation));
+			newPolygon.push(utils.rotatePoint(center, {x: point.x, y: point.y}, rotation));
 		}
 
 		return newPolygon;
 	},
 
-	rotatePoint: function(cx, cy, x, y, rotation) {
+	rotatePoint: function(center, point, rotation) {
 		var cos = Math.cos(rotation);
 		var sin = Math.sin(rotation);
-		var nx = (cos * (x - cx)) + (sin * (y - cy)) + cx;
-		var ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+		var nx = (cos * (point.x - center.x)) + (sin * (point.y - center.y)) + center.x;
+		var ny = (cos * (point.y - center.y)) - (sin * (point.x - center.x)) + center.y;
 
 		return {x: nx, y: ny};
 	}

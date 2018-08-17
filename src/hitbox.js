@@ -59,13 +59,20 @@ helpers.extend(HitBox.prototype, {
 			return false;
 		}
 
-		var firstPolygon = [{x: me._rect.x0, y: me._rect.y0}, {x: me._rect.x0, y: me._rect.y1}, {x: me._rect.x1, y: me._rect.y1}, {x: me._rect.x1, y: me._rect.y0}];
-		var secondPolygon = [{x: hitbox._rect.x0, y: hitbox._rect.y0}, {x: hitbox._rect.x0, y: hitbox._rect.y1}, {x: hitbox._rect.x1, y: hitbox._rect.y1}, {x: hitbox._rect.x1, y: hitbox._rect.y0}];
-
-		firstPolygon = rotatePolygon(me._rect.cx, me._rect.cy, firstPolygon, me._rotation);
-		secondPolygon = rotatePolygon(hitbox._rect.cx, hitbox._rect.cy, secondPolygon, hitbox._rotation);
+		var firstPolygon = rotatePolygon({x: me._rect.cx, y: me._rect.cy}, me.getPolygon(), me._rotation);
+		var secondPolygon = rotatePolygon({x: hitbox._rect.cx, y: hitbox._rect.cy}, hitbox.getPolygon(), hitbox._rotation);
 
 		return doPolygonsIntersect(firstPolygon, secondPolygon);
+	},
+
+	getPolygon: function() {
+		var me = this;
+
+		if (!me._rect) {
+			return [];
+		}
+
+		return [{x: me._rect.x0, y: me._rect.y0}, {x: me._rect.x0, y: me._rect.y1}, {x: me._rect.x1, y: me._rect.y1}, {x: me._rect.x1, y: me._rect.y0}];
 	}
 });
 
