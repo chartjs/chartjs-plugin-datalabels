@@ -265,8 +265,37 @@ helpers.extend(Label.prototype, {
 		ctx.restore();
 	},
 
+	getRecomputeHitbox: function() {
+		var me = this;
+		var model = me._model;
+		var rects, center;
+		var hitbox = new HitBox();
+
+		if (!model || !model.opacity) {
+			return hitbox;
+		}
+
+		rects = boundingRects(model.size, model.padding);
+		center = coordinates(me._el, model, rects.frame);
+		hitbox.update(center, rects.frame, model.rotation);
+
+		return hitbox;
+	},
+
 	contains: function(x, y) {
 		return this._hitbox.contains(x, y);
+	},
+
+	overlap: function(hitbox) {
+		return this._hitbox.overlap(hitbox);
+	},
+
+	resetHibox: function() {
+		this._hitbox = new HitBox();
+	},
+
+	isAllowOverlap: function(context) {
+		return helpers.options.resolve([this._config.allowOverlap, true], context, this._index);
 	}
 });
 

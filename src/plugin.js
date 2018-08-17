@@ -28,6 +28,23 @@ function configure(dataset, options) {
 	return helpers.merge(config, [options, override]);
 }
 
+function isLabelInZone(chart, currentLabel, hitbox) {
+	var items = chart[EXPANDO_KEY].labels;
+	var i, j, labels, label;
+
+	for (i = items.length - 1; i >= 0; --i) {
+		labels = items[i] || [];
+		for (j = labels.length - 1; j >= 0; --j) {
+			label = labels[j];
+			if (currentLabel !== label && label.overlap(hitbox)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 function drawLabels(chart, datasetIndex) {
 	var meta = chart.getDatasetMeta(datasetIndex);
 	var elements = meta.data || [];
@@ -37,8 +54,13 @@ function drawLabels(chart, datasetIndex) {
 	for (i = 0; i < ilen; ++i) {
 		el = elements[i];
 		label = el[EXPANDO_KEY];
+
 		if (label) {
-			label.draw(chart);
+			if (label.isAllowOverlap(label.$context) || !isLabelInZone(chart, label, label.getRecomputeHitbox())) {
+				label.draw(chart);
+			} else {
+				label.resetHibox();
+			}
 		}
 	}
 }

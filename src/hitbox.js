@@ -1,7 +1,10 @@
 'use strict';
 
 import Chart from 'chart.js';
+import utils from './utils';
 
+var doPolygonsIntersect = utils.doPolygonsIntersect;
+var rotatePolygon = utils.rotatePolygon;
 var helpers = Chart.helpers;
 
 var HitBox = function() {
@@ -47,6 +50,22 @@ helpers.extend(HitBox.prototype, {
 			|| ry < rect.y0
 			|| rx > rect.x1
 			|| ry > rect.y1);
+	},
+
+	overlap: function(hitbox) {
+		var me = this;
+
+		if (!hitbox._rect || !me._rect) {
+			return false;
+		}
+
+		var firstPolygon = [{x: me._rect.x0, y: me._rect.y0}, {x: me._rect.x0, y: me._rect.y1}, {x: me._rect.x1, y: me._rect.y1}, {x: me._rect.x1, y: me._rect.y0}];
+		var secondPolygon = [{x: hitbox._rect.x0, y: hitbox._rect.y0}, {x: hitbox._rect.x0, y: hitbox._rect.y1}, {x: hitbox._rect.x1, y: hitbox._rect.y1}, {x: hitbox._rect.x1, y: hitbox._rect.y0}];
+
+		firstPolygon = rotatePolygon(me._rect.cx, me._rect.cy, firstPolygon, me._rotation);
+		secondPolygon = rotatePolygon(hitbox._rect.cx, hitbox._rect.cy, secondPolygon, hitbox._rotation);
+
+		return doPolygonsIntersect(firstPolygon, secondPolygon);
 	}
 });
 

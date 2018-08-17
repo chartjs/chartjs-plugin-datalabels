@@ -194,5 +194,12 @@ export default {
 	 * @member {Object}
 	 * @default {}
 	 */
-	listeners: {}
+	listeners: {},
+
+	/**
+	 * Whether to allow data labels to overlap.
+	 * @member {Boolean|Array|Function}
+	 * @default true (overlap allowed)
+	 */
+	allowOverlap: true
 };

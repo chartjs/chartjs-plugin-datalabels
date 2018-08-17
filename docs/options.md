@@ -36,6 +36,7 @@ Available options:
 | [`rotation`](positioning.md#rotation) | `Number` | Yes | Yes | `0`
 | [`textAlign`](formatting.md#text-alignment) | `String` | Yes | Yes | `start`
 | [`formatter`](formatting.md#data-transformation) | `Function/null` | - | - | -
+| `allowOverlap` | `Boolean` | Yes | Yes | `true`
 
 ## Scriptable Options
 
