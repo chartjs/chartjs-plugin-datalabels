@@ -153,6 +153,8 @@ function drawText(ctx, lines, rect, model) {
 	}
 
 	ctx.font = model.font.string;
+	ctx.shadowBlur = model.shadowBlur;
+	ctx.shadowColor = model.shadowColor;
 	ctx.fillStyle = color;
 	ctx.textAlign = align;
 	ctx.textBaseline = 'middle';
@@ -206,6 +208,8 @@ helpers.extend(Label.prototype, {
 			padding: helpers.options.toPadding(resolve([config.padding, 0], context, index)),
 			positioner: getPositioner(me._el),
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
+			shadowBlur: resolve([config.shadowBlur, 0], context, index),
+			shadowColor: resolve([config.shadowColor, 'black'], context, index),
 			size: utils.textSize(me._ctx, lines, font),
 			textAlign: resolve([config.textAlign, 'start'], context, index)
 		};
