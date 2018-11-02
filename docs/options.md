@@ -16,6 +16,7 @@ Available options:
 | `borderColor` | [`Style`](#style-options)/`null` | Yes | Yes | `null`
 | `borderRadius` | `Number` | Yes | Yes | `0`
 | `borderWidth` | `Number` | Yes | Yes | `0`
+| [`clamp`](positioning.md#clamping) | `Boolean` | Yes | Yes | `false`
 | [`clip`](positioning.md#visibility) | `Boolean` | Yes | Yes | `false`
 | `color` | [`Style`](#style-options) | Yes | Yes | `0`
 | [`display`](positioning.md#visibility) | `Boolean` | Yes | Yes | `true`

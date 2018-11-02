@@ -4,6 +4,10 @@ checks:
     enabled: false
   method-complexity:
     enabled: false
+  method-lines:
+    enabled: false
+  similar-code:
+    enabled: false
 plugins:
   duplication:
     enabled: true

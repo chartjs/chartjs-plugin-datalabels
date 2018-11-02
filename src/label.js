@@ -62,7 +62,7 @@ function getPositioner(el) {
 }
 
 function coordinates(el, model, rect) {
-	var point = model.positioner(el._view, model.anchor, model.align, model.origin);
+	var point = model.positioner(el._view, model);
 	var vx = point.vx;
 	var vy = point.vy;
 
@@ -190,6 +190,7 @@ helpers.extend(Label.prototype, {
 		var font = utils.parseFont(resolve([config.font, {}], context, index));
 
 		return {
+			area: context.chart.chartArea,
 			align: resolve([config.align, 'center'], context, index),
 			anchor: resolve([config.anchor, 'center'], context, index),
 			backgroundColor: resolve([config.backgroundColor, null], context, index),
@@ -197,6 +198,7 @@ helpers.extend(Label.prototype, {
 			borderRadius: resolve([config.borderRadius, 0], context, index),
 			borderWidth: resolve([config.borderWidth, 0], context, index),
 			clip: resolve([config.clip, false], context, index),
+			clamp: resolve([config.clamp, false], context, index),
 			color: resolve([config.color, Chart.defaults.global.defaultFontColor], context, index),
 			font: font,
 			lines: lines,
@@ -245,7 +247,7 @@ helpers.extend(Label.prototype, {
 		ctx.save();
 
 		if (model.clip) {
-			area = chart.chartArea;
+			area = model.area;
 			ctx.beginPath();
 			ctx.rect(
 				area.left,

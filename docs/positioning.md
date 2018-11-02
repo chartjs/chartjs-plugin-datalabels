@@ -11,6 +11,16 @@ Supported values for `anchor`:
 
 ![chartjs-plugin-datalabels](assets/anchor.png)
 
+## Clamping
+
+The `clamp` option, when `true`, enforces the anchor position to be calculated based on
+the *visible geometry* of the associated element (i.e. part inside the chart area).
+
+![chartjs-plugin-datalabels](assets/clamp.png)
+
+> **Note:** if the element is fully hidden (i.e. entirely outside the chart area),
+anchor points will **not** be adjusted and thus will also be outside the viewport.
+
 ## Alignment and Offset
 
 The `align` option defines the position of the label relative to the anchor point position and orientation. Its value can be expressed either by a number representing the clockwise angle (in degree) or by one of the following string presets:
