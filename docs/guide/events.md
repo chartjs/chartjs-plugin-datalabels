@@ -8,7 +8,9 @@ This plugin currently supports the following label events:
 | `leave` | `mousemove` | the mouse is moved out of an label
 | `click` | `click` | the mouse's primary button is pressed and released on a label
 
-> <sup>1</sup> [Chart.js events](http://www.chartjs.org/docs/latest/general/interactions/events.html) that need to be enabled in order to get the associated label event working. Note that by default Chart.js enables `"mousemove", "mouseout", "click", "touchstart", "touchmove", "touchend"`, meaning that label events work out-of-the-box.
+::: tip NOTE
+<sup>1</sup> [Chart.js events](http://www.chartjs.org/docs/latest/general/interactions/events.html) that need to be enabled in order to get the associated label event working. Note that by default Chart.js enables `"mousemove", "mouseout", "click", "touchstart", "touchmove", "touchend"`, meaning that label events work out-of-the-box.
+:::
 
 ## Listeners
 
@@ -18,7 +20,9 @@ The `context` contains the same information as for [scriptable options](options.
 
 Listeners can be registered for any label (`options.plugin.datalabels.listener.*`) or for labels of a specific dataset (`dataset.datalabels.listeners.*`).
 
-> **Tip:** if no listener is registered, incoming events are immediately ignored, preventing extra computation such as intersecting label bounding box. That means there should be no performance penalty for configurations that don't use events.
+::: tip
+If no listener is registered, incoming events are immediately ignored, preventing extra computation such as intersecting label bounding box. That means there should be no performance penalty for configurations that don't use events.
+:::
 
 ## Example
 

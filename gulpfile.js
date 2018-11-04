@@ -14,7 +14,7 @@ var merge = require('merge2');
 var path = require('path');
 var rollup = require('rollup-stream');
 var source = require('vinyl-source-stream');
-var {exec} = require('mz/child_process');
+var {exec} = require('child_process');
 var pkg = require('./package.json');
 
 var argv = require('yargs')
@@ -84,17 +84,15 @@ gulp.task('lint', function() {
 });
 
 gulp.task('docs', function(done) {
-	var script = require.resolve('gitbook-cli/bin/gitbook.js');
+	var script = require.resolve('vuepress/bin/vuepress.js');
 	var out = path.join(argv.output, argv.docsDir);
+	var mode = argv.watch ? 'dev' : 'build';
 	var cmd = '"' + process.execPath + '"';
+	var ps = exec([cmd, script, mode, 'docs', '--dest', out].join(' '));
 
-	exec([cmd, script, 'install', './'].join(' ')).then(() => {
-		return exec([cmd, script, argv.watch ? 'serve' : 'build', './', out].join(' '));
-	}).then(() => {
-		done();
-	}).catch((err) => {
-		done(new Error(err.stdout || err));
-	});
+	ps.stdout.pipe(process.stdout);
+	ps.stderr.pipe(process.stderr);
+	ps.on('close', () => done());
 });
 
 gulp.task('samples', function() {
@@ -127,9 +125,7 @@ gulp.task('netlify', ['build', 'docs', 'samples'], function() {
 		gulp.src(path.join(root, '*.js'))
 	);
 
-	return streams
-		.pipe(streamify(replace(/https?:\/\/chartjs-plugin-datalabels\.netlify\.com\/?/g, '/', {skipBinary: true})))
-		.pipe(gulp.dest(out));
+	return streams.pipe(gulp.dest(out));
 });
 
 gulp.task('bower', function() {

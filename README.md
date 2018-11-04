@@ -32,7 +32,7 @@ The following commands will then be available from the repository root:
     > gulp test --coverage  // run unit tests and generate code coverage
     > gulp lint             // perform code linting
     > gulp package          // create an archive with dist files and samples
-    > gulp docs             // generate GitBook documentation (`dist/docs`)
+    > gulp docs             // generate VuePress documentation (`dist/docs`)
 
 ## License
 

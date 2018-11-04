@@ -25,7 +25,9 @@ formatter: function(value, context) {
 // ...
 ```
 
-> **Tip:** the first argument being the value, you can directly use generic methods:
+::: tip
+The first argument being the value, you can directly use generic methods:
+:::
 
 ```javascript
 formatter: Math.round
@@ -63,7 +65,9 @@ new Chart('id', {
 // ...
 ```
 
-> **Tip:** `chart.data.labels` is given as an example but it works with any source:
+::: tip
+`chart.data.labels` is given as an example but it works with any source:
+:::
 
 ```javascript
 context.dataset.data[context.dataIndex].label;  // labels in each data object
@@ -85,7 +89,9 @@ formatter: function(value) {
 }
 ```
 
-> **Tip:** the space between each line can be adjusted using the `font.lineHeight` option.
+::: tip
+The space between each line can be adjusted using the `font.lineHeight` option.
+:::
 
 ## Text Alignment
 

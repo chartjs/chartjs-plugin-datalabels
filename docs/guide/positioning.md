@@ -2,24 +2,24 @@
 
 ## Anchoring
 
-An anchor point is defined by an orientation (normalized) vector and a position on the data element. The orientation depends on the scale type (vertical, horizontal or radial). The position is calculated based on the `anchor` option and the orientation vector.
+An anchor point is defined by an orientation vector and a position on the data element. The orientation depends on the scale type (vertical, horizontal or radial). The position is calculated based on the `anchor` option and the orientation vector.
 
 Supported values for `anchor`:
 - `center` (default): element center
 - `start`: lowest element boundary
 - `end`: highest element boundary
 
-![chartjs-plugin-datalabels](assets/anchor.png)
+![chartjs-plugin-datalabels](../assets/anchor.png)
 
 ## Clamping
 
-The `clamp` option, when `true`, enforces the anchor position to be calculated based on
-the *visible geometry* of the associated element (i.e. part inside the chart area).
+The `clamp` option, when `true`, enforces the anchor position to be calculated based on the *visible geometry* of the associated element (i.e. part inside the chart area).
 
-![chartjs-plugin-datalabels](assets/clamp.png)
+![chartjs-plugin-datalabels](../assets/clamp.png)
 
-> **Note:** if the element is fully hidden (i.e. entirely outside the chart area),
-anchor points will **not** be adjusted and thus will also be outside the viewport.
+::: tip NOTE
+If the element is fully hidden (i.e. entirely outside the chart area), anchor points will **not** be adjusted and thus will also be outside the viewport.
+:::
 
 ## Alignment and Offset
 
@@ -34,7 +34,7 @@ The `align` option defines the position of the label relative to the anchor poin
 
 The `offset` represents the distance (in pixels) to pull the label *away* from the anchor point. This option is **not applicable** when `align` is `center`. Also note that if `align` is `start`, the label is moved in the opposite direction. The default value is `4`.
 
-![chartjs-plugin-datalabels](assets/align.png)
+![chartjs-plugin-datalabels](../assets/align.png)
 
 ## Rotation
 
