@@ -9,6 +9,7 @@ module.exports = function(karma) {
 		browsers: ['firefox'],
 		frameworks: ['jasmine'],
 		reporters: ['spec', 'kjhtml'].concat(args.coverage ? ['coverage'] : []),
+		logLevel: karma.LOG_WARN,
 
 		files: [
 			{pattern: './test/fixtures/**/*.js', included: false},
@@ -38,7 +39,6 @@ module.exports = function(karma) {
 		},
 
 		rollupPreprocessor: {
-			format: 'umd',
 			plugins: [
 				resolve(),
 				commonjs(),
@@ -49,8 +49,11 @@ module.exports = function(karma) {
 			external: [
 				'chart.js'
 			],
-			globals: {
-				'chart.js': 'Chart'
+			output: {
+				format: 'umd',
+				globals: {
+					'chart.js': 'Chart'
+				}
 			}
 		},
 
@@ -58,8 +61,10 @@ module.exports = function(karma) {
 			fixtures: {
 				base: 'rollup',
 				options: {
-					format: 'iife',
-					name: 'fixture',
+					output: {
+						format: 'iife',
+						name: 'fixture'
+					}
 				}
 			}
 		},
