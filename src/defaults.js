@@ -67,6 +67,15 @@ export default {
 	clip: false,
 
 	/**
+	 * When `true`, the anchor position is calculated based on the visible
+	 * geometry of the associated element (i.e. part inside the chart area).
+	 * @see https://github.com/chartjs/chartjs-plugin-datalabels/issues/98
+	 * @member {Boolean|Array|Function}
+	 * @default false
+	 */
+	clamp: false,
+
+	/**
 	 * The color used to draw the label text.
 	 * @member {String|Array|Function}
 	 * @default undefined (use Chart.defaults.global.defaultFontColor)
@@ -189,7 +198,7 @@ export default {
 	 * Event currently supported are:
 	 * - 'click': a mouse click is detected within a label
 	 * - 'enter': the mouse enters a label
-	 * -' leave': the mouse leaves a label
+	 * - 'leave': the mouse leaves a label
 	 *
 	 * @member {Object}
 	 * @default {}

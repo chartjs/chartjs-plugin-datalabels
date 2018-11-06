@@ -1,10 +1,13 @@
+var OPTIONS = [
+	'align',
+	'anchor',
+	'clamp',
+	'clip',
+	'opacity'
+];
+
 describe('options (scriptable)', function() {
-	[
-		'align',
-		'anchor',
-		'clip',
-		'opacity'
-	].forEach(function(key) {
+	OPTIONS.forEach(function(key) {
 		it(key + ' should be called with a valid context', function() {
 			var options = {};
 			options[key] = function() {};
@@ -45,18 +48,8 @@ describe('options (scriptable)', function() {
 	});
 });
 
-describe('option.align', function() {
-	describe('auto', jasmine.fixture.specs('options.align'));
-});
-
-describe('option.clip', function() {
-	describe('auto', jasmine.fixture.specs('options.clip'));
-});
-
-describe('option.anchor', function() {
-	describe('auto', jasmine.fixture.specs('options.anchor'));
-});
-
-describe('option.opacity', function() {
-	describe('auto', jasmine.fixture.specs('options.opacity'));
+OPTIONS.forEach(function(key) {
+	describe(`options.${key}`, function() {
+		describe('auto', jasmine.fixture.specs(`options.${key}`));
+	});
 });
