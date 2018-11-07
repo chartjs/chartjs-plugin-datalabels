@@ -4,9 +4,23 @@ import Chart from 'chart.js';
 
 var helpers = Chart.helpers;
 
-var devicePixelRatio = typeof window !== 'undefined'
-	? window.devicePixelRatio
-	: 1;
+var devicePixelRatio = (function() {
+	if (typeof window !== 'undefined') {
+		if (window.devicePixelRatio) {
+			return window.devicePixelRatio;
+		}
+
+		// devicePixelRatio is undefined on IE10
+		// https://stackoverflow.com/a/20204180/8837887
+		// https://github.com/chartjs/chartjs-plugin-datalabels/issues/85
+		var screen = window.screen;
+		if (screen) {
+			return (screen.deviceXDPI || 1) / (screen.logicalXDPI || 1);
+		}
+	}
+
+	return 1;
+}());
 
 var utils = {
 	// @todo move this in Chart.helpers.toTextLines
