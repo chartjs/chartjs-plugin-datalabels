@@ -12,6 +12,41 @@ describe('events', function() {
 		};
 	});
 
+	describe('hitbox', function() {
+		it('should detect events for labels with borders', function() {
+			var spy = jasmine.createSpy('spy');
+			var chart = jasmine.chart.acquire({
+				type: 'line',
+				data: this.data,
+				options: {
+					plugins: {
+						datalabels: {
+							borderWidth: 16,
+							padding: 16,
+							font: {
+								size: 0
+							},
+							listeners: {
+								enter: spy
+							},
+						}
+					}
+				}
+			});
+
+			var label = chart.$datalabels.labels[0][1];
+
+			expect(spy.calls.count()).toBe(0);
+
+			jasmine.triggerMouseEvent(chart, 'mousemove', {
+				x: label._el._model.x - 16 - 12,
+				y: label._el._model.y - 16 - 12
+			});
+
+			expect(spy.calls.count()).toBe(1);
+		});
+	});
+
 	describe('`enter` handlers', function() {
 		it('should be called when the mouse moves inside the label', function() {
 			var spy = jasmine.createSpy('spy');

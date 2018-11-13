@@ -8,18 +8,20 @@ import positioners from './positioners';
 var helpers = Chart.helpers;
 var rasterize = utils.rasterize;
 
-function boundingRects(size, padding) {
-	var th = size.height;
-	var tw = size.width;
+function boundingRects(model) {
+	var borderWidth = model.borderWidth || 0;
+	var padding = model.padding;
+	var th = model.size.height;
+	var tw = model.size.width;
 	var tx = -tw / 2;
 	var ty = -th / 2;
 
 	return {
 		frame: {
-			x: tx - padding.left,
-			y: ty - padding.top,
-			w: tw + padding.width,
-			h: th + padding.height,
+			x: tx - padding.left - borderWidth,
+			y: ty - padding.top - borderWidth,
+			w: tw + padding.width + borderWidth * 2,
+			h: th + padding.height + borderWidth * 2
 		},
 		text: {
 			x: tx,
@@ -71,10 +73,8 @@ function coordinates(el, model, rect) {
 		return {x: point.x, y: point.y};
 	}
 
-	// include borders to the bounding rect
-	var borderWidth = model.borderWidth || 0;
-	var w = (rect.w + borderWidth * 2);
-	var h = (rect.h + borderWidth * 2);
+	var w = rect.w;
+	var h = rect.h;
 
 	// take in account the label rotation
 	var rotation = model.rotation;
@@ -110,10 +110,10 @@ function drawFrame(ctx, rect, model) {
 
 	helpers.canvas.roundedRect(
 		ctx,
-		rasterize(rect.x) - borderWidth / 2,
-		rasterize(rect.y) - borderWidth / 2,
-		rasterize(rect.w) + borderWidth,
-		rasterize(rect.h) + borderWidth,
+		rasterize(rect.x) + borderWidth / 2,
+		rasterize(rect.y) + borderWidth / 2,
+		rasterize(rect.w) - borderWidth,
+		rasterize(rect.h) - borderWidth,
 		model.borderRadius);
 
 	ctx.closePath();
@@ -240,7 +240,7 @@ helpers.extend(Label.prototype, {
 			return;
 		}
 
-		rects = boundingRects(model.size, model.padding);
+		rects = boundingRects(model);
 		center = coordinates(me._el, model, rects.frame);
 		me._hitbox.update(center, rects.frame, model.rotation);
 

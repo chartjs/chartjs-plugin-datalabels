@@ -11,7 +11,6 @@ var HitBox = function() {
 
 helpers.extend(HitBox.prototype, {
 	update: function(center, rect, rotation) {
-		var margin = 1;
 		var cx = center.x;
 		var cy = center.y;
 		var x = cx + rect.x;
@@ -19,10 +18,10 @@ helpers.extend(HitBox.prototype, {
 
 		this._rotation = rotation;
 		this._rect = {
-			x0: x - margin,
-			y0: y - margin,
-			x1: x + rect.w + margin * 2,
-			y1: y + rect.h + margin * 2,
+			x0: x,
+			y0: y,
+			x1: x + rect.w,
+			y1: y + rect.h,
 			cx: cx,
 			cy: cy,
 		};
