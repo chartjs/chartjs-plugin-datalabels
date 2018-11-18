@@ -44,7 +44,7 @@ function drawLabels(chart, datasetIndex) {
 }
 
 function labelAtXY(chart, x, y) {
-	var items = chart[EXPANDO_KEY].labels;
+	var items = chart[EXPANDO_KEY]._datasets;
 	var i, j, labels, label;
 
 	// Until we support z-index, let's hit test in the drawing reverse order
@@ -75,7 +75,7 @@ function dispatchEvent(chart, listeners, target) {
 		// used in scriptable options to display labels differently based on the current
 		// event (e.g. highlight an hovered label). That's why we update the label with
 		// the output context and schedule a new chart render by setting it dirty.
-		chart[EXPANDO_KEY].dirty = true;
+		chart[EXPANDO_KEY]._dirty = true;
 		label.update(context);
 	}
 }
@@ -105,7 +105,7 @@ function dispatchMoveEvents(chart, listeners, previous, target) {
 
 function handleMoveEvents(chart, event) {
 	var expando = chart[EXPANDO_KEY];
-	var listeners = expando.listeners;
+	var listeners = expando._listeners;
 	var previous, target;
 
 	if (!listeners.enter && !listeners.leave) {
@@ -118,13 +118,13 @@ function handleMoveEvents(chart, event) {
 		return;
 	}
 
-	previous = expando.hovered;
-	expando.hovered = target;
+	previous = expando._hovered;
+	expando._hovered = target;
 	dispatchMoveEvents(chart, listeners, previous, target);
 }
 
 function handleClickEvents(chart, event) {
-	var handlers = chart[EXPANDO_KEY].listeners.click;
+	var handlers = chart[EXPANDO_KEY]._listeners.click;
 	var target = handlers && labelAtXY(chart, event.x, event.y);
 	if (target) {
 		dispatchEvent(chart, handlers, target);
@@ -138,21 +138,21 @@ Chart.plugins.register({
 
 	beforeInit: function(chart) {
 		chart[EXPANDO_KEY] = {
-			actives: []
+			_actives: []
 		};
 	},
 
 	beforeUpdate: function(chart) {
 		var expando = chart[EXPANDO_KEY];
-		expando.listened = false;
-		expando.listeners = {};    // {event-type: {dataset-index: function}}
-		expando.labels = [];       // [dataset-index: [labels]]
+		expando._listened = false;
+		expando._listeners = {};     // {event-type: {dataset-index: function}}
+		expando._datasets = [];      // per dataset labels: [[Label]]
 	},
 
 	afterDatasetUpdate: function(chart, args, options) {
 		var datasetIndex = args.index;
 		var expando = chart[EXPANDO_KEY];
-		var labels = expando.labels[datasetIndex] = [];
+		var labels = expando._datasets[datasetIndex] = [];
 		var visible = chart.isDatasetVisible(datasetIndex);
 		var dataset = chart.data.datasets[datasetIndex];
 		var config = configure(dataset, options);
@@ -186,11 +186,11 @@ Chart.plugins.register({
 
 		// Store listeners at the chart level and per event type to optimize
 		// cases where no listeners are registered for a specific event
-		helpers.merge(expando.listeners, config.listeners || {}, {
+		helpers.merge(expando._listeners, config.listeners || {}, {
 			merger: function(key, target, source) {
 				target[key] = target[key] || {};
 				target[key][args.index] = source[key];
-				expando.listened = true;
+				expando._listened = true;
 			}
 		});
 	},
@@ -208,7 +208,7 @@ Chart.plugins.register({
 		// If there is no listener registered for this chart, `listened` will be false,
 		// meaning we can immediately ignore the incoming event and avoid useless extra
 		// computation for users who don't implement label interactions.
-		if (chart[EXPANDO_KEY].listened) {
+		if (chart[EXPANDO_KEY]._listened) {
 			switch (event.type) {
 			case 'mousemove':
 			case 'mouseout':
@@ -224,8 +224,8 @@ Chart.plugins.register({
 
 	afterEvent: function(chart) {
 		var expando = chart[EXPANDO_KEY];
-		var previous = expando.actives;
-		var actives = expando.actives = chart.lastActive || [];  // public API?!
+		var previous = expando._actives;
+		var actives = expando._actives = chart.lastActive || [];  // public API?!
 		var updates = utils.arrayDiff(previous, actives);
 		var i, ilen, update, label;
 
@@ -240,10 +240,10 @@ Chart.plugins.register({
 			}
 		}
 
-		if ((expando.dirty || updates.length) && !chart.animating) {
+		if ((expando._dirty || updates.length) && !chart.animating) {
 			chart.render();
 		}
 
-		delete expando.dirty;
+		delete expando._dirty;
 	}
 });

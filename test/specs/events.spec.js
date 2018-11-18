@@ -34,7 +34,7 @@ describe('events', function() {
 				}
 			});
 
-			var label = chart.$datalabels.labels[0][1];
+			var label = chart.$datalabels._datasets[0][1];
 
 			expect(spy.calls.count()).toBe(0);
 
@@ -182,7 +182,7 @@ describe('events', function() {
 				data: this.data
 			});
 
-			expect(chart.$datalabels.listened).toBeFalsy();
+			expect(chart.$datalabels._listened).toBeFalsy();
 		});
 
 		it('should call handlers for any labels if at the options level', function() {
@@ -204,7 +204,7 @@ describe('events', function() {
 			var ds0 = chart.getDatasetMeta(0);
 			var ds1 = chart.getDatasetMeta(1);
 
-			expect(chart.$datalabels.listened).toBeTruthy();
+			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
 			jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
@@ -235,7 +235,7 @@ describe('events', function() {
 			var ds0 = chart.getDatasetMeta(0);
 			var ds1 = chart.getDatasetMeta(1);
 
-			expect(chart.$datalabels.listened).toBeTruthy();
+			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
 			jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);

@@ -10,6 +10,7 @@ Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or l
 
 ## Documentation
 
+- [Introduction](https://chartjs-plugin-datalabels.netlify.com)
 - [Installation](https://chartjs-plugin-datalabels.netlify.com/installation)
 - [Options](https://chartjs-plugin-datalabels.netlify.com/options)
 - [Positioning](https://chartjs-plugin-datalabels.netlify.com/positioning)
