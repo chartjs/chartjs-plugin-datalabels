@@ -5,7 +5,7 @@ This plugin currently supports the following label events:
 | **Name** | **Chart events<sup>1</sup>** | **Description**
 | ---- | ---- | ----
 | `enter` | `mousemove` | the mouse is moved over a label
-| `leave` | `mousemove` | the mouse is moved out of an label
+| `leave` | `mousemove` | the mouse is moved out of a label
 | `click` | `click` | the mouse's primary button is pressed and released on a label
 
 ::: tip NOTE

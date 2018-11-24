@@ -1,7 +1,6 @@
 'use strict';
 
 import Chart from 'chart.js';
-import HitBox from './hitbox';
 import utils from './utils';
 import positioners from './positioners';
 
@@ -61,40 +60,6 @@ function getPositioner(el) {
 		return positioners.rect;
 	}
 	return positioners.fallback;
-}
-
-function coordinates(el, model, rect) {
-	var point = model.positioner(el._view, model);
-	var vx = point.vx;
-	var vy = point.vy;
-
-	if (!vx && !vy) {
-		// if aligned center, we don't want to offset the center point
-		return {x: point.x, y: point.y};
-	}
-
-	var w = rect.w;
-	var h = rect.h;
-
-	// take in account the label rotation
-	var rotation = model.rotation;
-	var dx = Math.abs(w / 2 * Math.cos(rotation)) + Math.abs(h / 2 * Math.sin(rotation));
-	var dy = Math.abs(w / 2 * Math.sin(rotation)) + Math.abs(h / 2 * Math.cos(rotation));
-
-	// scale the unit vector (vx, vy) to get at least dx or dy equal to w or h respectively
-	// (else we would calculate the distance to the ellipse inscribed in the bounding rect)
-	var vs = 1 / Math.max(Math.abs(vx), Math.abs(vy));
-	dx *= vx * vs;
-	dy *= vy * vs;
-
-	// finally, include the explicit offset
-	dx += model.offset * vx;
-	dy += model.offset * vy;
-
-	return {
-		x: point.x + dx,
-		y: point.y + dy
-	};
 }
 
 function drawFrame(ctx, rect, model) {
@@ -171,10 +136,10 @@ function drawText(ctx, lines, rect, model) {
 var Label = function(config, ctx, el, index) {
 	var me = this;
 
-	me._hitbox = new HitBox();
 	me._config = config;
 	me._index = index;
 	me._model = null;
+	me._rects = null;
 	me._ctx = ctx;
 	me._el = el;
 };
@@ -183,7 +148,7 @@ helpers.extend(Label.prototype, {
 	/**
 	 * @private
 	 */
-	_modelize: function(lines, config, context) {
+	_modelize: function(display, lines, config, context) {
 		var me = this;
 		var index = me._index;
 		var resolve = helpers.options.resolve;
@@ -200,6 +165,7 @@ helpers.extend(Label.prototype, {
 			clip: resolve([config.clip, false], context, index),
 			clamp: resolve([config.clamp, false], context, index),
 			color: resolve([config.color, Chart.defaults.global.defaultFontColor], context, index),
+			display: display,
 			font: font,
 			lines: lines,
 			offset: resolve([config.offset, 0], context, index),
@@ -216,33 +182,56 @@ helpers.extend(Label.prototype, {
 	update: function(context) {
 		var me = this;
 		var model = null;
+		var rects = null;
 		var index = me._index;
 		var config = me._config;
 		var value, label, lines;
 
-		if (helpers.options.resolve([config.display, true], context, index)) {
+		// We first resolve the display option (separately) to avoid computing
+		// other options in case the label is hidden (i.e. display: false).
+		var display = helpers.options.resolve([config.display, true], context, index);
+
+		if (display) {
 			value = context.dataset.data[index];
 			label = helpers.valueOrDefault(helpers.callback(config.formatter, [value, context]), value);
 			lines = helpers.isNullOrUndef(label) ? [] : utils.toTextLines(label);
-			model = lines.length ? me._modelize(lines, config, context) : null;
+
+			if (lines.length) {
+				model = me._modelize(display, lines, config, context);
+				rects = boundingRects(model);
+			}
 		}
 
 		me._model = model;
+		me._rects = rects;
 	},
 
-	draw: function(chart) {
+	geometry: function() {
+		return this._rects ? this._rects.frame : {};
+	},
+
+	rotation: function() {
+		return this._model ? this._model.rotation : 0;
+	},
+
+	visible: function() {
+		return this._model && this._model.opacity;
+	},
+
+	model: function() {
+		return this._model;
+	},
+
+	draw: function(chart, center) {
 		var me = this;
 		var ctx = chart.ctx;
 		var model = me._model;
-		var rects, center, area;
+		var rects = me._rects;
+		var area;
 
-		if (!model || !model.opacity) {
+		if (!this.visible()) {
 			return;
 		}
-
-		rects = boundingRects(model);
-		center = coordinates(me._el, model, rects.frame);
-		me._hitbox.update(center, rects.frame, model.rotation);
 
 		ctx.save();
 
@@ -265,10 +254,6 @@ helpers.extend(Label.prototype, {
 		drawText(ctx, model.lines, rects.text, model);
 
 		ctx.restore();
-	},
-
-	contains: function(x, y) {
-		return this._hitbox.contains(x, y);
 	}
 });
 

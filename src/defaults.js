@@ -83,8 +83,10 @@ export default {
 	color: undefined,
 
 	/**
-	 * Whether to display labels global (boolean) or per data (function)
-	 * @member {Boolean|Array|Function}
+	 * When `false`, the label is hidden and associated options are not
+	 * calculated, else if `true`, the label is drawn. If `auto`, the
+	 * label is automatically hidden if it appears under another label.
+	 * @member {Boolean|String|Array|Function}
 	 * @default true
 	 */
 	display: true,

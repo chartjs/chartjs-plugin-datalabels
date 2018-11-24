@@ -99,8 +99,8 @@ The `textAlign` option only applies to [multiline labels](#multiline-labels) and
 
 Supported values for `textAlign`:
 
-- `start` (default): the text is left-aligned
-- `center`: the text is centered
-- `end`: the text is right-aligned
-- `left`: alias of `start`
-- `right`: alias of `right`
+- `'start'` (default): the text is left-aligned
+- `'center'`: the text is centered
+- `'end'`: the text is right-aligned
+- `'left'`: alias of `'start'`
+- `'right'`: alias of `'right'`

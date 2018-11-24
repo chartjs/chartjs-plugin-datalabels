@@ -10,33 +10,33 @@ Available options:
 
 | Name | Type | [Scriptable](#scriptable-options) | [Indexable](#indexable-options) |  Default
 | ---- | ---- | :----: | :----: | ----
-| [`align`](positioning.md#alignment-and-offset) | `Number/String` | Yes | Yes | `'center'`
+| [`align`](positioning.md#alignment-and-offset) | `Number`/`String` | Yes | Yes | `'center'`
 | [`anchor`](positioning.md#anchoring) | `String` | Yes | Yes | `'center'`
 | `backgroundColor` | [`Style`](#style-options)/`null` | Yes | Yes | `null`
 | `borderColor` | [`Style`](#style-options)/`null` | Yes | Yes | `null`
 | `borderRadius` | `Number` | Yes | Yes | `0`
 | `borderWidth` | `Number` | Yes | Yes | `0`
 | [`clamp`](positioning.md#clamping) | `Boolean` | Yes | Yes | `false`
-| [`clip`](positioning.md#visibility) | `Boolean` | Yes | Yes | `false`
+| [`clip`](positioning.md#clipping) | `Boolean` | Yes | Yes | `false`
 | `color` | [`Style`](#style-options) | Yes | Yes | `0`
-| [`display`](positioning.md#visibility) | `Boolean` | Yes | Yes | `true`
+| [`display`](positioning.md#visibility) | `Boolean`/`String` | Yes | Yes | `true`
 | `font` | `Object` | Yes | Yes | -
 | `font.family` | `String` | - | - | [`defaultFontFamily`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | `font.size` | `String` | - | - | [`defaultFontSize`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | `font.style` | `String` | - | - | [`defaultFontStyle`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | `font.weight` | `String` | - | - | `'normal'`
-| `font.lineHeight` | `Number/String` | - | - | `1.2`
+| [`font.lineHeight`](formatting.md#multiline-labels) | `Number`/`String` | - | - | `1.2`
 | [`listeners`](events.md) | `Object` | - | - | `{}`
 | [`offset`](positioning.md#alignment-and-offset) | `Number` | Yes | Yes | `4`
 | `opacity` | `Number` | Yes | Yes | `1`
-| `padding` | `Number/Object` | Yes | Yes | -
+| `padding` | `Number`/`Object` | Yes | Yes | -
 | `padding.top` | `Number` | - | - | `4`
 | `padding.right` | `Number` | - | - | `4`
 | `padding.bottom` | `Number` | - | - | `4`
 | `padding.left` | `Number` | - | - | `4`
 | [`rotation`](positioning.md#rotation) | `Number` | Yes | Yes | `0`
 | [`textAlign`](formatting.md#text-alignment) | `String` | Yes | Yes | `start`
-| [`formatter`](formatting.md#data-transformation) | `Function/null` | - | - | -
+| [`formatter`](formatting.md#data-transformation) | `Function`/`null` | - | - | -
 
 ## Scriptable Options
 

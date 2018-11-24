@@ -84,11 +84,12 @@ gulp.task('lint', function() {
 });
 
 gulp.task('docs', function(done) {
-	var script = require.resolve('vuepress/bin/vuepress.js');
-	var out = path.join(argv.output, argv.docsDir);
-	var mode = argv.watch ? 'dev' : 'build';
 	var cmd = '"' + process.execPath + '"';
-	var ps = exec([cmd, script, mode, 'docs', '--dest', out].join(' '));
+	var bin = require.resolve('vuepress/bin/vuepress.js');
+	var mode = argv.watch ? 'dev' : 'build';
+	var out = path.join(argv.output, argv.docsDir);
+	var args = argv.watch ? '' : '--dest ' + out;
+	var ps = exec([cmd, bin, mode, 'docs', args].join(' '));
 
 	ps.stdout.pipe(process.stdout);
 	ps.stderr.pipe(process.stderr);

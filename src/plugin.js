@@ -7,6 +7,7 @@
 import Chart from 'chart.js';
 import Label from './label';
 import utils from './utils';
+import layout from './layout';
 import defaults from './defaults';
 
 var helpers = Chart.helpers;
@@ -26,39 +27,6 @@ function configure(dataset, options) {
 	}
 
 	return helpers.merge(config, [options, override]);
-}
-
-function drawLabels(chart, datasetIndex) {
-	var meta = chart.getDatasetMeta(datasetIndex);
-	var elements = meta.data || [];
-	var ilen = elements.length;
-	var i, el, label;
-
-	for (i = 0; i < ilen; ++i) {
-		el = elements[i];
-		label = el[EXPANDO_KEY];
-		if (label) {
-			label.draw(chart);
-		}
-	}
-}
-
-function labelAtXY(chart, x, y) {
-	var items = chart[EXPANDO_KEY]._datasets;
-	var i, j, labels, label;
-
-	// Until we support z-index, let's hit test in the drawing reverse order
-	for (i = items.length - 1; i >= 0; --i) {
-		labels = items[i] || [];
-		for (j = labels.length - 1; j >= 0; --j) {
-			label = labels[j];
-			if (label.contains(x, y)) {
-				return {dataset: i, label: label};
-			}
-		}
-	}
-
-	return null;
 }
 
 function dispatchEvent(chart, listeners, target) {
@@ -113,7 +81,7 @@ function handleMoveEvents(chart, event) {
 	}
 
 	if (event.type === 'mousemove') {
-		target = labelAtXY(chart, event.x, event.y);
+		target = layout.lookup(expando._labels, event);
 	} else if (event.type !== 'mouseout') {
 		return;
 	}
@@ -124,8 +92,9 @@ function handleMoveEvents(chart, event) {
 }
 
 function handleClickEvents(chart, event) {
-	var handlers = chart[EXPANDO_KEY]._listeners.click;
-	var target = handlers && labelAtXY(chart, event.x, event.y);
+	var expando = chart[EXPANDO_KEY];
+	var handlers = expando._listeners.click;
+	var target = handlers && layout.lookup(expando._labels, event);
 	if (target) {
 		dispatchEvent(chart, handlers, target);
 	}
@@ -147,6 +116,7 @@ Chart.plugins.register({
 		expando._listened = false;
 		expando._listeners = {};     // {event-type: {dataset-index: function}}
 		expando._datasets = [];      // per dataset labels: [[Label]]
+		expando._labels = [];        // layouted labels: [Label]
 	},
 
 	afterDatasetUpdate: function(chart, args, options) {
@@ -195,13 +165,17 @@ Chart.plugins.register({
 		});
 	},
 
+	afterUpdate: function(chart, options) {
+		chart[EXPANDO_KEY]._labels = layout.prepare(
+			chart[EXPANDO_KEY]._datasets,
+			options);
+	},
+
 	// Draw labels on top of all dataset elements
 	// https://github.com/chartjs/chartjs-plugin-datalabels/issues/29
 	// https://github.com/chartjs/chartjs-plugin-datalabels/issues/32
 	afterDatasetsDraw: function(chart) {
-		for (var i = 0, ilen = chart.data.datasets.length; i < ilen; ++i) {
-			drawLabels(chart, i);
-		}
+		layout.draw(chart, chart[EXPANDO_KEY]._labels);
 	},
 
 	beforeEvent: function(chart, event) {
@@ -240,8 +214,11 @@ Chart.plugins.register({
 			}
 		}
 
-		if ((expando._dirty || updates.length) && !chart.animating) {
-			chart.render();
+		if (expando._dirty || updates.length) {
+			layout.update(expando._labels);
+			if (!chart.animating) {
+				chart.render();
+			}
 		}
 
 		delete expando._dirty;

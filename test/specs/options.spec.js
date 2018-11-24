@@ -3,6 +3,7 @@ var OPTIONS = [
 	'anchor',
 	'clamp',
 	'clip',
+	'display',
 	'opacity'
 ];
 
