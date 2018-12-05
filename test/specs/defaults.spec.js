@@ -8,6 +8,8 @@ describe('defaults.js', function() {
 		borderColor: null,
 		borderRadius: 0,
 		borderWidth: 0,
+		clamp: false,
+		clip: false,
 		color: undefined,
 		display: true,
 		font: {
@@ -17,6 +19,7 @@ describe('defaults.js', function() {
 			style: undefined,
 			weight: null
 		},
+		listeners: {},
 		offset: 4,
 		opacity: 1,
 		padding: {

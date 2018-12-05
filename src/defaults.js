@@ -60,13 +60,6 @@ export default {
 	borderWidth: 0,
 
 	/**
-	 * Clip the label drawing to the chart area.
-	 * @member {Boolean|Array|Function}
-	 * @default false (no clipping)
-	 */
-	clip: false,
-
-	/**
 	 * When `true`, the anchor position is calculated based on the visible
 	 * geometry of the associated element (i.e. part inside the chart area).
 	 * @see https://github.com/chartjs/chartjs-plugin-datalabels/issues/98
@@ -74,6 +67,13 @@ export default {
 	 * @default false
 	 */
 	clamp: false,
+
+	/**
+	 * Clip the label drawing to the chart area.
+	 * @member {Boolean|Array|Function}
+	 * @default false (no clipping)
+	 */
+	clip: false,
 
 	/**
 	 * The color used to draw the label text.
@@ -108,53 +108,6 @@ export default {
 		style: undefined,
 		weight: null
 	},
-
-	/**
-	 * The distance (in pixels) to pull the label away from the anchor point, the direction
-	 * being determined by the `align` value (only applicable if `align` is `start` or `end`).
-	 * @member {Number|Array|Function}
-	 * @default 4
-	 */
-	offset: 4,
-
-	/**
-	 * The label global opacity, including the text, background, borders, etc., specified as
-	 * a number between 0.0 (fully transparent) and 1.0 (fully opaque).
-	 * https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalAlpha
-	 * @member {Number|Array|Function}
-	 * @default 1
-	 */
-	opacity: 1,
-
-	/**
-	 * The padding (in pixels) to apply between the text and the surrounding frame.
-	 * @member {Number|Object|Array|Function}
-	 * @prop {Number} padding.top - Space above the text.
-	 * @prop {Number} padding.right - Space on the right of the text.
-	 * @prop {Number} padding.bottom - Space below the text.
-	 * @prop {Number} padding.left - Space on the left of the text.
-	 * @default 4 (all values)
-	 */
-	padding: {
-		top: 4,
-		right: 4,
-		bottom: 4,
-		left: 4
-	},
-
-	/**
-	 * Clockwise rotation of the label relative to its center.
-	 * @member {Number|Array|Function}
-	 * @default 0
-	 */
-	rotation: 0,
-
-	/**
-	 * Text alignment for multi-lines labels ('left'|'right'|'start'|'center'|'end').
-	 * @member {String|Array|Function}
-	 * @default 'start'
-	 */
-	textAlign: 'start',
 
 	/**
 	 * Allows to customize the label text by transforming input data.
@@ -205,5 +158,52 @@ export default {
 	 * @member {Object}
 	 * @default {}
 	 */
-	listeners: {}
+	listeners: {},
+
+	/**
+	 * The distance (in pixels) to pull the label away from the anchor point, the direction
+	 * being determined by the `align` value (only applicable if `align` is `start` or `end`).
+	 * @member {Number|Array|Function}
+	 * @default 4
+	 */
+	offset: 4,
+
+	/**
+	 * The label global opacity, including the text, background, borders, etc., specified as
+	 * a number between 0.0 (fully transparent) and 1.0 (fully opaque).
+	 * https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalAlpha
+	 * @member {Number|Array|Function}
+	 * @default 1
+	 */
+	opacity: 1,
+
+	/**
+	 * The padding (in pixels) to apply between the text and the surrounding frame.
+	 * @member {Number|Object|Array|Function}
+	 * @prop {Number} padding.top - Space above the text.
+	 * @prop {Number} padding.right - Space on the right of the text.
+	 * @prop {Number} padding.bottom - Space below the text.
+	 * @prop {Number} padding.left - Space on the left of the text.
+	 * @default 4 (all values)
+	 */
+	padding: {
+		top: 4,
+		right: 4,
+		bottom: 4,
+		left: 4
+	},
+
+	/**
+	 * Clockwise rotation of the label relative to its center.
+	 * @member {Number|Array|Function}
+	 * @default 0
+	 */
+	rotation: 0,
+
+	/**
+	 * Text alignment for multi-lines labels ('left'|'right'|'start'|'center'|'end').
+	 * @member {String|Array|Function}
+	 * @default 'start'
+	 */
+	textAlign: 'start'
 };

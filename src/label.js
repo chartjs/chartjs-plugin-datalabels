@@ -155,15 +155,15 @@ helpers.extend(Label.prototype, {
 		var font = utils.parseFont(resolve([config.font, {}], context, index));
 
 		return {
-			area: context.chart.chartArea,
 			align: resolve([config.align, 'center'], context, index),
 			anchor: resolve([config.anchor, 'center'], context, index),
+			area: context.chart.chartArea,
 			backgroundColor: resolve([config.backgroundColor, null], context, index),
 			borderColor: resolve([config.borderColor, null], context, index),
 			borderRadius: resolve([config.borderRadius, 0], context, index),
 			borderWidth: resolve([config.borderWidth, 0], context, index),
-			clip: resolve([config.clip, false], context, index),
 			clamp: resolve([config.clamp, false], context, index),
+			clip: resolve([config.clip, false], context, index),
 			color: resolve([config.color, Chart.defaults.global.defaultFontColor], context, index),
 			display: display,
 			font: font,
