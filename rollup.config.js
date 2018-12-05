@@ -16,6 +16,7 @@ module.exports = [
 	{
 		input: 'src/plugin.js',
 		output: {
+			name: 'ChartDataLabels',
 			file: `dist/${pkg.name}.js`,
 			banner: banner,
 			format: 'umd',
@@ -30,6 +31,7 @@ module.exports = [
 	{
 		input: 'src/plugin.js',
 		output: {
+			name: 'ChartDataLabels',
 			file: `dist/${pkg.name}.min.js`,
 			banner: banner,
 			format: 'umd',

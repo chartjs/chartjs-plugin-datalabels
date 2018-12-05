@@ -18,7 +18,7 @@ module.exports = {
         ],
         sidebar: [
             '/guide/',
-            '/guide/installation',
+            '/guide/getting-started',
             '/guide/options',
             '/guide/positioning',
             '/guide/formatting',

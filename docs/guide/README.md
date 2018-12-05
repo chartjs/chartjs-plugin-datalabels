@@ -12,7 +12,7 @@ This plugin doesn't provide any public API (except the plugin options), thus you
 
 ## Table of Contents
 
-* [Installation](installation.md)
+* [Getting Started](getting-started.md)
 * [Options](options.md)
 * [Positioning](positioning.md)
 * [Formating](formatting.md)

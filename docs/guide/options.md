@@ -1,12 +1,5 @@
 # Options
 
-The plugin options can be changed at 3 different levels and with the following priority:
-
-- per dataset: `dataset.datalabels.*`
-- per chart: `options.plugins.datalabels.*`
-- globally: `Chart.defaults.global.plugins.datalabels.*`
-
-Available options:
 
 | Name | Type | [Scriptable](#scriptable-options) | [Indexable](#indexable-options) |  Default
 | ---- | ---- | :----: | :----: | ----
@@ -37,6 +30,10 @@ Available options:
 | [`rotation`](positioning.md#rotation) | `Number` | Yes | Yes | `0`
 | [`textAlign`](formatting.md#text-alignment) | `String` | Yes | Yes | `start`
 | [`formatter`](formatting.md#data-transformation) | `Function`/`null` | - | - | -
+
+::: tip
+Refer to the [Configuration](getting-started.md#configuration) section if you don't know how to configure these options.
+:::
 
 ## Scriptable Options
 
