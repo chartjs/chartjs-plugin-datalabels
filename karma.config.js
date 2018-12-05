@@ -1,14 +1,21 @@
-var commonjs = require('rollup-plugin-commonjs');
-var istanbul = require('rollup-plugin-istanbul');
-var resolve = require('rollup-plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
+const istanbul = require('rollup-plugin-istanbul');
+const resolve = require('rollup-plugin-node-resolve');
+const builds = require('./rollup.config');
 
 module.exports = function(karma) {
-	var args = karma.args || {};
+	const args = karma.args || {};
+	const regex = args.watch ? /s\.js$/ : /s\.min\.js$/;
+	const build = builds.filter((v) => v.output.file.match(regex))[0];
+
+	if (args.watch) {
+		build.output.sourcemap = 'inline';
+	}
 
 	karma.set({
 		browsers: ['firefox'],
 		frameworks: ['jasmine'],
-		reporters: ['spec', 'kjhtml'].concat(args.coverage ? ['coverage'] : []),
+		reporters: ['spec', 'kjhtml'],
 		logLevel: karma.LOG_WARN,
 
 		files: [
@@ -35,16 +42,13 @@ module.exports = function(karma) {
 			'test/fixtures/**/*.js': ['fixtures'],
 			'test/specs/**/*.js': ['rollup'],
 			'test/index.js': ['rollup'],
-			'src/plugin.js': ['rollup']
+			'src/plugin.js': ['sources']
 		},
 
 		rollupPreprocessor: {
 			plugins: [
 				resolve(),
-				commonjs(),
-				istanbul({
-					include: 'src/**/*.js'
-				})
+				commonjs()
 			],
 			external: [
 				'chart.js'
@@ -66,15 +70,31 @@ module.exports = function(karma) {
 						name: 'fixture'
 					}
 				}
+			},
+			sources: {
+				base: 'rollup',
+				options: build
 			}
-		},
+		}
+	});
 
-		coverageReporter: {
+	if (args.coverage) {
+		karma.reporters.push('coverage');
+		karma.coverageReporter = {
 			dir: 'coverage/',
 			reporters: [
 				{type: 'html', subdir: 'html'},
 				{type: 'lcovonly', subdir: '.'}
 			]
-		}
-	});
+		};
+		[
+			karma.rollupPreprocessor,
+			karma.customPreprocessors.sources.options
+		].forEach((v) => {
+			(v.plugins || (v.plugins = [])).push(
+				istanbul({
+					include: 'src/**/*.js'
+				}));
+		});
+	}
 };

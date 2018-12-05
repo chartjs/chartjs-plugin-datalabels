@@ -1,24 +1,47 @@
+const terser = require('rollup-plugin-terser').terser;
 const pkg = require('./package.json');
 
 const banner = `/*!
  * @license
- * ` + pkg.name + `
+ * ${pkg.name}
  * http://chartjs.org/
- * Version: ` + pkg.version + `
+ * Version: ${pkg.version}
  *
- * Copyright ` + (new Date().getFullYear()) + ` Chart.js Contributors
+ * Copyright ${new Date().getFullYear()} Chart.js Contributors
  * Released under the MIT license
- * https://github.com/chartjs/` + pkg.name + `/blob/master/LICENSE.md
+ * https://github.com/chartjs/${pkg.name}/blob/master/LICENSE.md
  */`;
 
-export default {
-	input: 'src/plugin.js',
-	banner: banner,
-	format: 'umd',
-	external: [
-		'chart.js'
-	],
-	globals: {
-		'chart.js': 'Chart'
+module.exports = [
+	{
+		input: 'src/plugin.js',
+		output: {
+			file: `dist/${pkg.name}.js`,
+			banner: banner,
+			format: 'umd',
+			globals: {
+				'chart.js': 'Chart'
+			}
+		},
+		external: [
+			'chart.js'
+		]
+	},
+	{
+		input: 'src/plugin.js',
+		output: {
+			file: `dist/${pkg.name}.min.js`,
+			banner: banner,
+			format: 'umd',
+			globals: {
+				'chart.js': 'Chart'
+			}
+		},
+		plugins: [
+			terser({output: {comments: 'some'}})
+		],
+		external: [
+			'chart.js'
+		]
 	}
-};
+];

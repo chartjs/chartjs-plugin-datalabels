@@ -3,17 +3,12 @@
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var file = require('gulp-file');
-var rename = require('gulp-rename');
 var replace = require('gulp-replace');
 var streamify = require('gulp-streamify');
-var uglify = require('gulp-uglify');
-var log = require('fancy-log');
 var zip = require('gulp-zip');
 var karma = require('karma');
 var merge = require('merge2');
 var path = require('path');
-var rollup = require('rollup-stream');
-var source = require('vinyl-source-stream');
 var {exec} = require('child_process');
 var pkg = require('./package.json');
 
@@ -24,31 +19,20 @@ var argv = require('yargs')
 	.option('www-dir', {default: 'www'})
 	.argv;
 
-function watch(glob, task, done) {
-	log('Waiting for changes...');
-	return gulp.watch(glob, task)
-		.on('end', done)
-		.on('change', function(e) {
-			log('Changes detected for', path.relative('.', e.path), '(' + e.type + ')');
-		});
+function run(bin, args, done) {
+	var exe = '"' + process.execPath + '"';
+	var src = require.resolve(bin);
+	var ps = exec([exe, src].concat(args || []).join(' '));
+
+	ps.stdout.pipe(process.stdout);
+	ps.stderr.pipe(process.stderr);
+	ps.on('close', () => done());
 }
 
 gulp.task('default', ['build']);
 
 gulp.task('build', function(done) {
-	var out = argv.output;
-	var task = function() {
-		return rollup('rollup.config.js')
-			.pipe(source(pkg.name + '.js'))
-			.pipe(gulp.dest(out))
-			.pipe(rename(pkg.name + '.min.js'))
-			.pipe(streamify(uglify({output: {comments: 'some'}})))
-			.pipe(gulp.dest(out));
-	};
-
-	return argv.watch
-		? [task(), watch('src/**/*.js', task, done)]
-		: task();
+	run('rollup/bin/rollup', ['-c', argv.watch ? '--watch' : ''], done);
 });
 
 gulp.task('test', function(done) {
@@ -57,9 +41,8 @@ gulp.task('test', function(done) {
 		singleRun: !argv.watch,
 		args: {
 			coverage: !!argv.coverage,
-			inputs: argv.inputs
-				? argv.inputs.split(';')
-				: ['test/specs/**/*.js']
+			inputs: (argv.inputs || 'test/specs/**/*.js').split(';'),
+			watch: argv.watch
 		}
 	},
 	function(error) {
@@ -84,16 +67,10 @@ gulp.task('lint', function() {
 });
 
 gulp.task('docs', function(done) {
-	var cmd = '"' + process.execPath + '"';
-	var bin = require.resolve('vuepress/bin/vuepress.js');
 	var mode = argv.watch ? 'dev' : 'build';
 	var out = path.join(argv.output, argv.docsDir);
 	var args = argv.watch ? '' : '--dest ' + out;
-	var ps = exec([cmd, bin, mode, 'docs', args].join(' '));
-
-	ps.stdout.pipe(process.stdout);
-	ps.stderr.pipe(process.stderr);
-	ps.on('close', () => done());
+	run('vuepress/bin/vuepress.js', [mode, 'docs', args], done);
 });
 
 gulp.task('samples', function() {
