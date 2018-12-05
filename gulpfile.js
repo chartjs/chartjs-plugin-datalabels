@@ -29,8 +29,6 @@ function run(bin, args, done) {
 	ps.on('close', () => done());
 }
 
-gulp.task('default', ['build']);
-
 gulp.task('build', function(done) {
 	run('rollup/bin/rollup', ['-c', argv.watch ? '--watch' : ''], done);
 });
@@ -82,7 +80,7 @@ gulp.task('samples', function() {
 		.pipe(gulp.dest(out));
 });
 
-gulp.task('package', ['build', 'samples'], function() {
+gulp.task('package', gulp.series(gulp.parallel('build', 'samples'), function() {
 	var out = argv.output;
 	var streams = merge(
 		gulp.src(path.join(out, argv.samplesDir, '**/*'), {base: out}),
@@ -92,9 +90,9 @@ gulp.task('package', ['build', 'samples'], function() {
 	return streams
 		.pipe(zip(pkg.name + '.zip'))
 		.pipe(gulp.dest(out));
-});
+}));
 
-gulp.task('netlify', ['build', 'docs', 'samples'], function() {
+gulp.task('netlify', gulp.series(gulp.parallel('build', 'docs', 'samples'), function() {
 	var root = argv.output;
 	var out = path.join(root, argv.wwwDir);
 	var streams = merge(
@@ -104,7 +102,7 @@ gulp.task('netlify', ['build', 'docs', 'samples'], function() {
 	);
 
 	return streams.pipe(gulp.dest(out));
-});
+}));
 
 gulp.task('bower', function() {
 	var json = JSON.stringify({
@@ -120,11 +118,4 @@ gulp.task('bower', function() {
 		.pipe(gulp.dest('./'));
 });
 
-// Workaround: Gulp process does not end because of karma/node process hanging
-// https://github.com/sindresorhus/gulp-mocha/issues/1#issuecomment-55710159
-// https://github.com/karma-runner/karma/issues/2867
-gulp.doneCallback = function(err) {
-	// eslint-disable-next-line no-process-exit
-	process.exit(err ? 1 : 0);
-};
-
+gulp.task('default', gulp.parallel('build'));

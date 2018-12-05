@@ -2,14 +2,10 @@ const terser = require('rollup-plugin-terser').terser;
 const pkg = require('./package.json');
 
 const banner = `/*!
- * @license
- * ${pkg.name}
- * http://chartjs.org/
- * Version: ${pkg.version}
- *
- * Copyright ${new Date().getFullYear()} Chart.js Contributors
- * Released under the MIT license
- * https://github.com/chartjs/${pkg.name}/blob/master/LICENSE.md
+ * ${pkg.name} v${pkg.version}
+ * ${pkg.homepage}
+ * (c) ${new Date().getFullYear()} Chart.js Contributors
+ * Released under the ${pkg.license} license
  */`;
 
 module.exports = [
@@ -34,7 +30,6 @@ module.exports = [
 		output: {
 			name: 'ChartDataLabels',
 			file: `dist/${pkg.name}.min.js`,
-			banner: banner,
 			format: 'umd',
 			indent: false,
 			globals: {
@@ -42,7 +37,11 @@ module.exports = [
 			}
 		},
 		plugins: [
-			terser({output: {comments: 'some'}})
+			terser({
+				output: {
+					preamble: banner
+				}
+			})
 		],
 		external: [
 			'chart.js'

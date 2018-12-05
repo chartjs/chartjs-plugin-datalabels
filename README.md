@@ -1,13 +1,13 @@
-<div align="center">
+<p align="center">
     <img src="docs/.vuepress/public/hero-title.png">
-</div>
+</p>
 
-<div align="center">
-    <a href="https://github.com/chartjs/chartjs-plugin-datalabels/releases/latest"><img src="https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Downloads"></a>
+<p align="center">
+    <a href="https://chartjs-plugin-datalabels.netlify.com/guide/getting-started.html"><img src="https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Downloads"></a>
     <a href="https://travis-ci.org/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Builds"></a>
     <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/c/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Coverage"></a>
     <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/maintainability/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Maintainability"></a>
-</div>
+</p>
 
 ## Overview
 
