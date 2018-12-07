@@ -1,5 +1,6 @@
 # Options
 
+The following table lists all available options:
 
 | Name | Type | [Scriptable](#scriptable-options) | [Indexable](#indexable-options) |  Default
 | ---- | ---- | :----: | :----: | ----
@@ -11,7 +12,7 @@
 | `borderWidth` | `Number` | Yes | Yes | `0`
 | [`clamp`](positioning.md#clamping) | `Boolean` | Yes | Yes | `false`
 | [`clip`](positioning.md#clipping) | `Boolean` | Yes | Yes | `false`
-| `color` | [`Style`](#style-options) | Yes | Yes | `0`
+| `color` | [`Style`](#style-options) | Yes | Yes | [`defaultFontColor`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | [`display`](positioning.md#visibility) | `Boolean`/`String` | Yes | Yes | `true`
 | `font` | `Object` | Yes | Yes | -
 | `font.family` | `String` | - | - | [`defaultFontFamily`](http://www.chartjs.org/docs/latest/general/fonts.html)
@@ -19,6 +20,7 @@
 | `font.style` | `String` | - | - | [`defaultFontStyle`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | `font.weight` | `String` | - | - | `'normal'`
 | [`font.lineHeight`](formatting.md#multiline-labels) | `Number`/`String` | - | - | `1.2`
+| [`formatter`](formatting.md#data-transformation) | `Function`/`null` | - | - | -
 | [`listeners`](events.md) | `Object` | - | - | `{}`
 | [`offset`](positioning.md#alignment-and-offset) | `Number` | Yes | Yes | `4`
 | `opacity` | `Number` | Yes | Yes | `1`
@@ -28,8 +30,11 @@
 | `padding.bottom` | `Number` | - | - | `4`
 | `padding.left` | `Number` | - | - | `4`
 | [`rotation`](positioning.md#rotation) | `Number` | Yes | Yes | `0`
-| [`textAlign`](formatting.md#text-alignment) | `String` | Yes | Yes | `start`
-| [`formatter`](formatting.md#data-transformation) | `Function`/`null` | - | - | -
+| [`textAlign`](formatting.md#text-alignment) | `String` | Yes | Yes | `'start'`
+| `textStrokeColor` | [`Style`](#style-options) | Yes | Yes | `color`
+| `textStrokeWidth` | `Number` | Yes | Yes | `0`
+| `textShadowBlur` | `Number` | Yes | Yes | `0`
+| `textShadowColor` | [`Color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) | Yes | Yes | `color`
 
 ::: tip
 Refer to the [Configuration](getting-started.md#configuration) section if you don't know how to configure these options.

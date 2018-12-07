@@ -205,5 +205,34 @@ export default {
 	 * @member {String|Array|Function}
 	 * @default 'start'
 	 */
-	textAlign: 'start'
+	textAlign: 'start',
+
+	/**
+	 * The stroke color used to draw the label text. If this options is
+	 * not set (default), the value of the `color` option will be used.
+	 * @member {String|Array|Function|null}
+	 * @default color
+	 */
+	textStrokeColor: undefined,
+
+	/**
+	 * The width of the stroke for the label text.
+	 * @member {Number|Array|Function}
+	 * @default 0 (no stroke)
+	 */
+	textStrokeWidth: 0,
+
+	/**
+	 * The amount of blur applied to shadow under the label text.
+	 * @member {Number|Array|Function}
+	 * @default 0 (no shadow)
+	 */
+	textShadowBlur: 0,
+
+	/**
+	 * The color of the shadow under the label text.
+	 * @member {String|Array|Function|null}
+	 * @default `color`
+	 */
+	textShadowColor: undefined,
 };

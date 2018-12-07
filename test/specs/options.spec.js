@@ -1,14 +1,18 @@
-var OPTIONS = [
-	'align',
-	'anchor',
-	'clamp',
-	'clip',
-	'display',
-	'opacity'
-];
+var OPTIONS = {
+	align: {auto: true},
+	anchor: {auto: true},
+	clamp: {auto: true},
+	clip: {auto: true},
+	display: {auto: true},
+	opacity: {auto: true},
+	textStrokeColor: {auto: false},
+	textStrokeWidth: {auto: false},
+	textShadowBlur: {auto: false},
+	textShadowColor: {auto: false},
+};
 
 describe('options (scriptable)', function() {
-	OPTIONS.forEach(function(key) {
+	Object.keys(OPTIONS).forEach(function(key) {
 		it(key + ' should be called with a valid context', function() {
 			var options = {};
 			options[key] = function() {};
@@ -49,8 +53,10 @@ describe('options (scriptable)', function() {
 	});
 });
 
-OPTIONS.forEach(function(key) {
-	describe(`options.${key}`, function() {
-		describe('auto', jasmine.fixture.specs(`options.${key}`));
-	});
+Object.keys(OPTIONS).forEach(function(key) {
+	if (OPTIONS[key].auto) {
+		describe(`options.${key}`, function() {
+			describe('auto', jasmine.fixture.specs(`options.${key}`));
+		});
+	}
 });

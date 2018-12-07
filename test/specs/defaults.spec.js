@@ -30,6 +30,10 @@ describe('defaults.js', function() {
 		},
 		rotation: 0,
 		textAlign: 'start',
+		textStrokeColor: undefined,
+		textStrokeWidth: 0,
+		textShadowBlur: 0,
+		textShadowColor: undefined,
 		// can't test formatter?!
 	};
 

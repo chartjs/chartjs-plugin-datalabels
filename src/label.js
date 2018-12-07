@@ -96,40 +96,93 @@ function drawFrame(ctx, rect, model) {
 	}
 }
 
+function textGeometry(rect, align, font) {
+	var h = font.lineHeight;
+	var w = rect.w;
+	var x = rect.x;
+	var y = rect.y + h / 2;
+
+	if (align === 'center') {
+		x += w / 2;
+	} else if (align === 'end' || align === 'right') {
+		x += w;
+	}
+
+	return {
+		h: h,
+		w: w,
+		x: x,
+		y: y
+	};
+}
+
+function drawTextLine(ctx, text, cfg) {
+	var shadow = ctx.shadowBlur;
+	var stroked = cfg.stroked;
+	var x = rasterize(cfg.x);
+	var y = rasterize(cfg.y);
+	var w = rasterize(cfg.w);
+
+	if (stroked) {
+		ctx.strokeText(text, x, y, w);
+	}
+
+	if (cfg.filled) {
+		if (shadow && stroked) {
+			// Prevent drawing shadow on both the text stroke and fill, so
+			// if the text is stroked, remove the shadow for the text fill.
+			ctx.shadowBlur = 0;
+		}
+
+		ctx.fillText(text, x, y, w);
+
+		if (shadow && stroked) {
+			ctx.shadowBlur = shadow;
+		}
+	}
+}
+
 function drawText(ctx, lines, rect, model) {
 	var align = model.textAlign;
-	var font = model.font;
-	var lh = font.lineHeight;
 	var color = model.color;
+	var filled = !!color;
+	var font = model.font;
 	var ilen = lines.length;
-	var x, y, i;
+	var strokeColor = model.textStrokeColor;
+	var strokeWidth = model.textStrokeWidth;
+	var stroked = strokeColor && strokeWidth;
+	var i;
 
-	if (!ilen || !color) {
+	if (!ilen || (!filled && !stroked)) {
 		return;
 	}
 
-	x = rect.x;
-	y = rect.y + lh / 2;
+	// Adjust coordinates based on text alignment and line height
+	rect = textGeometry(rect, align, font);
 
-	if (align === 'center') {
-		x += rect.w / 2;
-	} else if (align === 'end' || align === 'right') {
-		x += rect.w;
-	}
-
-	ctx.font = model.font.string;
-	ctx.fillStyle = color;
+	ctx.font = font.string;
 	ctx.textAlign = align;
 	ctx.textBaseline = 'middle';
+	ctx.shadowBlur = model.textShadowBlur;
+	ctx.shadowColor = model.textShadowColor;
 
-	for (i = 0; i < ilen; ++i) {
-		ctx.fillText(
-			lines[i],
-			rasterize(x),
-			rasterize(y),
-			rasterize(rect.w));
+	if (filled) {
+		ctx.fillStyle = color;
+	}
+	if (stroked) {
+		ctx.lineJoin = 'round';
+		ctx.lineWidth = strokeWidth;
+		ctx.strokeStyle = strokeColor;
+	}
 
-		y += lh;
+	for (i = 0, ilen = lines.length; i < ilen; ++i) {
+		drawTextLine(ctx, lines[i], {
+			stroked: stroked,
+			filled: filled,
+			w: rect.w,
+			x: rect.x,
+			y: rect.y + rect.h * i
+		});
 	}
 }
 
@@ -153,6 +206,7 @@ helpers.extend(Label.prototype, {
 		var index = me._index;
 		var resolve = helpers.options.resolve;
 		var font = utils.parseFont(resolve([config.font, {}], context, index));
+		var color = resolve([config.color, Chart.defaults.global.defaultFontColor], context, index);
 
 		return {
 			align: resolve([config.align, 'center'], context, index),
@@ -164,7 +218,7 @@ helpers.extend(Label.prototype, {
 			borderWidth: resolve([config.borderWidth, 0], context, index),
 			clamp: resolve([config.clamp, false], context, index),
 			clip: resolve([config.clip, false], context, index),
-			color: resolve([config.color, Chart.defaults.global.defaultFontColor], context, index),
+			color: color,
 			display: display,
 			font: font,
 			lines: lines,
@@ -175,7 +229,11 @@ helpers.extend(Label.prototype, {
 			positioner: getPositioner(me._el),
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
 			size: utils.textSize(me._ctx, lines, font),
-			textAlign: resolve([config.textAlign, 'start'], context, index)
+			textAlign: resolve([config.textAlign, 'start'], context, index),
+			textShadowBlur: resolve([config.textShadowBlur, 0], context, index),
+			textShadowColor: resolve([config.textShadowColor, color], context, index),
+			textStrokeColor: resolve([config.textStrokeColor, color], context, index),
+			textStrokeWidth: resolve([config.textStrokeWidth, 0], context, index)
 		};
 	},
 
