@@ -1,8 +1,15 @@
 <div align="center">
-    <img src="docs/assets/banner.png"/>
+    <img src="docs/.vuepress/public/hero-title.png">
 </div>
 
-[![github](https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://github.com/chartjs/chartjs-plugin-datalabels/releases/latest) [![travis](https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://travis-ci.org/chartjs/chartjs-plugin-datalabels) [![codeclimate](https://img.shields.io/codeclimate/c/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels) [![codeclimate](https://img.shields.io/codeclimate/maintainability/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels)
+<div align="center">
+    <a href="https://github.com/chartjs/chartjs-plugin-datalabels/releases/latest"><img src="https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Downloads"></a>
+    <a href="https://travis-ci.org/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Builds"></a>
+    <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/c/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Coverage"></a>
+    <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/maintainability/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Maintainability"></a>
+</div>
+
+## Overview
 
 Highly customizable [Chart.js](http://www.chartjs.org/) plugin that displays labels on data for any type of charts.
 
@@ -10,12 +17,12 @@ Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or l
 
 ## Documentation
 
-- [Introduction](https://chartjs-plugin-datalabels.netlify.com)
-- [Installation](https://chartjs-plugin-datalabels.netlify.com/installation)
-- [Options](https://chartjs-plugin-datalabels.netlify.com/options)
-- [Positioning](https://chartjs-plugin-datalabels.netlify.com/positioning)
-- [Formating](https://chartjs-plugin-datalabels.netlify.com/formatting)
-- [Events](https://chartjs-plugin-datalabels.netlify.com/events)
+- [Introduction](https://chartjs-plugin-datalabels.netlify.com/guide/)
+- [Getting Started](https://chartjs-plugin-datalabels.netlify.com/guide/getting-started.html)
+- [Options](https://chartjs-plugin-datalabels.netlify.com/guide/options.html)
+- [Positioning](https://chartjs-plugin-datalabels.netlify.com/guide/positioning.html)
+- [Formating](https://chartjs-plugin-datalabels.netlify.com/guide/formatting.html)
+- [Events](https://chartjs-plugin-datalabels.netlify.com/guide/events.html)
 - [Samples](https://chartjs-plugin-datalabels.netlify.com/samples/)
 
 ## Development
@@ -32,7 +39,8 @@ The following commands will then be available from the repository root:
     > gulp test --coverage  // run unit tests and generate code coverage
     > gulp lint             // perform code linting
     > gulp package          // create an archive with dist files and samples
-    > gulp docs             // generate VuePress documentation (`dist/docs`)
+    > gulp docs             // generate documentation (`dist/docs`)
+    > gulp docs --watch     // generate documentation and watch for changes
 
 ## License
 
