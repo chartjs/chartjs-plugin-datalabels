@@ -11,6 +11,10 @@ module.exports = {
         lastUpdated: 'Last Updated',
         editLinks: true,
         docsDir: 'docs',
+        algolia: {
+            apiKey: '7224f458f773f7cf4cbbc4c53621d30c',
+            indexName: 'chartjs-plugin-datalabels'
+        },
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Guide', link: '/guide/' },
