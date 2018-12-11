@@ -20,6 +20,7 @@ module.exports = [
 			file: `dist/${pkg.name}.js`,
 			banner: banner,
 			format: 'umd',
+			indent: false,
 			globals: {
 				'chart.js': 'Chart'
 			}
@@ -35,6 +36,7 @@ module.exports = [
 			file: `dist/${pkg.name}.min.js`,
 			banner: banner,
 			format: 'umd',
+			indent: false,
 			globals: {
 				'chart.js': 'Chart'
 			}
