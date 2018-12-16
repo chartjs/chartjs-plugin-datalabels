@@ -1,4 +1,4 @@
-'use strict';
+/* global Promise */
 
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
@@ -19,21 +19,29 @@ var argv = require('yargs')
 	.option('www-dir', {default: 'www'})
 	.argv;
 
-function run(bin, args, done) {
-	var exe = '"' + process.execPath + '"';
-	var src = require.resolve(bin);
-	var ps = exec([exe, src].concat(args || []).join(' '));
+function run(bin, args) {
+	return new Promise((resolve, reject) => {
+		var exe = '"' + process.execPath + '"';
+		var src = require.resolve(bin);
+		var ps = exec([exe, src].concat(args || []).join(' '));
 
-	ps.stdout.pipe(process.stdout);
-	ps.stderr.pipe(process.stderr);
-	ps.on('close', () => done());
+		ps.stdout.pipe(process.stdout);
+		ps.stderr.pipe(process.stderr);
+		ps.on('close', (error) => {
+			if (error) {
+				reject(error);
+			} else {
+				resolve();
+			}
+		});
+	});
 }
 
-gulp.task('build', function(done) {
-	run('rollup/bin/rollup', ['-c', argv.watch ? '--watch' : ''], done);
+gulp.task('build', function() {
+	return run('rollup/bin/rollup', ['-c', argv.watch ? '--watch' : '']);
 });
 
-gulp.task('test', function(done) {
+gulp.task('test-unit', function(done) {
 	new karma.Server({
 		configFile: path.join(__dirname, 'karma.config.js'),
 		singleRun: !argv.watch,
@@ -50,6 +58,12 @@ gulp.task('test', function(done) {
 	}).start();
 });
 
+gulp.task('test-types', function() {
+	return run('typescript/bin/tsc', ['-p', 'types/test/']);
+});
+
+gulp.task('test', gulp.parallel('test-unit', 'test-types'));
+
 gulp.task('lint', function() {
 	var files = [
 		'samples/**/*.js',
@@ -64,11 +78,11 @@ gulp.task('lint', function() {
 		.pipe(eslint.failAfterError());
 });
 
-gulp.task('docs', function(done) {
+gulp.task('docs', function() {
 	var mode = argv.watch ? 'dev' : 'build';
 	var out = path.join(argv.output, argv.docsDir);
 	var args = argv.watch ? '' : '--dest ' + out;
-	run('vuepress/bin/vuepress.js', [mode, 'docs', args], done);
+	return run('vuepress/bin/vuepress.js', [mode, 'docs', args]);
 });
 
 gulp.task('samples', function() {

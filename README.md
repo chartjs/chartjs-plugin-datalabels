@@ -35,8 +35,9 @@ The following commands will then be available from the repository root:
 
     > gulp build            // build dist files
     > gulp build --watch    // build and watch for changes
-    > gulp test             // run unit tests
-    > gulp test --coverage  // run unit tests and generate code coverage
+    > gulp test             // run all tests
+    > gulp test --watch     // run all tests and watch for changes
+    > gulp test --coverage  // run all tests and generate code coverage
     > gulp lint             // perform code linting
     > gulp package          // create an archive with dist files and samples
     > gulp docs             // generate documentation (`dist/docs`)

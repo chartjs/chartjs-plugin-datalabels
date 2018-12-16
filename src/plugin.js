@@ -13,8 +13,6 @@ import defaults from './defaults';
 var helpers = Chart.helpers;
 var EXPANDO_KEY = '$datalabels';
 
-Chart.defaults.global.plugins.datalabels = defaults;
-
 function configure(dataset, options) {
 	var override = dataset.datalabels;
 	var config = {};

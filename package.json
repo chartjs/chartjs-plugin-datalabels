@@ -4,7 +4,8 @@
   "description": "Chart.js plugin to display labels on data elements",
   "version": "0.5.0",
   "license": "MIT",
-  "main": "dist/chartjs-plugin-datalabels.js",
+  "main": "./dist/chartjs-plugin-datalabels.js",
+  "types": "./types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/chartjs/chartjs-plugin-datalabels.git"
@@ -17,9 +18,11 @@
   "files": [
     "bower.json",
     "dist/*.js",
-    "src"
+    "src/*.js",
+    "types/*.d.ts"
   ],
   "devDependencies": {
+    "@types/chart.js": "^2.7.42",
     "chart.js": "2.7.2",
     "eslint-config-chartjs": "^0.1.0",
     "gulp": "^4.0.0",
@@ -43,6 +46,7 @@
     "rollup-plugin-istanbul": "^2.0.1",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-terser": "^4.0.3",
+    "typescript": "^3.2.4",
     "vuepress": "^0.14.8",
     "yargs": "^12.0.5"
   },
