@@ -4,36 +4,36 @@ The following table lists all available options:
 
 | Name | Type | [Scriptable](#scriptable-options) | [Indexable](#indexable-options) |  Default
 | ---- | ---- | :----: | :----: | ----
-| [`align`](positioning.md#alignment-and-offset) | `Number`/`String` | Yes | Yes | `'center'`
-| [`anchor`](positioning.md#anchoring) | `String` | Yes | Yes | `'center'`
-| `backgroundColor` | [`Style`](#style-options)/`null` | Yes | Yes | `null`
-| `borderColor` | [`Style`](#style-options)/`null` | Yes | Yes | `null`
-| `borderRadius` | `Number` | Yes | Yes | `0`
-| `borderWidth` | `Number` | Yes | Yes | `0`
-| [`clamp`](positioning.md#clamping) | `Boolean` | Yes | Yes | `false`
-| [`clip`](positioning.md#clipping) | `Boolean` | Yes | Yes | `false`
+| [`align`](positioning.md#alignment-and-offset) | `number` \| `string` | Yes | Yes | `'center'`
+| [`anchor`](positioning.md#anchoring) | `string` | Yes | Yes | `'center'`
+| `backgroundColor` | [`Style`](#style-options) \| `null` | Yes | Yes | `null`
+| `borderColor` | [`Style`](#style-options) \| `null` | Yes | Yes | `null`
+| `borderRadius` | `number` | Yes | Yes | `0`
+| `borderWidth` | `number` | Yes | Yes | `0`
+| [`clamp`](positioning.md#clamping) | `boolean` | Yes | Yes | `false`
+| [`clip`](positioning.md#clipping) | `boolean` | Yes | Yes | `false`
 | `color` | [`Style`](#style-options) | Yes | Yes | [`defaultFontColor`](http://www.chartjs.org/docs/latest/general/fonts.html)
-| [`display`](positioning.md#visibility) | `Boolean`/`String` | Yes | Yes | `true`
-| `font` | `Object` | Yes | Yes | -
-| `font.family` | `String` | - | - | [`defaultFontFamily`](http://www.chartjs.org/docs/latest/general/fonts.html)
-| `font.size` | `String` | - | - | [`defaultFontSize`](http://www.chartjs.org/docs/latest/general/fonts.html)
-| `font.style` | `String` | - | - | [`defaultFontStyle`](http://www.chartjs.org/docs/latest/general/fonts.html)
-| `font.weight` | `String` | - | - | `'normal'`
-| [`font.lineHeight`](formatting.md#multiline-labels) | `Number`/`String` | - | - | `1.2`
-| [`formatter`](formatting.md#data-transformation) | `Function`/`null` | - | - | -
-| [`listeners`](events.md) | `Object` | - | - | `{}`
-| [`offset`](positioning.md#alignment-and-offset) | `Number` | Yes | Yes | `4`
-| `opacity` | `Number` | Yes | Yes | `1`
-| `padding` | `Number`/`Object` | Yes | Yes | -
-| `padding.top` | `Number` | - | - | `4`
-| `padding.right` | `Number` | - | - | `4`
-| `padding.bottom` | `Number` | - | - | `4`
-| `padding.left` | `Number` | - | - | `4`
-| [`rotation`](positioning.md#rotation) | `Number` | Yes | Yes | `0`
-| [`textAlign`](formatting.md#text-alignment) | `String` | Yes | Yes | `'start'`
+| [`display`](positioning.md#visibility) | `boolean` \| `string` | Yes | Yes | `true`
+| `font` | `object` | Yes | Yes | -
+| `font.family` | `string` | - | - | [`defaultFontFamily`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `font.size` | `string` | - | - | [`defaultFontSize`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `font.style` | `string` | - | - | [`defaultFontStyle`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `font.weight` | `string` | - | - | `'normal'`
+| [`font.lineHeight`](formatting.md#multiline-labels) | `number` \| `string` | - | - | `1.2`
+| [`formatter`](formatting.md#data-transformation) | `function` \| `null` | - | - | -
+| [`listeners`](events.md) | `object` | - | - | `{}`
+| [`offset`](positioning.md#alignment-and-offset) | `number` | Yes | Yes | `4`
+| `opacity` | `number` | Yes | Yes | `1`
+| `padding` | `number` \| `object` | Yes | Yes | -
+| `padding.top` | `number` | - | - | `4`
+| `padding.right` | `number` | - | - | `4`
+| `padding.bottom` | `number` | - | - | `4`
+| `padding.left` | `number` | - | - | `4`
+| [`rotation`](positioning.md#rotation) | `number` | Yes | Yes | `0`
+| [`textAlign`](formatting.md#text-alignment) | `string` | Yes | Yes | `'start'`
 | `textStrokeColor` | [`Style`](#style-options) | Yes | Yes | `color`
-| `textStrokeWidth` | `Number` | Yes | Yes | `0`
-| `textShadowBlur` | `Number` | Yes | Yes | `0`
+| `textStrokeWidth` | `number` | Yes | Yes | `0`
+| `textShadowBlur` | `number` | Yes | Yes | `0`
 | `textShadowColor` | [`Color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) | Yes | Yes | `color`
 
 ::: tip
