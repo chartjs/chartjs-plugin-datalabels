@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /hero.png
+heroImage: /hero.svg
 actionText: Get Started →
 actionLink: /guide/
 footer: MIT Licensed | Copyright © 2018 Chart.js Contributors

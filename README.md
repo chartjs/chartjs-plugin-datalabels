@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="docs/.vuepress/public/hero-title.png">
+    <img src="docs/.vuepress/public/hero-title.svg">
 </p>
 
 <p align="center">
