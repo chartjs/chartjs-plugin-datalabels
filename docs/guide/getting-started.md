@@ -56,7 +56,7 @@ Once imported, the plugin is available under the global property `ChartDataLabel
 
 ```javascript
 import Chart from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 ```
 
 ## Registration
