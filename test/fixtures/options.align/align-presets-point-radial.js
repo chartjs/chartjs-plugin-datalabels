@@ -36,7 +36,7 @@ export default {
 		},
 		options: {
 			layout: {
-				padding: 24
+				padding: 32
 			},
 			elements: {
 				line: {

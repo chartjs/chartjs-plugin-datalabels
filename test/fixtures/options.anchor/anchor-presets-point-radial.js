@@ -26,7 +26,7 @@ export default {
 		},
 		options: {
 			layout: {
-				padding: 16
+				padding: 32
 			},
 			elements: {
 				line: {
