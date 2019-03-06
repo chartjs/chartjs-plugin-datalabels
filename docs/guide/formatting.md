@@ -103,4 +103,4 @@ Supported values for `textAlign`:
 - `'center'`: the text is centered
 - `'end'`: the text is right-aligned
 - `'left'`: alias of `'start'`
-- `'right'`: alias of `'right'`
+- `'right'`: alias of `'end'`

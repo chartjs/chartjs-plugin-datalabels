@@ -6,7 +6,7 @@
     <a href="https://chartjs-plugin-datalabels.netlify.com/guide/getting-started.html"><img src="https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Downloads"></a>
     <a href="https://travis-ci.org/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Builds"></a>
     <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/c/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Coverage"></a>
-    <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/maintainability/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Maintainability"></a>
+    <a href="https://github.com/chartjs/awesome"><img src="https://awesome.re/badge-flat2.svg" alt="Awesome"></a>
 </p>
 
 ## Overview
@@ -21,7 +21,7 @@ Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or l
 - [Getting Started](https://chartjs-plugin-datalabels.netlify.com/guide/getting-started.html)
 - [Options](https://chartjs-plugin-datalabels.netlify.com/guide/options.html)
 - [Positioning](https://chartjs-plugin-datalabels.netlify.com/guide/positioning.html)
-- [Formating](https://chartjs-plugin-datalabels.netlify.com/guide/formatting.html)
+- [Formatting](https://chartjs-plugin-datalabels.netlify.com/guide/formatting.html)
 - [Events](https://chartjs-plugin-datalabels.netlify.com/guide/events.html)
 - [Samples](https://chartjs-plugin-datalabels.netlify.com/samples/)
 
