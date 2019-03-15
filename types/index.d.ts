@@ -1,8 +1,9 @@
 import { Options } from './options';
+import { Chart } from 'chart.js';
 
 export * from './context';
 
-declare module 'chart.js' {
+declare module Chart {
 	interface ChartDataSets {
 		/**
 		 * Per dataset datalabels plugin options.
