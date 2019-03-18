@@ -7,6 +7,9 @@ import utils from './utils';
 
 var charts = {};
 
+// force ratio=1 for tests on high-res/retina devices
+window.devicePixelRatio = 1;
+
 jasmine.chart = {
 	acquire: function() {
 		var chart = utils.acquireChart.apply(utils, arguments);
