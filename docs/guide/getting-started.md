@@ -82,7 +82,7 @@ var chart = new Chart(ctx, {
 See also [Chart.js &rsaquo; Using plugins](https://www.chartjs.org/docs/latest/developers/plugins.html).
 
 ::: warning DEPRECATION
-From version 1.x, this plugin will no longer be registered automatically (see [#42](https://github.com/chartjs/chartjs-plugin-datalabels/issues/42) for details).
+From version 1.x of Chart.js, this plugin will no longer be registered automatically (see [#42](https://github.com/chartjs/chartjs-plugin-datalabels/issues/42) for details).
 :::
 
 ## Configuration
