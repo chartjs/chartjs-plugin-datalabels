@@ -1,5 +1,3 @@
-'use strict';
-
 import HitBox from './hitbox';
 
 function coordinates(view, model, geometry) {

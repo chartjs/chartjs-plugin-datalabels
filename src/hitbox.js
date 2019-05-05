@@ -1,11 +1,9 @@
-'use strict';
-
 import Chart from 'chart.js';
 
 var helpers = Chart.helpers;
 
-var MIN_INTEGER = Number.MIN_SAFE_INTEGER || -9007199254740991;
-var MAX_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
+var MIN_INTEGER = Number.MIN_SAFE_INTEGER || -9007199254740991; // eslint-disable-line es/no-number-minsafeinteger
+var MAX_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;  // eslint-disable-line es/no-number-maxsafeinteger
 
 function rotated(point, center, angle) {
 	var cos = Math.cos(angle);

@@ -1,5 +1,3 @@
-'use strict';
-
 function orient(point, origin) {
 	var x0 = origin.x;
 	var y0 = origin.y;

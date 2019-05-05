@@ -2,8 +2,6 @@
  * @see https://github.com/chartjs/Chart.js/issues/4176
  */
 
-'use strict';
-
 import Chart from 'chart.js';
 import Label from './label';
 import utils from './utils';

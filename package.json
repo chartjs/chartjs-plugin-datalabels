@@ -24,6 +24,7 @@
     "@types/chart.js": "^2.7.52",
     "chart.js": "~2.8.0",
     "eslint-config-chartjs": "^0.1.0",
+    "eslint-plugin-es": "^1.4.0",
     "gulp": "^4.0.1",
     "gulp-eslint": "^5.0.0",
     "gulp-file": "^0.4.0",
