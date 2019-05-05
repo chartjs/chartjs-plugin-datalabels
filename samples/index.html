@@ -47,8 +47,8 @@
 			var category = createCategory(item);
 			var children = category.getElementsByClassName('items')[0];
 
-			(item.items || []).forEach(function(item) {
-				children.appendChild(createEntry(item));
+			(item.items || []).forEach(function(v) {
+				children.appendChild(createEntry(v));
 			});
 
 			categories.appendChild(category);

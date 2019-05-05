@@ -114,7 +114,7 @@
 		function randomize() {
 			chart.data.datasets.forEach(function(dataset, i) {
 				var color = Samples.color();
-				dataset.backgroundColor = Samples.transparentize(color, 0.75),
+				dataset.backgroundColor = Samples.transparentize(color, 0.75);
 				dataset.borderColor = color;
 				dataset.data = dataset.data.map(function(value) {
 					return Samples.rand(0, 100);

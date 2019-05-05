@@ -67,6 +67,7 @@ gulp.task('test', gulp.parallel('test-unit', 'test-types'));
 gulp.task('lint', function() {
 	var files = [
 		'samples/**/*.js',
+		'samples/**/*.html',
 		'src/**/*.js',
 		'test/**/*.js',
 		'*.js'

@@ -27,7 +27,7 @@
 		var SAMPLE_INFO = {
 			group: 'Formatting',
 			name: 'Custom Labels',
-			desc: 'This example displays the data labels instead '+
+			desc: 'This example displays the data labels instead ' +
 				'of the data values, using a custom formatter'
 		};
 	</script>
@@ -35,17 +35,17 @@
 	<script id="script-init">
 		var DATA_COUNT = 5;
 		var labels = [
-            'Earth',
-            'Mars',
-            'Saturn',
-            'Jupiter',
-            'Others'
-        ];
+			'Earth',
+			'Mars',
+			'Saturn',
+			'Jupiter',
+			'Others'
+		];
 
 		Samples.srand(0);
 
 		Chart.helpers.merge(Chart.defaults.global, {
-			aspectRatio: 4/3,
+			aspectRatio: 4 / 3,
 			tooltips: false,
 			layout: {
 				padding: {
@@ -81,29 +81,29 @@
 			options: {
 				plugins: {
 					datalabels: {
-                        align: 'end',
-                        anchor: 'end',
+						align: 'end',
+						anchor: 'end',
 						color: function(context) {
 							return context.dataset.backgroundColor;
 						},
 						font: function(context) {
-                            var w = context.chart.width;
-                            return {
-                                size: w < 512 ? 12 : 14
-                            }
-                        },
+							var w = context.chart.width;
+							return {
+								size: w < 512 ? 12 : 14
+							};
+						},
 						formatter: function(value, context) {
-                            return context.chart.data.labels[context.dataIndex];
-                        }
+							return context.chart.data.labels[context.dataIndex];
+						}
 					}
 				},
 				scales: {
 					xAxes: [{
-                        display: false,
-                        offset: true
+						display: false,
+						offset: true
 					}],
 					yAxes: [{
-                        ticks: {
+						ticks: {
 							beginAtZero: true
 						}
 					}]
@@ -115,7 +115,7 @@
 	<script id="script-actions">
 		function randomize() {
 			chart.data.datasets.forEach(function(dataset, i) {
-				dataset.backgroundColor = Samples.color(),
+				dataset.backgroundColor = Samples.color();
 				dataset.data = dataset.data.map(function(value) {
 					return Samples.rand(0, 100);
 				});

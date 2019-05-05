@@ -33,12 +33,12 @@
 
 		Samples.srand(8);
 
-		for (var i = 0; i < DATA_COUNT; ++i) {
-			labels.push('' + i);
+		for (var idx = 0; idx < DATA_COUNT; ++idx) {
+			labels.push('' + idx);
 		}
 
 		Chart.helpers.merge(Chart.defaults.global, {
-			aspectRatio: 4/3,
+			aspectRatio: 4 / 3,
 			tooltips: false,
 			layout: {
 				padding: {

@@ -45,8 +45,8 @@
 		}
 
 		Chart.helpers.merge(Chart.defaults.global, {
-			aspectRatio: 4/3,
-            tooltips: false,
+			aspectRatio: 4 / 3,
+			tooltips: false,
 			layout: {
 				padding: {
 					bottom: 25,
@@ -123,25 +123,25 @@
 						},
 						borderColor: function(context) {
 							return context.dataset.backgroundColor;
-                        },
+						},
 						borderRadius: function(context) {
 							return context.active ? 0 : 32;
-                        },
-                        borderWidth: 1,
+						},
+						borderWidth: 1,
 						color: function(context) {
 							return context.active ? 'white' : context.dataset.backgroundColor;
 						},
 						font: {
 							weight: 'bold'
 						},
-                        formatter: function(value, context) {
+						formatter: function(value, context) {
 							value = Math.round(value * 100) / 100;
-                            return context.active
-                                ? context.dataset.label + '\n' + value + '%'
-                                : Math.round(value);
+							return context.active
+								? context.dataset.label + '\n' + value + '%'
+								: Math.round(value);
 						},
 						offset: 8,
-                        textAlign: 'center'
+						textAlign: 'center'
 					}
 				},
 				scales: {
