@@ -1,7 +1,5 @@
 import { Options } from './options';
 
-export * from './context';
-
 declare module 'chart.js' {
 	interface ChartDataSets {
 		/**
@@ -19,3 +17,9 @@ declare module 'chart.js' {
 		datalabels?: Options
 	}
 }
+
+declare const plugin: object;
+
+export * from './context';
+
+export default plugin;
