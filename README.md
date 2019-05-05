@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="docs/.vuepress/public/hero-title.svg">
+    <img src="docs/.vuepress/public/hero-title.svg?sanitize=true">
 </p>
 
 <p align="center">
