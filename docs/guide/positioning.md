@@ -17,7 +17,7 @@ The `clamp` option, when `true`, enforces the anchor position to be calculated b
 
 ![chartjs-plugin-datalabels](../assets/clamp.png)
 
-::: tip NOTE
+::: tip
 If the element is fully hidden (i.e. entirely outside the chart area), anchor points will **not** be adjusted and thus will also be outside the viewport.
 :::
 
@@ -65,7 +65,7 @@ The `display: 'auto'` option can be used to prevent overlapping labels, based on
 - if both labels are `display: 'auto'`, the one with the highest data index will be hidden. If labels are at the same data index, the one with the highest dataset index will be hidden
 - if one label is `display: true` and the other one is `display: 'auto'`, the one with `'auto'` will be hidden (whatever the data/dataset indices)
 
-::: tip NOTE
+::: tip
 Labels with `display: false` don't contribute to the overlap detection.
 :::
 

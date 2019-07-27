@@ -1,6 +1,6 @@
 # Labels
 
-By default, a single label is created per data, however, it's possible to define multiple labels for each data element using the `labels` options. This option is an object where each property represents a new label, the key being the label key and the value being the options specific to each label. These options are merged on top of the options defined at the chart **and** dataset levels.
+By default, a single label is created per data, however, it's possible to define multiple labels for each data element using the `labels` option. This option is an object where each property represents a new label, the key being the label key and the value being the options specific to each label. These options are merged on top of the options defined at the chart **and** dataset levels.
 
 ## Multiple Labels
 

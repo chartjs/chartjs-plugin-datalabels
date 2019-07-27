@@ -10,7 +10,7 @@
 npm install chartjs-plugin-datalabels --save
 ```
 
-::: tip NOTE
+::: tip
 This plugin can also be installed using [Bower](https://bower.io/).
 :::
 

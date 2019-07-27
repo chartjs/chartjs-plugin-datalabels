@@ -5,5 +5,4 @@ cc-test-reporter
 coverage/
 dist/
 node_modules/
-package-lock.json
 *.stackdump
