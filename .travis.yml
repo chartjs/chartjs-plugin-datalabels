@@ -1,10 +1,11 @@
 language: node_js
-node_js:
-  - lts/*
+node_js: lts/*
+dist: xenial
+
+services:
+  - xvfb
 
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build

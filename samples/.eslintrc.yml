@@ -13,6 +13,8 @@ globals:
 
 parserOptions:
   sourceType: script
+  ecmaFeatures:
+    globalReturn: false
 
 rules:
   no-unused-vars: 0

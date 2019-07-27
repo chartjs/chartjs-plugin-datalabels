@@ -21,9 +21,8 @@ var argv = require('yargs')
 
 function run(bin, args) {
 	return new Promise((resolve, reject) => {
-		var exe = '"' + process.execPath + '"';
-		var src = require.resolve(bin);
-		var ps = exec([exe, src].concat(args || []).join(' '));
+		var exe = path.join('node_modules', '.bin', bin);
+		var ps = exec([exe].concat(args || []).join(' '));
 
 		ps.stdout.pipe(process.stdout);
 		ps.stderr.pipe(process.stderr);
@@ -38,7 +37,7 @@ function run(bin, args) {
 }
 
 gulp.task('build', function() {
-	return run('rollup/bin/rollup', ['-c', argv.watch ? '--watch' : '']);
+	return run('rollup', ['-c', argv.watch ? '--watch' : '']);
 });
 
 gulp.task('test-unit', function(done) {
@@ -59,7 +58,7 @@ gulp.task('test-unit', function(done) {
 });
 
 gulp.task('test-types', function() {
-	return run('typescript/bin/tsc', ['-p', 'types/test/']);
+	return run('tsc', ['-p', 'types/test/']);
 });
 
 gulp.task('test', gulp.parallel('test-unit', 'test-types'));
@@ -83,7 +82,7 @@ gulp.task('docs', function() {
 	var mode = argv.watch ? 'dev' : 'build';
 	var out = path.join(argv.output, argv.docsDir);
 	var args = argv.watch ? '' : '--dest ' + out;
-	return run('vuepress/bin/vuepress.js', [mode, 'docs', args]);
+	return run('vuepress', [mode, 'docs', args]);
 });
 
 gulp.task('samples', function() {
