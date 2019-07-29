@@ -17,18 +17,18 @@ export default {
 			datasets: [{
 				data: data,
 				datalabels: {
-					backgroundColor: '#ff0077',
-					borderColor: 'white',
-					clip: true,
-					padding: 32
+					backgroundColor: '#0f7',
+					borderColor: 'black',
+					clip: false,
+					padding: 16
 				}
 			}, {
 				data: data,
 				datalabels: {
-					backgroundColor: '#00ff77',
-					borderColor: 'black',
-					clip: false,
-					padding: 16
+					backgroundColor: '#f07',
+					borderColor: 'white',
+					clip: true,
+					padding: 32
 				}
 			}]
 		},

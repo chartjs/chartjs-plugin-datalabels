@@ -112,7 +112,7 @@ export default {
 			var sb = b.$layout;
 
 			return sa._idx === sb._idx
-				? sa._set - sb._set
+				? sb._set - sa._set
 				: sb._idx - sa._idx;
 		});
 

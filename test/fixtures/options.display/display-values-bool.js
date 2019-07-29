@@ -4,16 +4,10 @@ export default {
 		data: {
 			labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
 			datasets: [{
-				data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				data: [4, 3, 2, 1, 0, 0, -1, -2, -3, -4],
 				datalabels: {
-					backgroundColor: '#f0f',
-					// display: (fallback: true)
-				}
-			}, {
-				data: [-4, -2, 0, 2, 4, 2, 0, -2, -4, -2, 0],
-				datalabels: {
-					backgroundColor: '#f00',
-					display: true
+					backgroundColor: '#ff0',
+					display: false
 				}
 			}, {
 				data: [4, 2, 0, -2, -4, -2, 0, 2, 4, 2, 0],
@@ -22,10 +16,16 @@ export default {
 					display: true
 				}
 			}, {
-				data: [4, 3, 2, 1, 0, 0, -1, -2, -3, -4],
+				data: [-4, -2, 0, 2, 4, 2, 0, -2, -4, -2, 0],
 				datalabels: {
-					backgroundColor: '#ff0',
-					display: false
+					backgroundColor: '#f00',
+					display: true
+				}
+			}, {
+				data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				datalabels: {
+					backgroundColor: '#f0f',
+					// display: (fallback: true)
 				}
 			}]
 		},

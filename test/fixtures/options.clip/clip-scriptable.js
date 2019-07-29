@@ -17,16 +17,16 @@ export default {
 			datasets: [{
 				data: data,
 				datalabels: {
-					backgroundColor: '#ff0077',
-					borderColor: 'white',
-					padding: 32
+					backgroundColor: '#0f7',
+					borderColor: 'black',
+					padding: 16
 				}
 			}, {
 				data: data,
 				datalabels: {
-					backgroundColor: '#00ff77',
-					borderColor: 'black',
-					padding: 16
+					backgroundColor: '#f07',
+					borderColor: 'white',
+					padding: 32
 				}
 			}]
 		},
@@ -38,7 +38,7 @@ export default {
 				datalabels: {
 					borderWidth: 4,
 					clip: function(ctx) {
-						return (ctx.dataIndex + ctx.datasetIndex) % 2 === 0;
+						return (ctx.dataIndex + ctx.datasetIndex) % 2 === 1;
 					},
 					font: {
 						size: 0

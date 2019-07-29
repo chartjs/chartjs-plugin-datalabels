@@ -62,7 +62,7 @@ display: function(context) {
 The `display: 'auto'` option can be used to prevent overlapping labels, based on the following rules when two labels overlap:
 
 - if both labels are `display: true`, they will be drawn overlapping
-- if both labels are `display: 'auto'`, the one with the highest data index will be hidden. If labels are at the same data index, the one with the lowest dataset index will be hidden
+- if both labels are `display: 'auto'`, the one with the highest data index will be hidden. If labels are at the same data index, the one with the highest dataset index will be hidden
 - if one label is `display: true` and the other one is `display: 'auto'`, the one with `'auto'` will be hidden (whatever the data/dataset indices)
 
 ::: tip NOTE

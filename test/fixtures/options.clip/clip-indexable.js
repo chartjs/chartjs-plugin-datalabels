@@ -17,25 +17,7 @@ export default {
 			datasets: [{
 				data: data,
 				datalabels: {
-					backgroundColor: '#ff0077',
-					borderColor: 'white',
-					padding: 32,
-					clip: [
-						false,
-						true,
-						false,
-						true,
-						false,
-						true,
-						false,
-						true,
-						false
-					]
-				}
-			}, {
-				data: data,
-				datalabels: {
-					backgroundColor: '#00ff77',
+					backgroundColor: '#0f7',
 					borderColor: 'black',
 					padding: 16,
 					clip: [
@@ -48,6 +30,24 @@ export default {
 						true,
 						false,
 						true,
+					]
+				}
+			}, {
+				data: data,
+				datalabels: {
+					backgroundColor: '#f07',
+					borderColor: 'white',
+					padding: 32,
+					clip: [
+						false,
+						true,
+						false,
+						true,
+						false,
+						true,
+						false,
+						true,
+						false
 					]
 				}
 			}]
