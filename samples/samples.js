@@ -54,10 +54,13 @@
 			path: 'events/selection.html'
 		}]
 	}, {
-		title: 'Formatting',
+		title: 'Advanced',
 		items: [{
 			title: 'Custom Labels',
-			path: 'formatting/custom-labels.html'
+			path: 'advanced/custom-labels.html'
+		}, {
+			title: 'Multiple Labels',
+			path: 'advanced/multiple-labels.html'
 		}]
 	}];
 

@@ -19,6 +19,7 @@ describe('defaults.js', function() {
 			style: undefined,
 			weight: null
 		},
+		labels: undefined,
 		listeners: {},
 		offset: 4,
 		opacity: 1,

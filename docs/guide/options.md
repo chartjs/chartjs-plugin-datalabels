@@ -21,6 +21,7 @@ The following table lists all available options:
 | `font.weight` | `string` | - | - | `'normal'`
 | [`font.lineHeight`](formatting.md#multiline-labels) | `number` \| `string` | - | - | `1.2`
 | [`formatter`](formatting.md#data-transformation) | `function` \| `null` | - | - | -
+| [`labels`](labels.md) | `object` | - | - | `undefined`
 | [`listeners`](events.md) | `object` | - | - | `{}`
 | [`offset`](positioning.md#alignment-and-offset) | `number` | Yes | Yes | `4`
 | `opacity` | `number` | Yes | Yes | `1`
@@ -62,11 +63,13 @@ The option context is used to give contextual information when resolving options
 
 The context object contains the following properties:
 
-- `active` (bool): whether the associated element is hovered ([see interactions](http://www.chartjs.org/docs/latest/general/interactions/))
-- `chart` (Chart): the associated chart
-- `dataIndex` (int): index of the associated data
-- `dataset` (object): the dataset at index `datasetIndex`
-- `datasetIndex` (int): index of the associated dataset
+| Property | Type | Description
+| -------- | ---- | -----------
+| `active` | `bool` | Whether the associated element is hovered ([see interactions](http://www.chartjs.org/docs/latest/general/interactions/)).
+| `chart` | `Chart` | The associated chart.
+| `dataIndex` | `number` | The index of the associated data.
+| `dataset` | `object` | The dataset at index `datasetIndex`.
+| `datasetIndex` | `number` | The index of the associated dataset.
 
 ## Indexable Options
 

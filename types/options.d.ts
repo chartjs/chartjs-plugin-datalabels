@@ -25,7 +25,7 @@ type Padding = number | {
 type Indexable<T> = T | T[];
 type Scriptable<T> = T | ((context: Context) => T);
 
-export interface Options {
+interface LabelOptions {
 	/**
 	 * The label box alignment relative to `anchor` that can be expressed either
 	 * by a number representing the clockwise angle (in degree) or a by one of
@@ -224,5 +224,18 @@ export interface Options {
 	 * @default color
 	 * @since 0.5.0
 	 */
-	textShadowColor?: Indexable<Color> | Scriptable<Color>,
+	textShadowColor?: Indexable<Color> | Scriptable<Color>
+}
+
+export interface Options extends LabelOptions {
+	/**
+	 * Multi-labels definition object where each property represents a new
+	 * label, the key being the label key and the value being the options
+	 * specific to each label and merged on top of the root options.
+	 * @default undefined
+	 * @since 0.7.0
+	 */
+	labels?: {
+		[key: string]: LabelOptions | null
+	}
 }

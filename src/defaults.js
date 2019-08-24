@@ -50,6 +50,7 @@ export default {
 		weight: null
 	},
 	formatter: formatter,
+	labels: undefined,
 	listeners: {},
 	offset: 4,
 	opacity: 1,

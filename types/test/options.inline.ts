@@ -1,4 +1,5 @@
 import { Chart } from 'chart.js';
+import { Context } from '../context';
 
 new Chart('id', {
 	data: {
@@ -6,7 +7,19 @@ new Chart('id', {
 			{
 				datalabels: {
 					align: 'start',
-					listeners: {}
+					labels: {
+						foo: {},
+						bar: null,
+						bla: {
+							align: 'end',
+							listeners: {
+								click(ctx: Context) { return true; }
+							}
+						}
+					},
+					listeners: {
+						click(ctx: Context) { return true; }
+					}
 				}
 			}
 		]
@@ -14,7 +27,20 @@ new Chart('id', {
 	options: {
 		plugins: {
 			datalabels: {
-				align: 'start'
+				align: 'start',
+				labels: {
+					foo: {},
+					bar: null,
+					bla: {
+						align: 'end',
+						listeners: {
+							click(ctx: Context) { return true; }
+						}
+					}
+				},
+				listeners: {
+					click(ctx: Context) { return true; }
+				}
 			}
 		}
 	}

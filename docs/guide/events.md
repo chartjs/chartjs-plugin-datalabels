@@ -14,7 +14,7 @@ This plugin currently supports the following label events:
 
 ## Listeners
 
-The `listeners` option allows to register callbacks to be notified when an event is detected on a specific label. This option is an object where the property is the type of the event to listen and the value is a callback with a unique `context` argument.
+The `listeners` option allows to register callbacks to be notified when an event is detected on a specific label. This option is an object where each property represents an event, the key being the type of the event to listen and the value being a callback accepting a unique `context` argument.
 
 The `context` contains the same information as for [scriptable options](options.md#option-context), can be modified (e.g. add new properties) and thus, **if the callback explicitly returns `true`**, the label is updated with the new context and the chart re-rendered. This allows to implement visual interactions with labels such as highlight, selection, etc.
 

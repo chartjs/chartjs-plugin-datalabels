@@ -24,6 +24,7 @@ module.exports = {
             '/guide/',
             '/guide/getting-started',
             '/guide/options',
+            '/guide/labels',
             '/guide/positioning',
             '/guide/formatting',
             '/guide/events'

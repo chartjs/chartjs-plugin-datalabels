@@ -42,10 +42,24 @@ function acquireChart(config, options) {
 	var canvas = document.createElement('CANVAS');
 	var chart, key;
 
-	config = config || {};
-	options = options || {};
-	options.canvas = options.canvas || {height: 512, width: 512};
-	options.wrapper = options.wrapper || {class: 'chartjs-wrapper'};
+	// By default, remove chart animation and auto resize.
+	config = Chart.helpers.merge({
+		options: {
+			animation: false,
+			responsive: false,
+			defaultFontFamily: 'Arial'
+		}
+	}, config || {});
+
+	options = Chart.helpers.merge({
+		canvas: {
+			height: 512,
+			width: 512
+		},
+		wrapper: {
+			class: 'chartjs-wrapper'
+		}
+	}, options || {});
 
 	for (key in options.canvas) {
 		if (Object.prototype.hasOwnProperty.call(options.canvas, key)) {
@@ -58,12 +72,6 @@ function acquireChart(config, options) {
 			wrapper.setAttribute(key, options.wrapper[key]);
 		}
 	}
-
-	// by default, remove chart animation and auto resize
-	config.options = config.options || {};
-	config.options.animation = config.options.animation === undefined ? false : config.options.animation;
-	config.options.responsive = config.options.responsive === undefined ? false : config.options.responsive;
-	config.options.defaultFontFamily = config.options.defaultFontFamily || 'Arial';
 
 	wrapper.appendChild(canvas);
 	window.document.body.appendChild(wrapper);

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="icon" type="image/ico" href="../favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.0/dist/Chart.min.js"></script>
+	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
+	<script src="../utils.js"></script>
+</head>
+<body>
+	<div id="side">
+		<div id="header"></div>
+		<div id="actions">
+			<button onclick="randomize(this)">Randomize</button>
+		</div>
+	</div>
+
+	<div id="charts">
+		<div class="wrapper"><canvas id="chart-0"></canvas></div>
+	</div>
+
+	<script>
+		var SAMPLE_INFO = {
+			group: 'Advanced',
+			name: 'Multiple Labels',
+			desc: 'This example displays 3 labels per data, one for the '
+				+ 'index, one for the label and one for the value. Move '
+				+ 'the mouse over the chart to display label ids.'
+		};
+	</script>
+
+	<script id="script-init">
+		var DATA_COUNT = 4;
+		var labels = [
+			'Earth',
+			'Mars',
+			'Saturn',
+			'Jupiter'
+		];
+
+		Samples.srand(4);
+
+		Chart.helpers.merge(Chart.defaults.global, {
+			aspectRatio: 4 / 3,
+			tooltips: false,
+			layout: {
+				padding: {
+					top: 42,
+					right: 16,
+					bottom: 32,
+					left: 8
+				}
+			},
+			elements: {
+				line: {
+					fill: false
+				},
+				point: {
+					hoverRadius: 7,
+					radius: 5
+				}
+			},
+			plugins: {
+				legend: false,
+				title: false
+			}
+		});
+	</script>
+
+	<script id="script-construct">
+		var chart = new Chart('chart-0', {
+			type: 'doughnut',
+			data: {
+				labels: labels,
+				datasets: [{
+					backgroundColor: Samples.colors({
+						color: Samples.color(1),
+						mode: 'darken'
+					}),
+					hoverBorderColor: 'white',
+					data: Samples.numbers({
+						count: DATA_COUNT,
+						min: 0,
+						max: 100
+					}),
+					datalabels: {
+						labels: {
+							index: {
+								align: 'end',
+								anchor: 'end',
+								color: function(ctx) {
+									return ctx.dataset.backgroundColor;
+								},
+								font: {size: 18},
+								formatter: function(value, ctx) {
+									return ctx.active
+										? 'index'
+										: '#' + (ctx.dataIndex + 1);
+								},
+								offset: 8,
+								opacity: function(ctx) {
+									return ctx.active ? 1 : 0.5;
+								}
+							},
+							name: {
+								align: 'top',
+								font: {size: 16},
+								formatter: function(value, ctx) {
+									return ctx.active
+										? 'name'
+										: ctx.chart.data.labels[ctx.dataIndex];
+								}
+							},
+							value: {
+								align: 'bottom',
+								backgroundColor: function(ctx) {
+									var value = ctx.dataset.data[ctx.dataIndex];
+									return value > 50 ? 'white' : null;
+								},
+								borderColor: 'white',
+								borderWidth: 2,
+								borderRadius: 4,
+								color: function(ctx) {
+									var value = ctx.dataset.data[ctx.dataIndex];
+									return value > 50
+										? ctx.dataset.backgroundColor
+										: 'white';
+								},
+								formatter: function(value, ctx) {
+									return ctx.active
+										? 'value'
+										: Math.round(value * 1000) / 1000;
+								},
+								padding: 4
+							}
+						}
+					}
+				}]
+			},
+			options: {
+				cutoutPercentage: 8,
+				padding: 64,
+				plugins: {
+					datalabels: {
+						color: 'white',
+						display: function(ctx) {
+							return ctx.dataset.data[ctx.dataIndex] > 10;
+						},
+						font: {weight: 'bold'},
+						offset: 0,
+						padding: 0
+					}
+				}
+			}
+		});
+	</script>
+
+	<script id="script-actions">
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset, i) {
+				dataset.backgroundColor = Samples.colors({
+					color: Samples.color(),
+					mode: 'darken'
+				});
+				dataset.data = dataset.data.map(function(value) {
+					return Samples.rand(0, 100);
+				});
+			});
+			chart.update();
+		}
+	</script>
+</body>
+</html>

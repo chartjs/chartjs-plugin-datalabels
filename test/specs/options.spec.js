@@ -60,3 +60,7 @@ Object.keys(OPTIONS).forEach(function(key) {
 		});
 	}
 });
+
+describe('options.labels', function() {
+	describe('auto', jasmine.fixture.specs('options.labels'));
+});

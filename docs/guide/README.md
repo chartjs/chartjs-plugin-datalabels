@@ -14,6 +14,7 @@ This plugin doesn't provide any public API (except the plugin options), thus you
 
 * [Getting Started](getting-started.md)
 * [Options](options.md)
+* [Labels](labels.md)
 * [Positioning](positioning.md)
 * [Formating](formatting.md)
 * [Events](events.md)

@@ -185,7 +185,7 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeFalsy();
 		});
 
-		it('should call handlers for any labels if at the options level', function() {
+		it('should call handlers for any labels in any dataset', function() {
 			var spy = jasmine.createSpy('spy');
 			var chart = jasmine.chart.acquire({
 				type: 'line',
@@ -217,7 +217,7 @@ describe('events', function() {
 			expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
 		});
 
-		it('should call handlers only for labels of the same dataset if at the dataset level', function() {
+		it('should call handlers for label in a specific dataset', function() {
 			var spy = jasmine.createSpy('spy');
 			var data = Chart.helpers.clone(this.data);
 
@@ -243,6 +243,101 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(1);
 			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(2);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
+		});
+
+		it('should call handlers for specific label in any dataset', function() {
+			var spy = jasmine.createSpy('spy');
+			var chart = jasmine.chart.acquire({
+				type: 'line',
+				data: this.data,
+				options: {
+					plugins: {
+						datalabels: {
+							offset: 0,
+							labels: {
+								foo: {
+									align: 'start'
+								},
+								bar: {
+									align: 'end',
+									listeners: {
+										click: spy
+									}
+								}
+							}
+						}
+					}
+				}
+			});
+
+			var pt0 = chart.getDatasetMeta(0).data[1]._model;
+			var pt1 = chart.getDatasetMeta(1).data[1]._model;
+
+			expect(chart.$datalabels._listened).toBeTruthy();
+			expect(spy.calls.count()).toBe(0);
+
+			// Clicking on 4 labels, 2 per data in 2 different datasets.
+			jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4});
+			jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4});
+			jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4});
+			jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4});
+
+			expect(spy.calls.count()).toBe(2);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			expect(spy.calls.argsFor(1)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
+		});
+
+		it('should call handlers for specific label in a specific dataset', function() {
+			var spy = jasmine.createSpy('spy');
+			var data = Chart.helpers.clone(this.data);
+
+			data.datasets[1].datalabels = {
+				labels: {
+					bar: {
+						align: 'end',
+						listeners: {
+							click: spy
+						}
+					}
+				}
+			};
+
+			var chart = jasmine.chart.acquire({
+				type: 'line',
+				data: data,
+				options: {
+					plugins: {
+						datalabels: {
+							labels: {
+								foo: {
+									align: 'start'
+								},
+								bar: {
+									align: 'end'
+								}
+							}
+						}
+					}
+				}
+			});
+
+			var pt0 = chart.getDatasetMeta(0).data[1]._model;
+			var pt1 = chart.getDatasetMeta(1).data[1]._model;
+
+			expect(chart.$datalabels._listened).toBeTruthy();
+			expect(spy.calls.count()).toBe(0);
+
+			// Clicking on 4 labels, 2 per data in 2 different datasets.
+			jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4});
+			jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4});
+			jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4});
+			jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4});
+
+			expect(spy.calls.count()).toBe(1);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
 			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
 		});
 	});

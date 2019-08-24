@@ -20,6 +20,7 @@ Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or l
 - [Introduction](https://chartjs-plugin-datalabels.netlify.com/guide/)
 - [Getting Started](https://chartjs-plugin-datalabels.netlify.com/guide/getting-started.html)
 - [Options](https://chartjs-plugin-datalabels.netlify.com/guide/options.html)
+- [Labels](https://chartjs-plugin-datalabels.netlify.com/guide/labels.html)
 - [Positioning](https://chartjs-plugin-datalabels.netlify.com/guide/positioning.html)
 - [Formatting](https://chartjs-plugin-datalabels.netlify.com/guide/formatting.html)
 - [Events](https://chartjs-plugin-datalabels.netlify.com/guide/events.html)

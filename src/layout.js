@@ -149,10 +149,7 @@ export default {
 			state = labels[i].$layout;
 
 			if (state && state._visible && state._box.contains(point)) {
-				return {
-					dataset: state._set,
-					label: labels[i]
-				};
+				return labels[i];
 			}
 		}
 
