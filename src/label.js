@@ -71,7 +71,7 @@ function drawFrame(ctx, rect, model) {
 
 	ctx.beginPath();
 
-	helpers.canvas.roundedRect(
+	utils.roundedRect(
 		ctx,
 		rasterize(rect.x) + borderWidth / 2,
 		rasterize(rect.y) + borderWidth / 2,

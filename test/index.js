@@ -1,14 +1,21 @@
 'use strict';
 
 import Chart from 'chart.js';
+import Context from './context';
 import fixture from './fixture';
 import matchers from './matchers';
 import utils from './utils';
 
 var charts = {};
 
+function createMockContext() {
+	return new Context();
+}
+
 // force ratio=1 for tests on high-res/retina devices
 window.devicePixelRatio = 1;
+
+window.createMockContext = createMockContext;
 
 jasmine.chart = {
 	acquire: function() {
