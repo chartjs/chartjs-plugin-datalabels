@@ -47,7 +47,10 @@ function acquireChart(config, options) {
 		options: {
 			animation: false,
 			responsive: false,
-			fontFamily: 'Arial'
+			fontFamily: 'Arial',
+			plugins: {
+				tooltip: false
+			}
 		}
 	}, config || {});
 

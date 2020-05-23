@@ -41,6 +41,7 @@ export default {
 				padding: 16
 			},
 			plugins: {
+				legend: false,
 				datalabels: {
 					backgroundColor: '#000',
 					borderColor: '#fff',
