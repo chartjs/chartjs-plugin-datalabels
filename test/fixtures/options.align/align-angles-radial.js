@@ -32,12 +32,12 @@ export default {
 				padding: 20
 			},
 			scales: {
-				xAxes: [{
+				x: {
 					stacked: true
-				}],
-				yAxes: [{
+				},
+				y: {
 					stacked: true
-				}]
+				}
 			},
 			plugins: {
 				datalabels: {

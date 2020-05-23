@@ -53,9 +53,8 @@
 			return data;
 		}
 
-		Chart.helpers.merge(Chart.defaults.global, {
+		Chart.helpers.merge(Chart.defaults, {
 			aspectRatio: 1,
-			tooltips: false,
 			layout: {
 				padding: {
 					top: 42,
@@ -75,6 +74,7 @@
 				}
 			},
 			plugins: {
+				tooltip: false,
 				legend: false,
 				title: false
 			}

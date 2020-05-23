@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../style.css">
 	<link rel="icon" type="image/ico" href="../favicon.ico">
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.0/dist/Chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha"></script>
 	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
 	<script src="../utils.js"></script>
 </head>
@@ -43,9 +43,8 @@
 
 		Samples.srand(4);
 
-		Chart.helpers.merge(Chart.defaults.global, {
+		Chart.helpers.merge(Chart.defaults, {
 			aspectRatio: 4 / 3,
-			tooltips: false,
 			layout: {
 				padding: {
 					top: 42,
@@ -64,6 +63,7 @@
 				}
 			},
 			plugins: {
+				tooltip: false,
 				legend: false,
 				title: false
 			}

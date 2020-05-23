@@ -28,7 +28,7 @@ jasmine.triggerMouseEvent = utils.triggerMouseEvent;
 beforeEach(function() {
 	jasmine.addMatchers(matchers);
 
-	Chart.helpers.merge(Chart.defaults.global, {
+	Chart.helpers.merge(Chart.defaults, {
 		animation: false,
 		legend: {display: false},
 		responsive: false,

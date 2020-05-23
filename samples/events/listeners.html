@@ -37,9 +37,8 @@
 			labels.push('' + idx);
 		}
 
-		Chart.helpers.merge(Chart.defaults.global, {
+		Chart.helpers.merge(Chart.defaults, {
 			aspectRatio: 4 / 3,
-			tooltips: false,
 			layout: {
 				padding: {
 					top: 42,
@@ -54,6 +53,7 @@
 				}
 			},
 			plugins: {
+				tooltip: false,
 				legend: false,
 				title: false
 			}
@@ -140,9 +140,9 @@
 					}
 				},
 				scales: {
-					yAxes: [{
+					y: {
 						stacked: true
-					}]
+					}
 				}
 			}
 		});

@@ -61,6 +61,39 @@ function getPositioner(el) {
 	return positioners.fallback;
 }
 
+function roundedRect(ctx, x, y, width, height, radius) {
+	var HALF_PI = Math.PI / 2;
+
+	if (radius) {
+		var r = Math.min(radius, height / 2, width / 2);
+		var left = x + r;
+		var top = y + r;
+		var right = x + width - r;
+		var bottom = y + height - r;
+
+		ctx.moveTo(x, top);
+		if (left < right && top < bottom) {
+			ctx.arc(left, top, r, -Math.PI, -HALF_PI);
+			ctx.arc(right, top, r, -HALF_PI, 0);
+			ctx.arc(right, bottom, r, 0, HALF_PI);
+			ctx.arc(left, bottom, r, HALF_PI, Math.PI);
+		} else if (left < right) {
+			ctx.moveTo(left, y);
+			ctx.arc(right, top, r, -HALF_PI, HALF_PI);
+			ctx.arc(left, top, r, HALF_PI, Math.PI + HALF_PI);
+		} else if (top < bottom) {
+			ctx.arc(left, top, r, -Math.PI, 0);
+			ctx.arc(left, bottom, r, 0, Math.PI);
+		} else {
+			ctx.arc(left, top, r, -Math.PI, Math.PI);
+		}
+		ctx.closePath();
+		ctx.moveTo(x, y);
+	} else {
+		ctx.rect(x, y, width, height);
+	}
+}
+
 function drawFrame(ctx, rect, model) {
 	var bgColor = model.backgroundColor;
 	var borderColor = model.borderColor;
@@ -71,8 +104,7 @@ function drawFrame(ctx, rect, model) {
 	}
 
 	ctx.beginPath();
-
-	helpers.canvas.roundedRect(
+	roundedRect(
 		ctx,
 		rasterize(rect.x) + borderWidth / 2,
 		rasterize(rect.y) + borderWidth / 2,
