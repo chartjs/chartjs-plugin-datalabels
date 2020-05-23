@@ -43,7 +43,7 @@ describe('defaults.js', function() {
 	})[0];
 
 	it('should be registered as global plugin options', function() {
-		var globals = Chart.defaults.global.plugins.datalabels;
+		var globals = Chart.defaults.plugins.datalabels;
 		expect(globals).toEqual(jasmine.objectContaining(expected));
 	});
 	it('should be called with default options', function() {
@@ -63,11 +63,11 @@ describe('defaults.js', function() {
 		var args = spy.calls.first().args;
 		expect(args[0]).toBe(chart);
 		expect(args[2]).toEqual(jasmine.objectContaining(expected));
-		expect(args[2].formatter).toBe(Chart.defaults.global.plugins.datalabels.formatter);
+		expect(args[2].formatter).toBe(Chart.defaults.plugins.datalabels.formatter);
 	});
 
 	describe('default formatter', function() {
-		var formatter = Chart.defaults.global.plugins.datalabels.formatter;
+		var formatter = Chart.defaults.plugins.datalabels.formatter;
 
 		it('should null if value is null or undefined', function() {
 			expect(formatter()).toBeNull();

@@ -42,9 +42,8 @@
 			labels.push('' + i);
 		}
 
-		Chart.helpers.merge(Chart.defaults.global, {
+		Chart.helpers.merge(Chart.defaults, {
 			aspectRatio: 4 / 3,
-			tooltips: false,
 			layout: {
 				padding: {
 					top: 32,
@@ -60,6 +59,7 @@
 				}
 			},
 			plugins: {
+				tooltip: false,
 				legend: false,
 				title: false
 			}

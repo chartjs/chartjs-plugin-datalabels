@@ -32,12 +32,10 @@ export default {
 				}
 			},
 			scales: {
-				xAxes: [{
-					ticks: {
-						min: 40,
-						max: 60
-					}
-				}]
+				x: {
+					min: 40,
+					max: 60
+				}
 			},
 			plugins: {
 				datalabels: {

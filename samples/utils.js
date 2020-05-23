@@ -2,7 +2,7 @@
 
 (function(global) {
 	var Samples = global.Samples || (global.Samples = {});
-	var Color = global.Color;
+	var Color = global.Chart ? global.Chart.helpers.color : function() {};
 
 	function fallback(/* values ... */) {
 		var ilen = arguments.length;
@@ -78,7 +78,7 @@
 		var cfg = config || {};
 		var color = cfg.color || Samples.color(0);
 		var count = cfg.count !== undefined ? cfg.count : 8;
-		var method = cfg.mode ? Color.prototype[cfg.mode] : null;
+		var method = cfg.mode ? Color(color)[cfg.mode] : null;
 		var values = [];
 		var i, f, v;
 

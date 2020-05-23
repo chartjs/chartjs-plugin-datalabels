@@ -184,10 +184,10 @@ export default {
 	},
 
 	point: function(elem, config) {
-		var vm = elem.getProps(['x', 'y', 'radius']);
+		var vm = elem.getProps(['x', 'y']);
 		var v = orient(vm, config.origin);
-		var rx = v.x * vm.radius;
-		var ry = v.y * vm.radius;
+		var rx = v.x * elem.options.radius;
+		var ry = v.y * elem.options.radius;
 
 		return compute({
 			x0: vm.x - rx,
