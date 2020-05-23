@@ -1,4 +1,13 @@
+import Chart from 'chart.js';
+
 describe('interactions', function() {
+	beforeEach(() => {
+		Chart.helpers.requestAnimFrameBak = Chart.helpers.requestAnimFrame;
+		Chart.helpers.requestAnimFrame = (cb) => cb();
+	});
+	afterEach(() => {
+		Chart.helpers.requestAnimFrame = Chart.helpers.requestAnimFrameBak;
+	});
 	describe('context.active', function() {
 		it('should be false for non active elements (default)', function() {
 			var options = {color: function() {}};

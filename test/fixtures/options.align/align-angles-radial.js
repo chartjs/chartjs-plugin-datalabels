@@ -31,14 +31,6 @@ export default {
 			layout: {
 				padding: 20
 			},
-			scales: {
-				x: {
-					stacked: true
-				},
-				y: {
-					stacked: true
-				}
-			},
 			plugins: {
 				datalabels: {
 					backgroundColor: '#00ff77',

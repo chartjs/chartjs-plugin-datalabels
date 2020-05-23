@@ -190,7 +190,7 @@ var plugin = {
 			el = elements[i];
 			el[EXPANDO_KEY] = [];
 
-			if (visible && el && !el.hidden && !el.options.skip) {
+			if (visible && el && chart.getDataVisibility(i) && !el.skip) {
 				for (j = 0, jlen = config.labels.length; j < jlen; ++j) {
 					cfg = config.labels[j];
 					key = cfg._key;

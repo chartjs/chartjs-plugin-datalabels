@@ -1,6 +1,13 @@
 import Chart from 'chart.js';
 
 describe('events', function() {
+	beforeEach(() => {
+		Chart.helpers.requestAnimFrameBak = Chart.helpers.requestAnimFrame;
+		Chart.helpers.requestAnimFrame = (cb) => cb();
+	});
+	afterEach(() => {
+		Chart.helpers.requestAnimFrame = Chart.helpers.requestAnimFrameBak;
+	});
 	beforeEach(function() {
 		this.data = {
 			labels: [1, 2, 3],
