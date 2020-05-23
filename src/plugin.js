@@ -272,7 +272,10 @@ var plugin = {
 	afterEvent: function(chart) {
 		var expando = chart[EXPANDO_KEY];
 		var previous = expando._actives;
-		var actives = expando._actives = chart.lastActive || [];  // public API?!
+		var activeItems = chart.lastActive || [];  // public API?!
+		var actives = expando._actives = activeItems.map(function(e) {
+			return e.element;
+		});
 		var updates = utils.arrayDiff(previous, actives);
 		var i, ilen, j, jlen, update, label, labels;
 
