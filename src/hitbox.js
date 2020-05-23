@@ -61,7 +61,7 @@ var HitBox = function() {
 	};
 };
 
-helpers.extend(HitBox.prototype, {
+helpers.merge(HitBox.prototype, [{
 	center: function() {
 		var r = this._rect;
 		return {
@@ -141,6 +141,6 @@ helpers.extend(HitBox.prototype, {
 			rotated({x: rect.x, y: rect.y + rect.h}, center, angle)
 		];
 	}
-});
+}]);
 
 export default HitBox;

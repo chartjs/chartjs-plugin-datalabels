@@ -103,8 +103,8 @@ function releaseChart(chart) {
 function triggerMouseEvent(chart, type, el) {
 	var node = chart.canvas;
 	var rect = node.getBoundingClientRect();
-	var x = el ? el.x !== undefined ? el.x : el._model.x : null;
-	var y = el ? el.y !== undefined ? el.y : el._model.y : null;
+	var x = el ? el.x !== undefined ? el.x : el.getProps(['x']).x : null;
+	var y = el ? el.y !== undefined ? el.y : el.getProps(['y']).y : null;
 
 	var event = new MouseEvent(type, {
 		clientX: el ? rect.left + x : undefined,

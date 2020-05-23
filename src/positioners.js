@@ -165,7 +165,8 @@ function compute(range, config) {
 }
 
 export default {
-	arc: function(vm, config) {
+	arc: function(elem, config) {
+		var vm = elem.getProps(['x', 'y', 'startAngle', 'endAngle', 'innerRadius', 'outerRadius']);
 		var angle = (vm.startAngle + vm.endAngle) / 2;
 		var vx = Math.cos(angle);
 		var vy = Math.sin(angle);
@@ -182,7 +183,8 @@ export default {
 		}, config);
 	},
 
-	point: function(vm, config) {
+	point: function(elem, config) {
+		var vm = elem.getProps(['x', 'y', 'radius']);
 		var v = orient(vm, config.origin);
 		var rx = v.x * vm.radius;
 		var ry = v.y * vm.radius;
@@ -197,7 +199,8 @@ export default {
 		}, config);
 	},
 
-	rect: function(vm, config) {
+	rect: function(elem, config) {
+		var vm = elem.getProps(['x', 'y', 'base']);
 		var v = orient(vm, config.origin);
 		var x = vm.x;
 		var y = vm.y;
@@ -222,7 +225,8 @@ export default {
 		}, config);
 	},
 
-	fallback: function(vm, config) {
+	fallback: function(elem, config) {
+		var vm = elem.getProps(['x', 'y']);
 		var v = orient(vm, config.origin);
 
 		return compute({

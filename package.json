@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/chart.js": "^2.8.4",
     "@vuepress/plugin-google-analytics": "^1.0.4",
-    "chart.js": "~2.8.0",
+    "chart.js": "^3.0.0-alpha",
     "eslint-config-chartjs": "^0.1.0",
     "eslint-plugin-es": "^2.0.0",
     "eslint-plugin-html": "^6.0.0",
@@ -53,6 +53,6 @@
     "yargs": "^14.0.0"
   },
   "peerDependencies": {
-    "chart.js": ">= 2.7.0 < 3"
+    "chart.js": "^3.0.0-alpha"
   }
 }
