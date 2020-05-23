@@ -18,7 +18,7 @@ export default {
 				}
 			},
 			scales: {
-				y: [{
+				y: {
 					min: 25,
 					max: -25
 				}
