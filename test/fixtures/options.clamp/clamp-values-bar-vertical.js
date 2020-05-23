@@ -33,7 +33,7 @@ export default {
 				}
 			},
 			scales: {
-				y:[{
+				y: {
 					min: 50,
 					max: -50
 				}
