@@ -39,8 +39,8 @@ describe('events', function() {
 			expect(spy.calls.count()).toBe(0);
 
 			jasmine.triggerMouseEvent(chart, 'mousemove', {
-				x: label._el._model.x - 16 - 12,
-				y: label._el._model.y - 16 - 12
+				x: label._el.getProps(['x']).x - 16 - 12,
+				y: label._el.getProps(['y']).y - 16 - 12
 			});
 
 			expect(spy.calls.count()).toBe(1);
@@ -271,8 +271,8 @@ describe('events', function() {
 				}
 			});
 
-			var pt0 = chart.getDatasetMeta(0).data[1]._model;
-			var pt1 = chart.getDatasetMeta(1).data[1]._model;
+			var pt0 = chart.getDatasetMeta(0).data[1].getProps(['x', 'y']);
+			var pt1 = chart.getDatasetMeta(1).data[1].getProps(['x', 'y']);
 
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
@@ -324,8 +324,8 @@ describe('events', function() {
 				}
 			});
 
-			var pt0 = chart.getDatasetMeta(0).data[1]._model;
-			var pt1 = chart.getDatasetMeta(1).data[1]._model;
+			var pt0 = chart.getDatasetMeta(0).data[1].getProps(['x', 'y']);
+			var pt1 = chart.getDatasetMeta(1).data[1].getProps(['x', 'y']);
 
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);

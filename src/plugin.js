@@ -163,7 +163,7 @@ function invalidate(chart) {
 	chart.render({duration: 1, lazy: true});
 }
 
-Chart.defaults.global.plugins.datalabels = defaults;
+Chart.defaults.plugins.datalabels = defaults;
 
 var plugin = {
 	id: 'datalabels',
@@ -199,7 +199,7 @@ var plugin = {
 			el = elements[i];
 			el[EXPANDO_KEY] = [];
 
-			if (visible && el && !el.hidden && !el._model.skip) {
+			if (visible && el && !el.hidden && !el.options.skip) {
 				for (j = 0, jlen = config.labels.length; j < jlen; ++j) {
 					cfg = config.labels[j];
 					key = cfg._key;

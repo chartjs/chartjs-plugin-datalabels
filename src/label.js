@@ -29,9 +29,10 @@ function boundingRects(model) {
 	};
 }
 
-function getScaleOrigin(el) {
-	var horizontal = el._model.horizontal;
-	var scale = el._scale || (horizontal && el._xScale) || el._yScale;
+function getScaleOrigin(el, context) {
+	var horizontal = el.horizontal;
+	var meta = context.chart.getDatasetMeta(context.datasetIndex);
+	var scale = meta.vScale;
 
 	if (!scale) {
 		return null;
@@ -195,7 +196,7 @@ var Label = function(config, ctx, el, index) {
 	me._el = el;
 };
 
-helpers.extend(Label.prototype, {
+helpers.merge(Label.prototype, [{
 	/**
 	 * @private
 	 */
@@ -204,7 +205,7 @@ helpers.extend(Label.prototype, {
 		var index = me._index;
 		var resolve = helpers.options.resolve;
 		var font = utils.parseFont(resolve([config.font, {}], context, index));
-		var color = resolve([config.color, Chart.defaults.global.defaultFontColor], context, index);
+		var color = resolve([config.color, Chart.defaults.fontColor], context, index);
 
 		return {
 			align: resolve([config.align, 'center'], context, index),
@@ -222,7 +223,7 @@ helpers.extend(Label.prototype, {
 			lines: lines,
 			offset: resolve([config.offset, 0], context, index),
 			opacity: resolve([config.opacity, 1], context, index),
-			origin: getScaleOrigin(me._el),
+			origin: getScaleOrigin(me._el, context),
 			padding: helpers.options.toPadding(resolve([config.padding, 0], context, index)),
 			positioner: getPositioner(me._el),
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
@@ -311,6 +312,6 @@ helpers.extend(Label.prototype, {
 
 		ctx.restore();
 	}
-});
+}]);
 
 export default Label;
