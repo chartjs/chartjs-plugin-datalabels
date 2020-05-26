@@ -6,7 +6,8 @@ const builds = require('./rollup.config');
 module.exports = function(karma) {
 	const args = karma.args || {};
 	const regex = args.watch ? /s\.js$/ : /s\.min\.js$/;
-	const build = builds.filter((v) => v.output.file.match(regex))[0];
+	const output = builds[0].output.filter((v) => v.file.match(regex))[0];
+	const build = Object.assign({}, builds[0], {output: output});
 
 	if (args.watch) {
 		build.output.sourcemap = 'inline';
