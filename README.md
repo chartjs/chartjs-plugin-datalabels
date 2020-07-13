@@ -15,6 +15,15 @@ Highly customizable [Chart.js](http://www.chartjs.org/) plugin that displays lab
 
 Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or later.
 
+## Installation
+
+You can download the latest version of ```chartjs-plugin-datalabels``` from the [npm](https://www.npmjs.com/package/chartjs-plugin-datalabels) or use a [CDN](https://www.jsdelivr.com/package/npm/chartjs-plugin-datalabels)
+To install ```chartjs-plugin-datalabels```, please use the following command
+
+```cmd
+npm i chartjs-plugin-datalabels --save
+```
+
 ## Documentation
 
 - [Introduction](https://chartjs-plugin-datalabels.netlify.com/guide/)
