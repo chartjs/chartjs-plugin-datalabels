@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../style.css">
 	<link rel="icon" type="image/ico" href="../favicon.ico">
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha"></script>
+	<!-- script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-beta.4"></script-->
+	<script src="https://www.chartjs.org/dist/master/chart.js"></script>
 	<script src="../../dist/chartjs-plugin-datalabels.js"></script>
 	<script src="../utils.js"></script>
 </head>
@@ -43,6 +44,9 @@
 
 		Chart.helpers.merge(Chart.defaults, {
 			maintainAspectRatio: false,
+			tooltips: {
+				enabled: false
+			},
 			layout: {
 				padding: 16
 			},
@@ -56,7 +60,6 @@
 				}
 			},
 			plugins: {
-				tooltip: false,
 				legend: false,
 				title: false
 			}
@@ -69,24 +72,26 @@
 			data: {
 				labels: labels,
 				datasets: [{
-					backgroundColor: Samples.color(0),
+					backgroundColor: Samples.colors({
+						count: DATA_COUNT
+					}),
 					data: Samples.numbers({
 						count: DATA_COUNT,
-						min: 0,
+						min: 20,
 						max: 100
 					})
 				}, {
 					backgroundColor: Samples.color(1),
 					data: Samples.numbers({
 						count: DATA_COUNT,
-						min: 0,
+						min: 20,
 						max: 100
 					})
 				}, {
 					backgroundColor: Samples.color(2),
 					data: Samples.numbers({
 						count: DATA_COUNT,
-						min: 0,
+						min: 20,
 						max: 100
 					})
 				}]
