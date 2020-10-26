@@ -49,20 +49,20 @@ function getScaleOrigin(el, context) {
 }
 
 function getPositioner(el) {
-	if (el instanceof Chart.elements.Arc) {
+	if (el instanceof Chart.elements.ArcElement) {
 		return positioners.arc;
 	}
-	if (el instanceof Chart.elements.Point) {
+	if (el instanceof Chart.elements.PointElement) {
 		return positioners.point;
 	}
-	if (el instanceof Chart.elements.Rectangle) {
+	if (el instanceof Chart.elements.BarElement) {
 		return positioners.rect;
 	}
 	return positioners.fallback;
 }
 
 function roundedRect(ctx, x, y, width, height, radius) {
-	var HALF_PI = Math.PI / 2;
+	const HALF_PI = Math.PI / 2;
 
 	if (radius) {
 		var r = Math.min(radius, height / 2, width / 2);
@@ -228,16 +228,16 @@ var Label = function(config, ctx, el, index) {
 	me._el = el;
 };
 
-helpers.merge(Label.prototype, [{
+Object.assign(Label.prototype, {
 	/**
 	 * @private
 	 */
 	_modelize: function(display, lines, config, context) {
 		var me = this;
 		var index = me._index;
-		var resolve = helpers.options.resolve;
+		var resolve = helpers.resolve;
 		var font = utils.parseFont(resolve([config.font, {}], context, index));
-		var color = resolve([config.color, Chart.defaults.fontColor], context, index);
+		var color = resolve([config.color, Chart.defaults.font.color], context, index);
 
 		return {
 			align: resolve([config.align, 'center'], context, index),
@@ -256,7 +256,7 @@ helpers.merge(Label.prototype, [{
 			offset: resolve([config.offset, 0], context, index),
 			opacity: resolve([config.opacity, 1], context, index),
 			origin: getScaleOrigin(me._el, context),
-			padding: helpers.options.toPadding(resolve([config.padding, 0], context, index)),
+			padding: helpers.toPadding(resolve([config.padding, 0], context, index)),
 			positioner: getPositioner(me._el),
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
 			size: utils.textSize(me._ctx, lines, font),
@@ -278,7 +278,7 @@ helpers.merge(Label.prototype, [{
 
 		// We first resolve the display option (separately) to avoid computing
 		// other options in case the label is hidden (i.e. display: false).
-		var display = helpers.options.resolve([config.display, true], context, index);
+		var display = helpers.resolve([config.display, true], context, index);
 
 		if (display) {
 			value = context.dataset.data[index];
@@ -344,6 +344,6 @@ helpers.merge(Label.prototype, [{
 
 		ctx.restore();
 	}
-}]);
+});
 
 export default Label;

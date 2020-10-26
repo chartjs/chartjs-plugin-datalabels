@@ -144,17 +144,12 @@ function handleClickEvents(chart, event) {
 
 // https://github.com/chartjs/chartjs-plugin-datalabels/issues/108
 function invalidate(chart) {
-	if (Chart.Animator.running(chart)) {
-		return;
-	}
-
+	// do nothing issue could be solved by CHART.JS 3
 	// No render scheduled: trigger a "lazy" render that can be canceled in case
 	// of hover interactions. The 1ms duration is a workaround to make sure an
 	// animation is created so the controller can stop it before any transition.
-	chart.render();
+	//chart.render();
 }
-
-Chart.defaults.plugins.datalabels = defaults;
 
 var plugin = {
 	id: 'datalabels',
@@ -262,17 +257,15 @@ var plugin = {
 	afterEvent: function(chart) {
 		var expando = chart[EXPANDO_KEY];
 		var previous = expando._actives;
-		var activeItems = chart.lastActive || [];  // public API?!
-		var actives = expando._actives = activeItems.map(function(e) {
-			return e.element;
-		});
+		var actives = expando._actives = chart._active || [];  // public API?!
+
 		var updates = utils.arrayDiff(previous, actives);
 		var i, ilen, j, jlen, update, label, labels;
 
 		for (i = 0, ilen = updates.length; i < ilen; ++i) {
 			update = updates[i];
 			if (update[1]) {
-				labels = update[0][EXPANDO_KEY] || [];
+				labels = update[0].element[EXPANDO_KEY] || [];
 				for (j = 0, jlen = labels.length; j < jlen; ++j) {
 					label = labels[j];
 					label.$context.active = (update[1] === 1);
@@ -292,6 +285,8 @@ var plugin = {
 
 // TODO Remove at version 1, we shouldn't automatically register plugins.
 // https://github.com/chartjs/chartjs-plugin-datalabels/issues/42
-Chart.plugins.register(plugin);
+Chart.register(plugin);
+
+Chart.defaults.plugins.datalabels = defaults;
 
 export default plugin;
