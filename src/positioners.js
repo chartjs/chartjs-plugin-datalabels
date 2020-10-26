@@ -166,52 +166,52 @@ function compute(range, config) {
 
 export default {
 	arc: function(elem, config) {
-		var angle = (elem.startAngle + elem.endAngle) / 2;
+		var vm = elem.getProps(['x', 'y', 'startAngle', 'endAngle', 'innerRadius', 'outerRadius']);
+		var angle = (vm.startAngle + vm.endAngle) / 2;
 		var vx = Math.cos(angle);
 		var vy = Math.sin(angle);
-		var r0 = elem.innerRadius;
-		var r1 = elem.outerRadius;
-
+		var r0 = vm.innerRadius;
+		var r1 = vm.outerRadius;
 		return compute({
-			x0: elem.x + vx * r0,
-			y0: elem.y + vy * r0,
-			x1: elem.x + vx * r1,
-			y1: elem.y + vy * r1,
+			x0: vm.x + vx * r0,
+			y0: vm.y + vy * r0,
+			x1: vm.x + vx * r1,
+			y1: vm.y + vy * r1,
 			vx: vx,
 			vy: vy
 		}, config);
 	},
 
 	point: function(elem, config) {
-		var v = orient(elem, config.origin);
+		var vm = elem.getProps(['x', 'y']);
+		var v = orient(vm, config.origin);
 		var rx = v.x * elem.options.radius;
 		var ry = v.y * elem.options.radius;
 
 		return compute({
-			x0: elem.x - rx,
-			y0: elem.y - ry,
-			x1: elem.x + rx,
-			y1: elem.y + ry,
+			x0: vm.x - rx,
+			y0: vm.y - ry,
+			x1: vm.x + rx,
+			y1: vm.y + ry,
 			vx: v.x,
 			vy: v.y
 		}, config);
 	},
 
 	rect: function(elem, config) {
-		var v = orient(elem, config.origin);
-		var x = elem.x;
-		var y = elem.y;
+		var vm = elem.getProps(['x', 'y', 'base']);
+		var v = orient(vm, config.origin);
+		var x = vm.x;
+		var y = vm.y;
 		var sx = 0;
 		var sy = 0;
-
-		if (elem.horizontal) {
-			x = Math.min(elem.x, elem.base);
-			sx = Math.abs(elem.base - elem.x);
+		if (vm.horizontal) {
+			x = Math.min(vm.x, vm.base);
+			sx = Math.abs(vm.base - vm.x);
 		} else {
-			y = Math.min(elem.y, elem.base);
-			sy = Math.abs(elem.base - elem.y);
+			y = Math.min(vm.y, vm.base);
+			sy = Math.abs(vm.base - vm.y);
 		}
-
 		return compute({
 			x0: x,
 			y0: y + sy,
@@ -223,13 +223,14 @@ export default {
 	},
 
 	fallback: function(elem, config) {
-		var v = orient(elem, config.origin);
+		var vm = elem.getProps(['x', 'y']);
+		var v = orient(vm, config.origin);
 
 		return compute({
-			x0: elem.x,
-			y0: elem.y,
-			x1: elem.x,
-			y1: elem.y,
+			x0: vm.x,
+			y0: vm.y,
+			x1: vm.x,
+			y1: vm.y,
 			vx: v.x,
 			vy: v.y
 		}, config);
