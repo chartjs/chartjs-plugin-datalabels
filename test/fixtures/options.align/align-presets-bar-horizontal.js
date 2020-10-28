@@ -26,12 +26,13 @@ for (var i = 0; i < inputs.length; ++i) {
 
 export default {
 	config: {
-		type: 'horizontalBar',
+		type: 'bar',
 		data: {
 			datasets: datasets,
 			labels: labels
 		},
 		options: {
+			indexAxis: 'y',
 			layout: {
 				padding: {
 					left: 20,

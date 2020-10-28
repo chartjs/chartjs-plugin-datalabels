@@ -66,12 +66,12 @@ describe('utils.js', function() {
 		var parseFont = utils.parseFont;
 
 		it ('should return a font with default values', function() {
-			var global = Chart.defaults;
+			var font = Chart.defaults.font;
 
-			Chart.defaults = {
-				fontFamily: 'foobar',
-				fontSize: 42,
-				fontStyle: 'xxxyyy'
+			Chart.defaults.font = {
+				family: 'foobar',
+				size: 42,
+				style: 'xxxyyy'
 			};
 
 			expect(parseFont({})).toEqual({
@@ -83,7 +83,7 @@ describe('utils.js', function() {
 				weight: null
 			});
 
-			Chart.defaults = global;
+			Chart.defaults.font = font;
 		});
 		it ('should return a font with given values', function() {
 			expect(parseFont({

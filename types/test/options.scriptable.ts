@@ -52,9 +52,12 @@ const options: Options = {
 };
 
 new Chart('id', {
+	type:'bar',
 	data: {
+		labels: [],
 		datasets: [
 			{
+				data: [],
 				datalabels: options
 			}
 		]

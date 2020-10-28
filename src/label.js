@@ -61,7 +61,7 @@ function getPositioner(el) {
 	return positioners.fallback;
 }
 
-function roundedRect(ctx, x, y, width, height, radius) {
+function roundedRect({ctx, x, y, width, height, radius}) {
 	const HALF_PI = Math.PI / 2;
 
 	if (radius) {
@@ -104,13 +104,15 @@ function drawFrame(ctx, rect, model) {
 	}
 
 	ctx.beginPath();
-	roundedRect(
-		ctx,
-		rasterize(rect.x) + borderWidth / 2,
-		rasterize(rect.y) + borderWidth / 2,
-		rasterize(rect.w) - borderWidth,
-		rasterize(rect.h) - borderWidth,
-		model.borderRadius);
+
+	roundedRect({
+		ctx: ctx,
+		x: rasterize(rect.x) + borderWidth / 2,
+		y: rasterize(rect.y) + borderWidth / 2,
+		width: rasterize(rect.w) - borderWidth,
+		height: rasterize(rect.h) - borderWidth,
+		radius: model.borderRadius
+	});
 
 	ctx.closePath();
 

@@ -19,12 +19,13 @@ var values = [
 
 export default {
 	config: {
-		type: 'horizontalBar',
+		type: 'bar',
 		data: {
 			datasets: datasets,
 			labels: values
 		},
 		options: {
+			indexAxis: 'y',
 			layout: {
 				padding: {
 					left: 20,
@@ -33,8 +34,8 @@ export default {
 			},
 			scales: {
 				x: {
-					min: -40,
-					max: -60
+					min: -60,
+					max: -40
 				}
 			},
 			plugins: {
