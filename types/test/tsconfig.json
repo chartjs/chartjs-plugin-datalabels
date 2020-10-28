@@ -4,7 +4,9 @@
 		"module": "es2015",
 		"moduleResolution": "node",
 		"strict": true,
-		"noEmit": true
+		"noEmit": true,
+		"skipLibCheck": true,
+		"moduleResolution": "node"
 	},
 	"include": [
 		"*.ts",

@@ -1,5 +1,3 @@
-import {helpers} from 'chart.js';
-
 var MIN_INTEGER = Number.MIN_SAFE_INTEGER || -9007199254740991; // eslint-disable-line es/no-number-minsafeinteger
 var MAX_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;  // eslint-disable-line es/no-number-maxsafeinteger
 
@@ -59,7 +57,7 @@ var HitBox = function() {
 	};
 };
 
-helpers.merge(HitBox.prototype, {
+Object.assign(HitBox.prototype, {
 	center: function() {
 		var r = this._rect;
 		return {
@@ -96,6 +94,7 @@ helpers.merge(HitBox.prototype, {
 	intersects: function(other) {
 		var r0 = this._points();
 		var r1 = other._points();
+
 		var axes = [
 			toAxis(r0[0], r0[1]),
 			toAxis(r0[0], r0[3])

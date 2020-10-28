@@ -1,7 +1,7 @@
 import HitBox from './hitbox';
 
-function coordinates(el, model, geometry) {
-	var point = model.positioner(el, model);
+function coordinates(elem, model, geometry) {
+	var point = model.positioner(elem, model);
 	var vx = point.vx;
 	var vy = point.vy;
 
@@ -157,6 +157,10 @@ export default {
 	},
 
 	draw: function(chart, labels) {
+
+		// added to recalculate if overlapping
+		this.update(labels);
+
 		var i, ilen, label, state, geometry, center;
 
 		for (i = 0, ilen = labels.length; i < ilen; ++i) {
