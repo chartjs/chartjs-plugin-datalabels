@@ -4,10 +4,11 @@ import { Context } from '../index'
 import Plugin from '../index'
 
 // Plugin instance
-Chart.plugins.register(Plugin)
-Chart.plugins.unregister(Plugin)
+Chart.register(Plugin)
+Chart.unregister(Plugin)
 
 const chart = new Chart('id', {
+    data: {labels:[], datasets: []}, options: {}, type: 'bar',
     plugins: [Plugin]
 })
 

@@ -38,9 +38,7 @@ describe('defaults.js', function() {
 		// can't test formatter?!
 	};
 
-	var plugin = Chart.plugins.getAll().filter(function(p) {
-		return p.id === 'datalabels';
-	})[0];
+	var plugin = Chart.registry.getPlugin('datalabels');
 
 	it('should be registered as global plugin options', function() {
 		var globals = Chart.defaults.plugins.datalabels;
