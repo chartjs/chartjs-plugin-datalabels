@@ -87,7 +87,11 @@ function dispatchEvent(chart, listeners, label) {
 		// the output context and schedule a new chart render by setting it dirty.
 		chart[EXPANDO_KEY]._dirty = true;
 		label.update(context);
+
+		return true;
 	}
+
+	return false;
 }
 
 function dispatchMoveEvents(chart, listeners, previous, label) {
@@ -138,21 +142,14 @@ function handleClickEvents(chart, event) {
 	var handlers = expando._listeners.click;
 	var label = handlers && layout.lookup(expando._labels, event);
 	if (label) {
-		dispatchEvent(chart, handlers, label);
+		return dispatchEvent(chart, handlers, label);
 	}
-}
-
-// https://github.com/chartjs/chartjs-plugin-datalabels/issues/108
-function invalidate(chart) {
-	// do nothing issue could be solved by CHART.JS 3
-	// No render scheduled: trigger a "lazy" render that can be canceled in case
-	// of hover interactions. The 1ms duration is a workaround to make sure an
-	// animation is created so the controller can stop it before any transition.
-	//chart.render();
 }
 
 var plugin = {
 	id: 'datalabels',
+
+	defaults: defaults,
 
 	beforeInit: function(chart) {
 		chart[EXPANDO_KEY] = {
@@ -247,8 +244,7 @@ var plugin = {
 				handleMoveEvents(chart, event);
 				break;
 			case 'click':
-				handleClickEvents(chart, event);
-				break;
+				return handleClickEvents(chart, event);
 			default:
 			}
 		}
@@ -258,7 +254,6 @@ var plugin = {
 		var expando = chart[EXPANDO_KEY];
 		var previous = expando._actives;
 		var actives = expando._actives = chart._active || [];  // public API?!
-
 		var updates = utils.arrayDiff(previous, actives);
 		var i, ilen, j, jlen, update, label, labels;
 
@@ -276,7 +271,6 @@ var plugin = {
 
 		if (expando._dirty || updates.length) {
 			layout.update(expando._labels);
-			invalidate(chart);
 		}
 
 		delete expando._dirty;
@@ -286,7 +280,5 @@ var plugin = {
 // TODO Remove at version 1, we shouldn't automatically register plugins.
 // https://github.com/chartjs/chartjs-plugin-datalabels/issues/42
 Chart.register(plugin);
-
-Chart.defaults.plugins.datalabels = defaults;
 
 export default plugin;

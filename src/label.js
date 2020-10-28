@@ -104,6 +104,7 @@ function drawFrame(ctx, rect, model) {
 	}
 
 	ctx.beginPath();
+
 	roundedRect(
 		ctx,
 		rasterize(rect.x) + borderWidth / 2,
