@@ -12,6 +12,9 @@ var values = [
 			datalabels: {
 				anchor: anchor,
 				clamp: clamp
+			},
+			options: {
+				indexAxis: 'y'
 			}
 		});
 	});
@@ -19,7 +22,7 @@ var values = [
 
 export default {
 	config: {
-		type: 'horizontalBar',
+		type: 'bar',
 		data: {
 			datasets: datasets,
 			labels: values

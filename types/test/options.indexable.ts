@@ -51,7 +51,9 @@ const options: Options = {
 };
 
 new Chart('id', {
+	type: 'bar',
 	data: {
+		labels: [],
 		datasets: [
 			{
 				datalabels: options

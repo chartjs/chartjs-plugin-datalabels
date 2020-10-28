@@ -5,13 +5,16 @@ var datasets = [];
 		data: [0, 4, -4],
 		datalabels: {
 			anchor: anchor
+		},
+		options: {
+			indexAxis: 'y'
 		}
 	});
 });
 
 export default {
 	config: {
-		type: 'horizontalBar',
+		type: 'bar',
 		data: {
 			labels: [0, 1, 2],
 			datasets: datasets

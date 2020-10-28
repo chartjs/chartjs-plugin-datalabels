@@ -21,7 +21,6 @@
     "types/*.d.ts"
   ],
   "devDependencies": {
-    "@types/chart.js": "^2.8.4",
     "@vuepress/plugin-google-analytics": "^1.5.0",
     "chart.js": "^3.0.0-beta.4",
     "eslint-config-chartjs": "^0.1.0",

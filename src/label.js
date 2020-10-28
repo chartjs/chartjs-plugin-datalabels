@@ -49,13 +49,13 @@ function getScaleOrigin(el, context) {
 }
 
 function getPositioner(el) {
-	if (el instanceof Chart.elements.ArcElement) {
+	if (el instanceof Chart.elements.Arc) {
 		return positioners.arc;
 	}
-	if (el instanceof Chart.elements.PointElement) {
+	if (el instanceof Chart.elements.Point) {
 		return positioners.point;
 	}
-	if (el instanceof Chart.elements.BarElement) {
+	if (el instanceof Chart.elements.Rectangle) {
 		return positioners.rect;
 	}
 	return positioners.fallback;
@@ -104,6 +104,7 @@ function drawFrame(ctx, rect, model) {
 	}
 
 	ctx.beginPath();
+
 	roundedRect(
 		ctx,
 		rasterize(rect.x) + borderWidth / 2,
