@@ -69,8 +69,8 @@ describe('utils.js', function() {
 			var global = Chart.defaults;
 
 			Chart.defaults.font.family = 'foobar';
-			Chart.defaults.font.size= 42;
-			Chart.defaults.font.style= 'xxxyyy';
+			Chart.defaults.font.size = 42;
+			Chart.defaults.font.style = 'xxxyyy';
 
 			expect(parseFont({})).toEqual({
 				family: 'foobar',
