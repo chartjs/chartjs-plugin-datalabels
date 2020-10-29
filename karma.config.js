@@ -18,7 +18,9 @@ module.exports = function(karma) {
 		frameworks: ['jasmine'],
 		reporters: ['spec', 'kjhtml'],
 		logLevel: karma.LOG_WARN,
-
+		jasmine: {
+			random: false
+		},
 		files: [
 			{pattern: './test/fixtures/**/*.js', included: false},
 			{pattern: './test/fixtures/**/*.png', included: false},

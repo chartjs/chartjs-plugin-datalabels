@@ -12,9 +12,6 @@ var values = [
 			datalabels: {
 				anchor: anchor,
 				clamp: clamp
-			},
-			options: {
-				indexAxis: 'y'
 			}
 		});
 	});
@@ -28,6 +25,7 @@ export default {
 			labels: values
 		},
 		options: {
+			indexAxis: 'y',
 			layout: {
 				padding: {
 					left: 20,
@@ -36,8 +34,8 @@ export default {
 			},
 			scales: {
 				x: {
-					min: -40,
-					max: -60
+					min: -60,
+					max: -40
 				}
 			},
 			plugins: {
