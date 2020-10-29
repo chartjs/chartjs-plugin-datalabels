@@ -142,27 +142,6 @@ function handleClickEvents(chart, event) {
 	}
 }
 
-// https://github.com/chartjs/chartjs-plugin-datalabels/issues/108
-function invalidate(chart) {
-	if (chart.animating) {
-		return;
-	}
-
-	// `chart.animating` can be `false` even if there is animation in progress,
-	// so let's iterate all animations to find if there is one for the `chart`.
-	var animations = Chart.animationService.animations;
-	for (var i = 0, ilen = animations.length; i < ilen; ++i) {
-		if (animations[i].chart === chart) {
-			return;
-		}
-	}
-
-	// No render scheduled: trigger a "lazy" render that can be canceled in case
-	// of hover interactions. The 1ms duration is a workaround to make sure an
-	// animation is created so the controller can stop it before any transition.
-	chart.render({duration: 1, lazy: true});
-}
-
 var plugin = {
 	id: 'datalabels',
 
