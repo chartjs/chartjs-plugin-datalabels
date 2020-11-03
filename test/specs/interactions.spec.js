@@ -25,7 +25,7 @@ describe('interactions', function() {
 			expect(spy.calls.argsFor(1)[0].active).toBe(false);
 			expect(spy.calls.argsFor(2)[0].active).toBe(false);
 		});
-		it('should be true for active elements', function() {
+		it('should be true for active elements', function(done) {
 			var options = {color: function() {}};
 			var spy = spyOn(options, 'color');
 
@@ -48,12 +48,16 @@ describe('interactions', function() {
 			spy.calls.reset();
 
 			var ds0 = chart.getDatasetMeta(0);
-			jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
+			jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1])
+				.then(() => {
+					expect(spy.calls.count()).toBe(1);
+					expect(spy.calls.argsFor(0)[0].active).toBe(true);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
 
-			expect(spy.calls.count()).toBe(1);
-			expect(spy.calls.argsFor(0)[0].active).toBe(true);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+					done();
+				});
+
 		});
 	});
 
@@ -73,10 +77,12 @@ describe('interactions', function() {
 			spyOn(chart, 'update');
 			spyOn(chart, 'render');
 
-			jasmine.triggerMouseEvent(chart, 'mousemove', chart.getDatasetMeta(0).data[1]);
+			jasmine.triggerMouseEvent(chart, 'mousemove', chart.getDatasetMeta(0).data[1])
+			.then(() => {
+				expect(chart.update).not.toHaveBeenCalled();
+				expect(chart.render).toHaveBeenCalled();
+			});
 
-			expect(chart.update).not.toHaveBeenCalled();
-			expect(chart.render).toHaveBeenCalled();
 		});
 		it('should only update active elements (context.active: true)', function() {
 			var options = {color: function() {}};
@@ -100,12 +106,13 @@ describe('interactions', function() {
 			expect(spy.calls.count()).toBe(3);
 			spy.calls.reset();
 
-			jasmine.triggerMouseEvent(chart, 'mousemove', chart.getDatasetMeta(0).data[1]);
-
-			expect(spy.calls.count()).toBe(1);
-			expect(spy.calls.argsFor(0)[0].active).toBe(true);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			jasmine.triggerMouseEvent(chart, 'mousemove', chart.getDatasetMeta(0).data[1])
+			.then(() => {
+				expect(spy.calls.count()).toBe(1);
+				expect(spy.calls.argsFor(0)[0].active).toBe(true);
+				expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+				expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			});
 		});
 		it('should only update previously active elements (context.active: false)', function() {
 			var options = {color: function() {}};
@@ -130,17 +137,20 @@ describe('interactions', function() {
 			expect(spy.calls.count()).toBe(3);
 			spy.calls.reset();
 
-			jasmine.triggerMouseEvent(chart, 'mousemove', chart.getDatasetMeta(0).data[1]);
-
-			expect(spy.calls.count()).toBe(1);
-			spy.calls.reset();
-
-			jasmine.triggerMouseEvent(chart, 'mouseout', null);
-
-			expect(spy.calls.count()).toBe(1);
-			expect(spy.calls.argsFor(0)[0].active).toBe(false);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			jasmine.triggerMouseEvent(chart, 'mousemove', chart.getDatasetMeta(0).data[1])
+			.then(() => {
+				expect(spy.calls.count()).toBe(1);
+				spy.calls.reset();
+			})
+			.then(() => {
+				jasmine.triggerMouseEvent(chart, 'mouseout', null);
+			})
+			.then(() => {
+				expect(spy.calls.count()).toBe(1);
+				expect(spy.calls.argsFor(0)[0].active).toBe(false);
+				expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+				expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			});
 		});
 	});
 });

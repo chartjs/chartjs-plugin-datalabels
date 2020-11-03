@@ -39,12 +39,13 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			jasmine.triggerMouseEvent(chart, 'mousemove', {
-				x: label._el.getProps(['x']).x - 16 - 12,
-				y: label._el.getProps(['y']).y - 16 - 12
-			});
-
-			expect(spy.calls.count()).toBe(1);
+			return jasmine.triggerMouseEvent(chart, 'mousemove', {
+					x: label._el.getProps(['x']).x - 16 - 12,
+					y: label._el.getProps(['y']).y - 16 - 12
+				})
+				.then(() => {
+					expect(spy.calls.count()).toBe(1);
+				});
 		});
 	});
 
@@ -69,17 +70,18 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
-
-			expect(spy.calls.count()).toBe(1);
-
-			jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]);
-
-			expect(spy.calls.count()).toBe(2);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-			expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
-			expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(0);
+			return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1])
+				.then(() => {
+					expect(spy.calls.count()).toBe(1);
+				})
+				.then(() => jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]))
+				.then(() => {
+					expect(spy.calls.count()).toBe(2);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+					expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
+					expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(0);
+				});
 		});
 	});
 
@@ -104,15 +106,16 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
-
-			expect(spy.calls.count()).toBe(0);
-
-			jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]);
-
-			expect(spy.calls.count()).toBe(1);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1])
+				.then(() => {
+					expect(spy.calls.count()).toBe(0);
+				})
+				.then(() => jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]))
+				.then(() => {
+					expect(spy.calls.count()).toBe(1);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+				});
 		});
 
 		it('should be called when the mouse moves out the canvas', function() {
@@ -135,15 +138,16 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
-
-			expect(spy.calls.count()).toBe(0);
-
-			jasmine.triggerMouseEvent(chart, 'mouseout');
-
-			expect(spy.calls.count()).toBe(1);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1])
+				.then(() => {
+					expect(spy.calls.count()).toBe(0);
+				})
+				.then(() => jasmine.triggerMouseEvent(chart, 'mouseout'))
+				.then(() => {
+					expect(spy.calls.count()).toBe(1);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+				});
 		});
 	});
 
@@ -168,11 +172,13 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
+				.then(() => {
+					expect(spy.calls.count()).toBe(1);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+				});
 
-			expect(spy.calls.count()).toBe(1);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
 		});
 	});
 
@@ -208,14 +214,15 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
-			jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
-			jasmine.triggerMouseEvent(chart, 'click', ds1.data[2]);
-
-			expect(spy.calls.count()).toBe(2);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-			expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
-			expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
+			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
+				.then(() => jasmine.triggerMouseEvent(chart, 'click', ds1.data[2]))
+				.then(function(){
+					expect(spy.calls.count()).toBe(2);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+					expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
+					expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
+				});
 		});
 
 		it('should call handlers for label in a specific dataset', function() {
@@ -239,12 +246,15 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
-			jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
-			jasmine.triggerMouseEvent(chart, 'click', ds1.data[2]);
-
-			expect(spy.calls.count()).toBe(1);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(2);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
+			Promise.all([
+				jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]),
+				jasmine.triggerMouseEvent(chart, 'click', ds1.data[2])
+			])
+			.then(() => {
+				expect(spy.calls.count()).toBe(1);
+				expect(spy.calls.argsFor(0)[0].dataIndex).toBe(2);
+				expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
+			})
 		});
 
 		it('should call handlers for specific label in any dataset', function() {
@@ -279,16 +289,17 @@ describe('events', function() {
 			expect(spy.calls.count()).toBe(0);
 
 			// Clicking on 4 labels, 2 per data in 2 different datasets.
-			jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4});
-			jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4});
-			jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4});
-			jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4});
-
-			expect(spy.calls.count()).toBe(2);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-			expect(spy.calls.argsFor(1)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
+			return jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4})
+				.then(() => jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4}))
+				.then(() => jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4}))
+				.then(() => jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4}))
+				.then(() => {
+					expect(spy.calls.count()).toBe(2);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+					expect(spy.calls.argsFor(1)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
+				})
 		});
 
 		it('should call handlers for specific label in a specific dataset', function() {
@@ -331,15 +342,18 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
-			// Clicking on 4 labels, 2 per data in 2 different datasets.
-			jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4});
-			jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4});
-			jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4});
-			jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4});
-
-			expect(spy.calls.count()).toBe(1);
-			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
+			return Promise.all([
+					// Clicking on 4 labels, 2 per data in 2 different datasets.
+					jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4}),
+					jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4}),
+					jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4}),
+					jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4})
+				])
+				.then(() => {
+					expect(spy.calls.count()).toBe(1);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
+				})
 		});
 	});
 
@@ -379,18 +393,20 @@ describe('events', function() {
 			expect(options.opacity.calls.argsFor(0)[0].foobar).toBeUndefined();
 
 			options.opacity.calls.reset();
-			jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
+				.then(() => {
+					expect(chart.render).toHaveBeenCalled();
+					expect(options.opacity).toHaveBeenCalled();
+					expect(options.opacity.calls.argsFor(0)[0].foobar).toBeTruthy();
 
-			expect(chart.render).toHaveBeenCalled();
-			expect(options.opacity).toHaveBeenCalled();
-			expect(options.opacity.calls.argsFor(0)[0].foobar).toBeTruthy();
-
-			options.opacity.calls.reset();
-			jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
-
-			expect(chart.render).toHaveBeenCalled();
-			expect(options.opacity).toHaveBeenCalled();
-			expect(options.opacity.calls.argsFor(0)[0].foobar).toBeFalsy();
+					options.opacity.calls.reset();
+					return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+				})
+				.then(() => {
+					expect(chart.render).toHaveBeenCalled();
+					expect(options.opacity).toHaveBeenCalled();
+					expect(options.opacity.calls.argsFor(0)[0].foobar).toBeFalsy();
+				});
 		});
 
 		it('should not update label when returning not `true`', function() {
@@ -427,10 +443,11 @@ describe('events', function() {
 			expect(options.opacity).toHaveBeenCalled();
 
 			options.opacity.calls.reset();
-			jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
-
-			expect(chart.render).not.toHaveBeenCalled();
-			expect(options.opacity).not.toHaveBeenCalled();
+			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
+				.then(() => {
+					expect(chart.render).not.toHaveBeenCalled();
+					expect(options.opacity).not.toHaveBeenCalled();
+				});
 		});
 	});
 });

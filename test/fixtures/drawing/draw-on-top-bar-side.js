@@ -17,7 +17,7 @@ export default {
 		},
 		options: {
 			elements: {
-				rectangle: {
+				bar: {
 					backgroundColor: '#444',
 				}
 			},
