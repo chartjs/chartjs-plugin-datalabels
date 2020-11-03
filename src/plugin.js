@@ -87,7 +87,11 @@ function dispatchEvent(chart, listeners, label) {
 		// the output context and schedule a new chart render by setting it dirty.
 		chart[EXPANDO_KEY]._dirty = true;
 		label.update(context);
+
+		return true;
 	}
+
+	return false;
 }
 
 function dispatchMoveEvents(chart, listeners, previous, label) {
@@ -138,7 +142,7 @@ function handleClickEvents(chart, event) {
 	var handlers = expando._listeners.click;
 	var label = handlers && layout.lookup(expando._labels, event);
 	if (label) {
-		dispatchEvent(chart, handlers, label);
+		return dispatchEvent(chart, handlers, label);
 	}
 }
 
@@ -240,7 +244,7 @@ var plugin = {
 				handleMoveEvents(chart, event);
 				break;
 			case 'click':
-				handleClickEvents(chart, event);
+				return handleClickEvents(chart, event);
 				break;
 			default:
 			}

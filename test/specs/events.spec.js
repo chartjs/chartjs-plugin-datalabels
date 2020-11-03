@@ -73,8 +73,9 @@ describe('events', function() {
 			return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1])
 				.then(() => {
 					expect(spy.calls.count()).toBe(1);
+
+					return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2])
 				})
-				.then(() => jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]))
 				.then(() => {
 					expect(spy.calls.count()).toBe(2);
 					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
