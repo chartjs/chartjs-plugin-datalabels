@@ -117,7 +117,21 @@ function triggerMouseEvent(chart, type, el) {
 		view: window
 	});
 
+	var promise = new Promise((resolve) => {
+		var override = chart._eventHandler;
+		chart._eventHandler = function(event) {
+			override.call(this, event);
+			if (event.type === type) {
+				chart._eventHandler = override;
+				// eslint-disable-next-line callback-return
+				resolve()
+			}
+		};
+	});
+
 	node.dispatchEvent(event);
+
+	return promise;
 }
 
 export default {

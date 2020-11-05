@@ -157,10 +157,10 @@ export default {
 	},
 
 	draw: function(chart, labels) {
-		
+
 		// added to recalculate if overlapping
 		this.update(labels);
-	
+
 		var i, ilen, label, state, geometry, center;
 
 		for (i = 0, ilen = labels.length; i < ilen; ++i) {

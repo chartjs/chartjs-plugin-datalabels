@@ -49,13 +49,13 @@ function getScaleOrigin(el, context) {
 }
 
 function getPositioner(el) {
-	if (el instanceof Chart.elements.Arc) {
+	if (el instanceof Chart.elements.ArcElement) {
 		return positioners.arc;
 	}
-	if (el instanceof Chart.elements.Point) {
+	if (el instanceof Chart.elements.PointElement) {
 		return positioners.point;
 	}
-	if (el instanceof Chart.elements.Rectangle) {
+	if (el instanceof Chart.elements.BarElement) {
 		return positioners.rect;
 	}
 	return positioners.fallback;

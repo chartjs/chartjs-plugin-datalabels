@@ -49,6 +49,7 @@ export default {
 			},
 			scales: {
 				r: {
+					min: 0,
 					display: false
 				}
 			},

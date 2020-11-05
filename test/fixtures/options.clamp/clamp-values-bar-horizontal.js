@@ -13,9 +13,6 @@ var values = [
 			datalabels: {
 				anchor: anchor,
 				clamp: clamp
-			},
-			options: {
-				indexAxis: 'y'
 			}
 		});
 	});
@@ -29,6 +26,7 @@ export default {
 			labels: values
 		},
 		options: {
+			indexAxis: 'y',
 			layout: {
 				padding: {
 					left: 20,

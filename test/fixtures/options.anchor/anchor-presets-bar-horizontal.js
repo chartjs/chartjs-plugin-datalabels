@@ -5,9 +5,6 @@ var datasets = [];
 		data: [0, 4, -4],
 		datalabels: {
 			anchor: anchor
-		},
-		options: {
-			indexAxis: 'y'
 		}
 	});
 });
@@ -20,6 +17,7 @@ export default {
 			datasets: datasets
 		},
 		options: {
+			indexAxis: 'y',
 			layout: {
 				padding: {
 					left: 20,

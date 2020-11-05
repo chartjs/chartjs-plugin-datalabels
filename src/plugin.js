@@ -87,7 +87,11 @@ function dispatchEvent(chart, listeners, label) {
 		// the output context and schedule a new chart render by setting it dirty.
 		chart[EXPANDO_KEY]._dirty = true;
 		label.update(context);
+
+		return true;
 	}
+
+	return false;
 }
 
 function dispatchMoveEvents(chart, listeners, previous, label) {
@@ -138,29 +142,8 @@ function handleClickEvents(chart, event) {
 	var handlers = expando._listeners.click;
 	var label = handlers && layout.lookup(expando._labels, event);
 	if (label) {
-		dispatchEvent(chart, handlers, label);
+		return dispatchEvent(chart, handlers, label);
 	}
-}
-
-// https://github.com/chartjs/chartjs-plugin-datalabels/issues/108
-function invalidate(chart) {
-	// if (chart.animating) {
-	// 	return;
-	// }
-
-	// `chart.animating` can be `false` even if there is animation in progress,
-	// so let's iterate all animations to find if there is one for the `chart`.
-	// var animations = Chart.animationService.animations;
-	// for (var i = 0, ilen = animations.length; i < ilen; ++i) {
-	// 	if (animations[i].chart === chart) {
-	// 		return;
-	// 	}
-	// }
-
-	// No render scheduled: trigger a "lazy" render that can be canceled in case
-	// of hover interactions. The 1ms duration is a workaround to make sure an
-	// animation is created so the controller can stop it before any transition.
-	// chart.render({duration: 1, lazy: true});
 }
 
 var plugin = {
@@ -261,7 +244,7 @@ var plugin = {
 				handleMoveEvents(chart, event);
 				break;
 			case 'click':
-				handleClickEvents(chart, event);
+				return handleClickEvents(chart, event);
 				break;
 			default:
 			}
@@ -289,7 +272,6 @@ var plugin = {
 
 		if (expando._dirty || updates.length) {
 			layout.update(expando._labels);
-			invalidate(chart);
 		}
 
 		delete expando._dirty;

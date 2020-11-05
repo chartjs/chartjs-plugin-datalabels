@@ -38,6 +38,11 @@ export default {
 			}]
 		},
 		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			},
 			elements: {
 				line: {
 					fill: false

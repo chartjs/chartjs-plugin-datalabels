@@ -20,9 +20,6 @@ for (var i = 0; i < inputs.length; ++i) {
 		datalabels: {
 			align: inputs,
 			anchor: anchor
-		},
-		options: {
-			indexAxis: 'y'
 		}
 	});
 });
@@ -35,6 +32,7 @@ export default {
 			labels: labels
 		},
 		options: {
+			indexAxis: 'y',
 			layout: {
 				padding: {
 					left: 20
