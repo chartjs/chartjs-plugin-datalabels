@@ -40,9 +40,9 @@ describe('events', function() {
 			expect(spy.calls.count()).toBe(0);
 
 			return jasmine.triggerMouseEvent(chart, 'mousemove', {
-					x: label._el.getProps(['x']).x - 16 - 12,
-					y: label._el.getProps(['y']).y - 16 - 12
-				})
+				x: label._el.getProps(['x']).x - 16 - 12,
+				y: label._el.getProps(['y']).y - 16 - 12
+			})
 				.then(() => {
 					expect(spy.calls.count()).toBe(1);
 				});
@@ -74,7 +74,7 @@ describe('events', function() {
 				.then(() => {
 					expect(spy.calls.count()).toBe(1);
 
-					return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2])
+					return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]);
 				})
 				.then(() => {
 					expect(spy.calls.count()).toBe(2);
@@ -217,7 +217,7 @@ describe('events', function() {
 
 			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
 				.then(() => jasmine.triggerMouseEvent(chart, 'click', ds1.data[2]))
-				.then(function(){
+				.then(function() {
 					expect(spy.calls.count()).toBe(2);
 					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
 					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
@@ -251,11 +251,11 @@ describe('events', function() {
 				jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]),
 				jasmine.triggerMouseEvent(chart, 'click', ds1.data[2])
 			])
-			.then(() => {
-				expect(spy.calls.count()).toBe(1);
-				expect(spy.calls.argsFor(0)[0].dataIndex).toBe(2);
-				expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
-			})
+				.then(() => {
+					expect(spy.calls.count()).toBe(1);
+					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(2);
+					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
+				});
 		});
 
 		it('should call handlers for specific label in any dataset', function() {
@@ -300,7 +300,7 @@ describe('events', function() {
 					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
 					expect(spy.calls.argsFor(1)[0].dataIndex).toBe(1);
 					expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
-				})
+				});
 		});
 
 		it('should call handlers for specific label in a specific dataset', function() {
@@ -344,17 +344,17 @@ describe('events', function() {
 			expect(spy.calls.count()).toBe(0);
 
 			return Promise.all([
-					// Clicking on 4 labels, 2 per data in 2 different datasets.
-					jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4}),
-					jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4}),
-					jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4}),
-					jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4})
-				])
+				// Clicking on 4 labels, 2 per data in 2 different datasets.
+				jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4}),
+				jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4}),
+				jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4}),
+				jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4})
+			])
 				.then(() => {
 					expect(spy.calls.count()).toBe(1);
 					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
 					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
-				})
+				});
 		});
 	});
 
