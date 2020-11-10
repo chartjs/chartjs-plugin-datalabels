@@ -1,5 +1,3 @@
-/* global Promise */
-
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
 var eslint = require('gulp-eslint');
