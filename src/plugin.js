@@ -63,24 +63,19 @@ function configure(dataset, options) {
 }
 
 function dispatchEvent(chart, listeners, label) {
-	if (!listeners) {
-		return;
-	}
-
-	var context = label.$context;
-	var groups = label.$groups;
+	const context = label.$context;
+	const groups = label.$groups;
 	var callback;
 
-	if (!listeners[groups._set]) {
+	if (!listeners || !listeners[groups._set] || !listeners[groups._set][groups._key]) {
 		return;
 	}
 
 	callback = listeners[groups._set][groups._key];
-	if (!callback) {
-		return;
-	}
 
-	if (helpers.callback(callback, [context]) === true) {
+	if (helpers.callback(callback, [context]) !== true) {
+		return false;
+	} else {
 		// Users are allowed to tweak the given context by injecting values that can be
 		// used in scriptable options to display labels differently based on the current
 		// event (e.g. highlight an hovered label). That's why we update the label with
@@ -90,8 +85,6 @@ function dispatchEvent(chart, listeners, label) {
 
 		return true;
 	}
-
-	return false;
 }
 
 function dispatchMoveEvents(chart, listeners, previous, label) {
