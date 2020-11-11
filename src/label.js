@@ -56,7 +56,7 @@ function getPositioner(el) {
 		return positioners.point;
 	}
 	if (el instanceof Chart.elements.BarElement) {
-		return positioners.rect;
+		return positioners.bar;
 	}
 	return positioners.fallback;
 }
@@ -238,7 +238,7 @@ Object.assign(Label.prototype, {
 		var me = this;
 		var index = me._index;
 		var resolve = helpers.resolve;
-		var font = utils.parseFont(resolve([config.font, {}], context, index));
+		var font = helpers.toFont(resolve([config.font, {}], context, index));
 		var color = resolve([config.color, Chart.defaults.font.color], context, index);
 
 		return {

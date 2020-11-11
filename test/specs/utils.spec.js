@@ -1,4 +1,3 @@
-import Chart from 'chart.js';
 import utils from '../../src/utils';
 
 describe('utils.js', function() {
@@ -59,47 +58,6 @@ describe('utils.js', function() {
 			expect(toFontString({size: 12, family: 'serif'})).toBe('12px serif');
 			expect(toFontString({style: 'italic', size: 12, family: 'serif'})).toBe('italic 12px serif');
 			expect(toFontString({weight: 300, size: 12, family: 'serif'})).toBe('300 12px serif');
-		});
-	});
-
-	describe('parseFont', function() {
-		var parseFont = utils.parseFont;
-
-		it ('should return a font with default values', function() {
-			var font = Chart.defaults.font;
-
-			Chart.defaults.font = {
-				family: 'foobar',
-				size: 42,
-				style: 'xxxyyy'
-			};
-
-			expect(parseFont({})).toEqual({
-				family: 'foobar',
-				lineHeight: 50.4,
-				size: 42,
-				string: 'xxxyyy 42px foobar',
-				style: 'xxxyyy',
-				weight: null
-			});
-
-			Chart.defaults.font = font;
-		});
-		it ('should return a font with given values', function() {
-			expect(parseFont({
-				family: 'bla',
-				lineHeight: 8,
-				size: 21,
-				style: 'zzz',
-				weight: 400
-			})).toEqual({
-				family: 'bla',
-				lineHeight: 8 * 21,
-				size: 21,
-				string: 'zzz 400 21px bla',
-				style: 'zzz',
-				weight: 400
-			});
 		});
 	});
 

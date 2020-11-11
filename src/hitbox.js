@@ -57,7 +57,7 @@ var HitBox = function() {
 	};
 };
 
-Object.assign(HitBox.prototype, {
+Object.setPrototypeOf(HitBox.prototype, {
 	center: function() {
 		var r = this._rect;
 		return {

@@ -28,7 +28,7 @@ jasmine.triggerMouseEvent = utils.triggerMouseEvent;
 beforeEach(function() {
 	jasmine.addMatchers(matchers);
 
-	Chart.helpers.merge(Chart.defaults, {
+	Chart.defaults.set('', {
 		animation: false,
 		legend: {display: false},
 		responsive: false,
@@ -53,7 +53,7 @@ beforeEach(function() {
 		}
 	});
 
-	Chart.helpers.merge(Chart.defaults.scale, {
+	Chart.defaults.set('scale', {
 		display: false,
 		ticks: {
 			beginAtZero: true

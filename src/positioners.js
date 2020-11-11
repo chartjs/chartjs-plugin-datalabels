@@ -198,7 +198,7 @@ export default {
 		}, config);
 	},
 
-	rect: function(elem, config) {
+	bar: function(elem, config) {
 		var vm = elem.getProps(['x', 'y', 'base']);
 		var v = orient(vm, config.origin);
 		var x = vm.x;
