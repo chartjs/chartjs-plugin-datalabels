@@ -41,7 +41,7 @@
 			labels.push('' + i);
 		}
 
-		Chart.helpers.merge(Chart.defaults, {
+		Chart.defaults.set('', {
 			maintainAspectRatio: false,
 			tooltips: {
 				enabled: false
@@ -155,10 +155,9 @@
 		}
 
 		function addData() {
-			var color = Samples.color();
 			chart.data.labels.push(chart.data.labels.length);
 			chart.data.datasets.forEach(function(dataset, i) {
-				dataset.backgroundColor.push(color);
+				dataset.backgroundColor.push(Samples.color());
 				dataset.data.push(Samples.rand(0, 100));
 			});
 

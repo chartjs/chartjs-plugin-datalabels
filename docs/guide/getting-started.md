@@ -97,7 +97,7 @@ For example:
 
 ```javascript
 // Change default options for ALL charts
-Chart.helpers.merge(Chart.defaults.plugins.datalabels, {
+Chart.defaults.set('plugins.datalabels', {
     color: '#FE777B'
 });
 

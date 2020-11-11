@@ -77,23 +77,6 @@ var utils = {
 		};
 	},
 
-	// @todo move this method in Chart.helpers.toFont
-	parseFont: function(value) {
-		var global = Chart.defaults;
-		var size = helpers.valueOrDefault(value.size, global.font.size);
-		var font = {
-			family: helpers.valueOrDefault(value.family, global.font.family),
-			lineHeight: helpers.toLineHeight(value.lineHeight, size),
-			size: size,
-			style: helpers.valueOrDefault(value.style, global.font.style),
-			weight: helpers.valueOrDefault(value.weight, null),
-			string: ''
-		};
-
-		font.string = utils.toFontString(font);
-		return font;
-	},
-
 	/**
 	 * Returns value bounded by min and max. This is equivalent to max(min, min(value, max)).
 	 * @todo move this method in Chart.helpers.bound
