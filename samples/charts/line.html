@@ -41,11 +41,9 @@
 			labels.push('' + i);
 		}
 
-		Chart.helpers.merge(Chart.defaults, {
+		Chart.defaults.set('', {
 			aspectRatio: 4 / 3,
-			tooltips: {
-				enabled: false
-			},
+			tooltips: false,
 			layout: {
 				padding: {
 					top: 42,

@@ -105,7 +105,7 @@ function releaseChart(chart) {
 	}
 }
 
-function triggerMouseEvent(chart, type, el) {
+async function triggerMouseEvent(chart, type, el) {
 	var node = chart.canvas;
 	var rect = node.getBoundingClientRect();
 	var x = el && el.x !== undefined ? el.x : null;
@@ -133,7 +133,7 @@ function triggerMouseEvent(chart, type, el) {
 
 	node.dispatchEvent(event);
 
-	return promise;
+	await promise;
 }
 
 export default {

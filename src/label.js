@@ -30,7 +30,6 @@ function boundingRects(model) {
 }
 
 function getScaleOrigin(el, context) {
-	var horizontal = el.horizontal;
 	var meta = context.chart.getDatasetMeta(context.datasetIndex);
 	var scale = meta.vScale;
 
@@ -43,7 +42,7 @@ function getScaleOrigin(el, context) {
 	}
 
 	var pixel = scale.getBasePixel();
-	return horizontal ?
+	return el.horizontal ?
 		{x: pixel, y: null} :
 		{x: null, y: pixel};
 }
@@ -56,20 +55,20 @@ function getPositioner(el) {
 		return positioners.point;
 	}
 	if (el instanceof Chart.elements.BarElement) {
-		return positioners.rect;
+		return positioners.bar;
 	}
 	return positioners.fallback;
 }
 
-function roundedRect({ctx, x, y, width, height, radius}) {
-	const HALF_PI = Math.PI / 2;
+function drawRoundedRect(ctx, x, y, w, h, radius) {
+	var HALF_PI = Math.PI / 2;
 
 	if (radius) {
-		var r = Math.min(radius, height / 2, width / 2);
+		var r = Math.min(radius, h / 2, w / 2);
 		var left = x + r;
 		var top = y + r;
-		var right = x + width - r;
-		var bottom = y + height - r;
+		var right = x + w - r;
+		var bottom = y + h - r;
 
 		ctx.moveTo(x, top);
 		if (left < right && top < bottom) {
@@ -90,7 +89,7 @@ function roundedRect({ctx, x, y, width, height, radius}) {
 		ctx.closePath();
 		ctx.moveTo(x, y);
 	} else {
-		ctx.rect(x, y, width, height);
+		ctx.rect(x, y, w, h);
 	}
 }
 
@@ -105,14 +104,14 @@ function drawFrame(ctx, rect, model) {
 
 	ctx.beginPath();
 
-	roundedRect({
-		ctx: ctx,
-		x: rasterize(rect.x) + borderWidth / 2,
-		y: rasterize(rect.y) + borderWidth / 2,
-		width: rasterize(rect.w) - borderWidth,
-		height: rasterize(rect.h) - borderWidth,
-		radius: model.borderRadius
-	});
+	drawRoundedRect(
+		ctx,
+		rasterize(rect.x) + borderWidth / 2,
+		rasterize(rect.y) + borderWidth / 2,
+		rasterize(rect.w) - borderWidth,
+		rasterize(rect.h) - borderWidth,
+		model.borderRadius
+	);
 
 	ctx.closePath();
 
@@ -230,7 +229,7 @@ var Label = function(config, ctx, el, index) {
 	me._el = el;
 };
 
-Object.assign(Label.prototype, {
+helpers.merge(Label.prototype, {
 	/**
 	 * @private
 	 */
@@ -238,7 +237,7 @@ Object.assign(Label.prototype, {
 		var me = this;
 		var index = me._index;
 		var resolve = helpers.resolve;
-		var font = utils.parseFont(resolve([config.font, {}], context, index));
+		var font = helpers.toFont(resolve([config.font, {}], context, index));
 		var color = resolve([config.color, Chart.defaults.font.color], context, index);
 
 		return {

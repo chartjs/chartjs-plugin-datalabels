@@ -1,5 +1,6 @@
+/* global Promise */
+
 var gulp = require('gulp');
-var gulpIf = require('gulp-if');
 var eslint = require('gulp-eslint');
 var file = require('gulp-file');
 var replace = require('gulp-replace');
@@ -17,11 +18,6 @@ var argv = require('yargs')
 	.option('docs-dir', {default: 'docs'})
 	.option('www-dir', {default: 'www'})
 	.argv;
-
-function isFixed(f) {
-	// Has ESLint fixed the file contents?
-	return f.eslint !== null && f.eslint.fixed;
-}
 
 function run(bin, args) {
 	return new Promise((resolve, reject) => {
@@ -73,17 +69,12 @@ gulp.task('lint', function() {
 		'samples/**/*.html',
 		'src/**/*.js',
 		'test/**/*.js',
-		'types/**/*.d.ts',
 		'*.js'
 	];
 
 	return gulp.src(files)
-		.pipe(eslint({fix: argv.fix}))
+		.pipe(eslint())
 		.pipe(eslint.format())
-		.pipe(gulpIf(isFixed, gulp.dest(f => f.base)))
-		// To have the process exit with an error code (1) on
-		// lint error, return the stream and pipe to failAfterError
-		// last.
 		.pipe(eslint.failAfterError());
 });
 

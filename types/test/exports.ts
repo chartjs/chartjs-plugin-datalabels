@@ -8,7 +8,12 @@ Chart.register(Plugin)
 Chart.unregister(Plugin)
 
 const chart = new Chart('id', {
-    data: {labels:[], datasets: []}, options: {}, type: 'bar',
+    data: {
+        labels:[],
+        datasets: []
+    },
+    options: {},
+    type: 'bar',
     plugins: [Plugin]
 })
 
