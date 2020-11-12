@@ -230,7 +230,7 @@ var Label = function(config, ctx, el, index) {
 	me._el = el;
 };
 
-Object.assign(Label.prototype, {
+helpers.merge(Label.prototype, {
 	/**
 	 * @private
 	 */
