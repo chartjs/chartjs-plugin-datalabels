@@ -61,36 +61,36 @@ function getPositioner(el) {
 	return positioners.fallback;
 }
 
-function roundedRect({ctx, x, y, width, height, radius}) {
+function roundedRect(el) {
 	const HALF_PI = Math.PI / 2;
 
-	if (radius) {
-		var r = Math.min(radius, height / 2, width / 2);
-		var left = x + r;
-		var top = y + r;
-		var right = x + width - r;
-		var bottom = y + height - r;
+	if (el.radius) {
+		var r = Math.min(el.radius, el.height / 2, el.width / 2);
+		var left = el.x + r;
+		var top = el.y + r;
+		var right = el.x + el.width - r;
+		var bottom = el.y + el.height - r;
 
-		ctx.moveTo(x, top);
+		el.ctx.moveTo(el.x, top);
 		if (left < right && top < bottom) {
-			ctx.arc(left, top, r, -Math.PI, -HALF_PI);
-			ctx.arc(right, top, r, -HALF_PI, 0);
-			ctx.arc(right, bottom, r, 0, HALF_PI);
-			ctx.arc(left, bottom, r, HALF_PI, Math.PI);
+			el.ctx.arc(left, top, r, -Math.PI, -HALF_PI);
+			el.ctx.arc(right, top, r, -HALF_PI, 0);
+			el.ctx.arc(right, bottom, r, 0, HALF_PI);
+			el.ctx.arc(left, bottom, r, HALF_PI, Math.PI);
 		} else if (left < right) {
-			ctx.moveTo(left, y);
-			ctx.arc(right, top, r, -HALF_PI, HALF_PI);
-			ctx.arc(left, top, r, HALF_PI, Math.PI + HALF_PI);
+			el.ctx.moveTo(left, el.y);
+			el.ctx.arc(right, top, r, -HALF_PI, HALF_PI);
+			el.ctx.arc(left, top, r, HALF_PI, Math.PI + HALF_PI);
 		} else if (top < bottom) {
-			ctx.arc(left, top, r, -Math.PI, 0);
-			ctx.arc(left, bottom, r, 0, Math.PI);
+			el.ctx.arc(left, top, r, -Math.PI, 0);
+			el.ctx.arc(left, bottom, r, 0, Math.PI);
 		} else {
-			ctx.arc(left, top, r, -Math.PI, Math.PI);
+			el.ctx.arc(left, top, r, -Math.PI, Math.PI);
 		}
-		ctx.closePath();
-		ctx.moveTo(x, y);
+		el.ctx.closePath();
+		el.ctx.moveTo(el.x, el.y);
 	} else {
-		ctx.rect(x, y, width, height);
+		el.ctx.rect(el.x, el.y, el.width, el.height);
 	}
 }
 
