@@ -2,8 +2,9 @@
 	"compilerOptions": {
 		"target": "es5",
 		"module": "es2015",
+		"moduleResolution": "node",
 		"strict": true,
-		"noEmit": true
+		"noEmit": true,
 	},
 	"include": [
 		"*.ts",
