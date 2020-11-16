@@ -14,7 +14,7 @@ describe('events', function() {
 	});
 
 	describe('hitbox', function() {
-		it('should detect events for labels with borders', function() {
+		it('should detect events for labels with borders', async function() {
 			var spy = jasmine.createSpy('spy');
 			var chart = jasmine.chart.acquire({
 				type: 'line',
@@ -39,18 +39,16 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			return jasmine.triggerMouseEvent(chart, 'mousemove', {
+			await jasmine.triggerMouseEvent(chart, 'mousemove', {
 				x: label._el.getProps(['x']).x - 16 - 12,
 				y: label._el.getProps(['y']).y - 16 - 12
-			})
-				.then(() => {
-					expect(spy.calls.count()).toBe(1);
-				});
+			});
+			expect(spy.calls.count()).toBe(1);
 		});
 	});
 
 	describe('`enter` handlers', function() {
-		it('should be called when the mouse moves inside the label', function() {
+		it('should be called when the mouse moves inside the label', async function() {
 			var spy = jasmine.createSpy('spy');
 			var chart = jasmine.chart.acquire({
 				type: 'line',
@@ -70,24 +68,22 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1])
-				.then(() => {
-					expect(spy.calls.count()).toBe(1);
+			await jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
 
-					return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]);
-				})
-				.then(() => {
-					expect(spy.calls.count()).toBe(2);
-					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-					expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
-					expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(0);
-				});
+			expect(spy.calls.count()).toBe(1);
+
+			await jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]);
+
+			expect(spy.calls.count()).toBe(2);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
+			expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(0);
 		});
 	});
 
 	describe('`leave` handlers', function() {
-		it('should be called when the mouse moves outside the label', function() {
+		it('should be called when the mouse moves outside the label', async function() {
 			var spy = jasmine.createSpy('spy');
 			var chart = jasmine.chart.acquire({
 				type: 'line',
@@ -107,19 +103,18 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1])
-				.then(() => {
-					expect(spy.calls.count()).toBe(0);
-				})
-				.then(() => jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]))
-				.then(() => {
-					expect(spy.calls.count()).toBe(1);
-					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-				});
+			await jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
+
+			expect(spy.calls.count()).toBe(0);
+
+			await jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[2]);
+
+			expect(spy.calls.count()).toBe(1);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
 		});
 
-		it('should be called when the mouse moves out the canvas', function() {
+		it('should be called when the mouse moves out the canvas', async function() {
 			var spy = jasmine.createSpy('spy');
 			var chart = jasmine.chart.acquire({
 				type: 'line',
@@ -139,21 +134,19 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			return jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1])
-				.then(() => {
-					expect(spy.calls.count()).toBe(0);
-				})
-				.then(() => jasmine.triggerMouseEvent(chart, 'mouseout'))
-				.then(() => {
-					expect(spy.calls.count()).toBe(1);
-					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-				});
+			await jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
+
+			expect(spy.calls.count()).toBe(0);
+
+			await jasmine.triggerMouseEvent(chart, 'mouseout');
+			expect(spy.calls.count()).toBe(1);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
 		});
 	});
 
 	describe('`click` handlers', function() {
-		it('should be called when user click a label', function() {
+		it('should be called when user click a label', async function() {
 			var spy = jasmine.createSpy('spy');
 			var chart = jasmine.chart.acquire({
 				type: 'line',
@@ -173,13 +166,11 @@ describe('events', function() {
 
 			expect(spy.calls.count()).toBe(0);
 
-			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
-				.then(() => {
-					expect(spy.calls.count()).toBe(1);
-					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-				});
+			await jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
 
+			expect(spy.calls.count()).toBe(1);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
 		});
 	});
 
@@ -193,7 +184,7 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeFalsy();
 		});
 
-		it('should call handlers for any labels in any dataset', function() {
+		it('should call handlers for any labels in any dataset', async function() {
 			var spy = jasmine.createSpy('spy');
 			var chart = jasmine.chart.acquire({
 				type: 'line',
@@ -215,18 +206,17 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
-			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
-				.then(() => jasmine.triggerMouseEvent(chart, 'click', ds1.data[2]))
-				.then(function() {
-					expect(spy.calls.count()).toBe(2);
-					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-					expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
-					expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
-				});
+			await jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+			await jasmine.triggerMouseEvent(chart, 'click', ds1.data[2]);
+
+			expect(spy.calls.count()).toBe(2);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
+			expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
 		});
 
-		it('should call handlers for label in a specific dataset', function() {
+		it('should call handlers for label in a specific dataset', async function() {
 			var spy = jasmine.createSpy('spy');
 			var data = Chart.helpers.clone(this.data);
 
@@ -247,18 +237,17 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
-			Promise.all([
+			await Promise.all([
 				jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]),
 				jasmine.triggerMouseEvent(chart, 'click', ds1.data[2])
-			])
-				.then(() => {
-					expect(spy.calls.count()).toBe(1);
-					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(2);
-					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
-				});
+			]);
+
+			expect(spy.calls.count()).toBe(1);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(2);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
 		});
 
-		it('should call handlers for specific label in any dataset', function() {
+		it('should call handlers for specific label in any dataset', async function() {
 			var spy = jasmine.createSpy('spy');
 			var chart = jasmine.chart.acquire({
 				type: 'line',
@@ -290,20 +279,19 @@ describe('events', function() {
 			expect(spy.calls.count()).toBe(0);
 
 			// Clicking on 4 labels, 2 per data in 2 different datasets.
-			return jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4})
-				.then(() => jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4}))
-				.then(() => jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4}))
-				.then(() => jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4}))
-				.then(() => {
-					expect(spy.calls.count()).toBe(2);
-					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
-					expect(spy.calls.argsFor(1)[0].dataIndex).toBe(1);
-					expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
-				});
+			await jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4});
+			await jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4});
+			await jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4});
+			await jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4});
+
+			expect(spy.calls.count()).toBe(2);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+			expect(spy.calls.argsFor(1)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(1);
 		});
 
-		it('should call handlers for specific label in a specific dataset', function() {
+		it('should call handlers for specific label in a specific dataset', async function() {
 			var spy = jasmine.createSpy('spy');
 			var data = Chart.helpers.clone(this.data);
 
@@ -343,23 +331,22 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
-			return Promise.all([
+			await Promise.all([
 				// Clicking on 4 labels, 2 per data in 2 different datasets.
 				jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4}),
 				jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4}),
 				jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4}),
 				jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4})
-			])
-				.then(() => {
-					expect(spy.calls.count()).toBe(1);
-					expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
-					expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
-				});
+			]);
+
+			expect(spy.calls.count()).toBe(1);
+			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
+			expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(1);
 		});
 	});
 
 	describe('handlers', function() {
-		it('should update label when explicitly returning `true`', function() {
+		it('should update label when explicitly returning `true`', async function() {
 			var options = {
 				opacity: function(context) {
 					return context.foobar ? 1 : 0.5;
@@ -394,23 +381,23 @@ describe('events', function() {
 			expect(options.opacity.calls.argsFor(0)[0].foobar).toBeUndefined();
 
 			options.opacity.calls.reset();
-			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
-				.then(() => {
-					expect(chart.render).toHaveBeenCalled();
-					expect(options.opacity).toHaveBeenCalled();
-					expect(options.opacity.calls.argsFor(0)[0].foobar).toBeTruthy();
 
-					options.opacity.calls.reset();
-					return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
-				})
-				.then(() => {
-					expect(chart.render).toHaveBeenCalled();
-					expect(options.opacity).toHaveBeenCalled();
-					expect(options.opacity.calls.argsFor(0)[0].foobar).toBeFalsy();
-				});
+			await jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+
+			expect(chart.render).toHaveBeenCalled();
+			expect(options.opacity).toHaveBeenCalled();
+			expect(options.opacity.calls.argsFor(0)[0].foobar).toBeTruthy();
+
+			options.opacity.calls.reset();
+
+			await jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+
+			expect(chart.render).toHaveBeenCalled();
+			expect(options.opacity).toHaveBeenCalled();
+			expect(options.opacity.calls.argsFor(0)[0].foobar).toBeFalsy();
 		});
 
-		it('should not update label when returning not `true`', function() {
+		it('should not update label when returning not `true`', async function() {
 			var options = {
 				opacity: function(context) {
 					return context.foobar ? 1 : 0.5;
@@ -444,11 +431,10 @@ describe('events', function() {
 			expect(options.opacity).toHaveBeenCalled();
 
 			options.opacity.calls.reset();
-			return jasmine.triggerMouseEvent(chart, 'click', ds0.data[1])
-				.then(() => {
-					expect(chart.render).not.toHaveBeenCalled();
-					expect(options.opacity).not.toHaveBeenCalled();
-				});
+			await jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+
+			expect(chart.render).not.toHaveBeenCalled();
+			expect(options.opacity).not.toHaveBeenCalled();
 		});
 	});
 });

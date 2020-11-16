@@ -18,5 +18,7 @@ const ctx: Context = {
     chart: chart,
     datasetIndex: 0,
     dataIndex: 0,
-    dataset: {}
+    dataset: {
+        data: []
+    }
 }

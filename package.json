@@ -21,8 +21,11 @@
     "types/*.d.ts"
   ],
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
     "@vuepress/plugin-google-analytics": "^1.7.1",
     "chart.js": "^3.0.0-beta.6",
+    "eslint": "^7.13.0",
     "eslint-config-chartjs": "^0.1.0",
     "eslint-plugin-es": "^3.0.1",
     "eslint-plugin-html": "^6.1.1",

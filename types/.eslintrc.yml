@@ -1,0 +1,5 @@
+parser: "@typescript-eslint/parser"
+
+rules:
+  no-unused-vars: off
+  no-shadow: off

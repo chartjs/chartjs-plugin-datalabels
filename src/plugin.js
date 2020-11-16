@@ -63,8 +63,8 @@ function configure(dataset, options) {
 }
 
 function dispatchEvent(chart, listeners, label) {
-	const context = label.$context;
-	const groups = label.$groups;
+	var context = label.$context;
+	var groups = label.$groups;
 	var callback;
 
 	if (!listeners || !listeners[groups._set] || !listeners[groups._set][groups._key]) {
@@ -76,6 +76,7 @@ function dispatchEvent(chart, listeners, label) {
 	if (helpers.callback(callback, [context]) !== true) {
 		return false;
 	}
+
 	// Users are allowed to tweak the given context by injecting values that can be
 	// used in scriptable options to display labels differently based on the current
 	// event (e.g. highlight an hovered label). That's why we update the label with
@@ -246,7 +247,7 @@ var plugin = {
 	afterEvent: function(chart) {
 		var expando = chart[EXPANDO_KEY];
 		var previous = expando._actives;
-		var actives = expando._actives = chart.getActiveElements() || [];
+		var actives = expando._actives = chart.getActiveElements();
 		var updates = utils.arrayDiff(previous, actives);
 		var i, ilen, j, jlen, update, label, labels;
 
@@ -264,6 +265,8 @@ var plugin = {
 
 		if (expando._dirty || updates.length) {
 			layout.update(expando._labels);
+
+			chart.render();
 		}
 
 		delete expando._dirty;

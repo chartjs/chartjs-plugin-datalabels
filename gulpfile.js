@@ -75,6 +75,7 @@ gulp.task('lint', function() {
 		'samples/**/*.html',
 		'src/**/*.js',
 		'test/**/*.js',
+		'types/**/*.d.ts',
 		'*.js'
 	];
 

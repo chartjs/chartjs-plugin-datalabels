@@ -30,7 +30,6 @@ function boundingRects(model) {
 }
 
 function getScaleOrigin(el, context) {
-	var horizontal = el.horizontal;
 	var meta = context.chart.getDatasetMeta(context.datasetIndex);
 	var scale = meta.vScale;
 
@@ -43,7 +42,7 @@ function getScaleOrigin(el, context) {
 	}
 
 	var pixel = scale.getBasePixel();
-	return horizontal ?
+	return el.horizontal ?
 		{x: pixel, y: null} :
 		{x: null, y: pixel};
 }
@@ -61,36 +60,36 @@ function getPositioner(el) {
 	return positioners.fallback;
 }
 
-function roundedRect(el) {
-	const HALF_PI = Math.PI / 2;
+function drawRoundedRect(ctx, x, y, w, h, radius) {
+	var HALF_PI = Math.PI / 2;
 
-	if (el.radius) {
-		var r = Math.min(el.radius, el.height / 2, el.width / 2);
-		var left = el.x + r;
-		var top = el.y + r;
-		var right = el.x + el.width - r;
-		var bottom = el.y + el.height - r;
+	if (radius) {
+		var r = Math.min(radius, h / 2, w / 2);
+		var left = x + r;
+		var top = y + r;
+		var right = x + w - r;
+		var bottom = y + h - r;
 
-		el.ctx.moveTo(el.x, top);
+		ctx.moveTo(x, top);
 		if (left < right && top < bottom) {
-			el.ctx.arc(left, top, r, -Math.PI, -HALF_PI);
-			el.ctx.arc(right, top, r, -HALF_PI, 0);
-			el.ctx.arc(right, bottom, r, 0, HALF_PI);
-			el.ctx.arc(left, bottom, r, HALF_PI, Math.PI);
+			ctx.arc(left, top, r, -Math.PI, -HALF_PI);
+			ctx.arc(right, top, r, -HALF_PI, 0);
+			ctx.arc(right, bottom, r, 0, HALF_PI);
+			ctx.arc(left, bottom, r, HALF_PI, Math.PI);
 		} else if (left < right) {
-			el.ctx.moveTo(left, el.y);
-			el.ctx.arc(right, top, r, -HALF_PI, HALF_PI);
-			el.ctx.arc(left, top, r, HALF_PI, Math.PI + HALF_PI);
+			ctx.moveTo(left, y);
+			ctx.arc(right, top, r, -HALF_PI, HALF_PI);
+			ctx.arc(left, top, r, HALF_PI, Math.PI + HALF_PI);
 		} else if (top < bottom) {
-			el.ctx.arc(left, top, r, -Math.PI, 0);
-			el.ctx.arc(left, bottom, r, 0, Math.PI);
+			ctx.arc(left, top, r, -Math.PI, 0);
+			ctx.arc(left, bottom, r, 0, Math.PI);
 		} else {
-			el.ctx.arc(left, top, r, -Math.PI, Math.PI);
+			ctx.arc(left, top, r, -Math.PI, Math.PI);
 		}
-		el.ctx.closePath();
-		el.ctx.moveTo(el.x, el.y);
+		ctx.closePath();
+		ctx.moveTo(x, y);
 	} else {
-		el.ctx.rect(el.x, el.y, el.width, el.height);
+		ctx.rect(x, y, w, h);
 	}
 }
 
@@ -105,14 +104,7 @@ function drawFrame(ctx, rect, model) {
 
 	ctx.beginPath();
 
-	roundedRect({
-		ctx: ctx,
-		x: rasterize(rect.x) + borderWidth / 2,
-		y: rasterize(rect.y) + borderWidth / 2,
-		width: rasterize(rect.w) - borderWidth,
-		height: rasterize(rect.h) - borderWidth,
-		radius: model.borderRadius
-	});
+	drawRoundedRect(ctx, rasterize(rect.x) + borderWidth / 2, rasterize(rect.y) + borderWidth / 2, rasterize(rect.w) - borderWidth, rasterize(rect.h) - borderWidth, model.borderRadius);
 
 	ctx.closePath();
 
