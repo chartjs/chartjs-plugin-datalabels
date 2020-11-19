@@ -41,19 +41,6 @@ var utils = {
 		return lines;
 	},
 
-	// @todo move this method in Chart.helpers.canvas.toFont (deprecates helpers.fontString)
-	// @see https://developer.mozilla.org/en-US/docs/Web/CSS/font
-	toFontString: function(font) {
-		if (!font || helpers.isNullOrUndef(font.size) || helpers.isNullOrUndef(font.family)) {
-			return null;
-		}
-
-		return (font.style ? font.style + ' ' : '')
-			+ (font.weight ? font.weight + ' ' : '')
-			+ font.size + 'px '
-			+ font.family;
-	},
-
 	// @todo move this in Chart.helpers.canvas.textSize
 	// @todo cache calls of measureText if font doesn't change?!
 	textSize: function(ctx, lines, font) {

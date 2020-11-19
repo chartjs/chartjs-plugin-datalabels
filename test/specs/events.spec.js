@@ -239,10 +239,8 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
-			await Promise.all([
-				jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]),
-				jasmine.triggerMouseEvent(chart, 'click', ds1.data[2])
-			]);
+			await jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+			await jasmine.triggerMouseEvent(chart, 'click', ds1.data[2]);
 
 			expect(spy.calls.count()).toBe(1);
 			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(2);
@@ -333,13 +331,11 @@ describe('events', function() {
 			expect(chart.$datalabels._listened).toBeTruthy();
 			expect(spy.calls.count()).toBe(0);
 
-			await Promise.all([
-				// Clicking on 4 labels, 2 per data in 2 different datasets.
-				jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4}),
-				jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4}),
-				jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4}),
-				jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4})
-			]);
+			// Clicking on 4 labels, 2 per data in 2 different datasets.
+			await jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y + 4});
+			await jasmine.triggerMouseEvent(chart, 'click', {x: pt0.x, y: pt0.y - 4});
+			await jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y + 4});
+			await jasmine.triggerMouseEvent(chart, 'click', {x: pt1.x, y: pt1.y - 4});
 
 			expect(spy.calls.count()).toBe(1);
 			expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);

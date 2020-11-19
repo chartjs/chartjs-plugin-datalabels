@@ -1,4 +1,4 @@
-import {Context} from './context';
+import { Context } from './context';
 
 type Align = 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number;
 type Anchor = 'center' | 'end' | 'start';
@@ -101,7 +101,7 @@ interface LabelOptions {
 
 	/**
 	 * The color used to draw the label text.
-	 * @default undefined (Chart.defaults.font.color)
+	 * @default undefined (Chart.defaults.color)
 	 * @since 0.1.0
 	 */
 	color?: Indexable<Color> | Scriptable<Color>,

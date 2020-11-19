@@ -36,31 +36,6 @@ describe('utils.js', function() {
 		});
 	});
 
-	describe('toFontString', function() {
-		var toFontString = utils.toFontString;
-
-		it('should return null if the given font is invalid', function() {
-			expect(toFontString({})).toBeNull();
-			expect(toFontString(null)).toBeNull();
-			expect(toFontString(undefined)).toBeNull();
-			expect(toFontString(42)).toBeNull();
-			expect(toFontString('foo')).toBeNull();
-			expect(toFontString(new Date())).toBeNull();
-		});
-		it('should return null if size or family are missing', function() {
-			expect(toFontString({style: 'italic', weight: 300, size: 12})).toBeNull();
-			expect(toFontString({style: 'italic', weight: 300, family: 'serif'})).toBeNull();
-		});
-		it('should return the string representation of the given font', function() {
-			expect(toFontString({style: 'italic', weight: 300, size: 12, family: 'serif'})).toBe('italic 300 12px serif');
-		});
-		it('weigth and style should be optional', function() {
-			expect(toFontString({size: 12, family: 'serif'})).toBe('12px serif');
-			expect(toFontString({style: 'italic', size: 12, family: 'serif'})).toBe('italic 12px serif');
-			expect(toFontString({weight: 300, size: 12, family: 'serif'})).toBe('300 12px serif');
-		});
-	});
-
 	describe('arrayDiff', function() {
 		var arrayDiff = utils.arrayDiff;
 

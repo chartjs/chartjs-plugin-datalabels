@@ -30,8 +30,7 @@ function boundingRects(model) {
 }
 
 function getScaleOrigin(el, context) {
-	var meta = context.chart.getDatasetMeta(context.datasetIndex);
-	var scale = meta.vScale;
+	var scale = context.chart.getDatasetMeta(context.datasetIndex).vScale;
 
 	if (!scale) {
 		return null;
