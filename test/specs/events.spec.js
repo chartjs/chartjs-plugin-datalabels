@@ -1,7 +1,6 @@
 import Chart from 'chart.js';
 
 describe('events', function() {
-
 	beforeEach(function() {
 		this.data = {
 			labels: [1, 2, 3],
