@@ -1,8 +1,8 @@
-import { ChartDatasetProperties, ChartType, Plugin } from "chart.js";
+import { ChartDatasetProperties, ChartType, Plugin, PluginOptions } from "chart.js";
 import { Options } from './options';
 
 declare module 'chart.js' {
-	interface ChartDatasetProperties<TYPE extends ChartType, DATA extends unknown[]> {
+	interface ChartDatasetProperties<TType extends ChartType, TData extends unknown[]> {
 		/**
 		 * Per dataset datalabels plugin options.
 		 * @since 0.1.0
@@ -10,14 +10,12 @@ declare module 'chart.js' {
 		datalabels?: Options
 	}
 
-  interface ChartOptions<TYPE extends ChartType = ChartType> {
+  interface PluginOptions {
     /**
      * Per chart datalabels plugin options.
      * @since 0.1.0
      */
-    plugins?: {
-      datalabels?: Options
-    }
+		datalabels?: Options
   }
 }
 

@@ -33,7 +33,6 @@ beforeEach(function() {
 		legend: {display: false},
 		responsive: false,
 		title: {display: false},
-		tooltips: false,
 		elements: {
 			arc: {
 				backgroundColor: 'transparent',
@@ -50,6 +49,9 @@ beforeEach(function() {
 				borderColor: 'rgba(0, 0, 0, 0.1)',
 				borderWidth: 1
 			}
+		},
+		plugins: {
+			tooltip: false
 		}
 	});
 
