@@ -7,7 +7,28 @@ module.exports = {
     plugins: [
         ['@vuepress/google-analytics', {
             ga: 'UA-99068522-2'
-        }]
+        }],
+        ['redirect', {
+            redirectors: [
+                // Default sample page when accessing /samples.
+                { base: '/samples', alternative: ['charts/line'] },
+            ],
+        }],
+        [require('./plugins/chart-editor'), {
+            defaults: {
+                global: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: false
+                    }
+                }
+            }
+        }],
     ],
     themeConfig: {
         repo: 'chartjs/chartjs-plugin-datalabels',
@@ -22,16 +43,60 @@ module.exports = {
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Guide', link: '/guide/' },
-            { text: 'Samples', link: 'https://chartjs-plugin-datalabels.netlify.com/samples/' }
+            { text: 'Samples', link: '/samples/' },
         ],
-        sidebar: [
-            '/guide/',
-            '/guide/getting-started',
-            '/guide/options',
-            '/guide/labels',
-            '/guide/positioning',
-            '/guide/formatting',
-            '/guide/events'
-        ]
+        sidebar: {
+            '/guide/': [
+                '',
+                'getting-started',
+                'options',
+                'labels',
+                'positioning',
+                'formatting',
+                'events',
+            ],
+            '/samples/': [
+                {
+                    title: 'Charts',
+                    collapsable: false,
+                    children: [
+                        'charts/line',
+                        'charts/bar',
+                        'charts/doughnut',
+                        'charts/polar',
+                        'charts/radar',
+                        'charts/bubble',
+                    ],
+                },
+                {
+                    title: 'Scriptable',
+                    collapsable: false,
+                    children: [
+                        'scriptable/interactions',
+                        'scriptable/data',
+                        'scriptable/dataset',
+                        'scriptable/indices',
+                        'scriptable/mirror',
+                    ],
+                },
+                {
+                    title: 'Events',
+                    collapsable: false,
+                    children: [
+                        'events/listeners',
+                        'events/highlight',
+                        'events/selection',
+                    ],
+                },
+                {
+                    title: 'Advanced',
+                    collapsable: false,
+                    children: [
+                        'advanced/multiple-labels',
+                        'advanced/custom-labels',
+                    ],
+                }
+            ]
+        }
     }
 }

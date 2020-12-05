@@ -19,7 +19,6 @@ plugins:
 exclude_patterns:
   - "coverage/"
   - "docs/"
-  - "samples/"
   - "scripts/"
   - "test/"
   - "*.js"

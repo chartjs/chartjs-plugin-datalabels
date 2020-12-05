@@ -18,7 +18,7 @@ This plugin doesn't provide any public API (except the plugin options), thus you
 * [Positioning](positioning.md)
 * [Formating](formatting.md)
 * [Events](events.md)
-* [Samples](https://chartjs-plugin-datalabels.netlify.com/samples/)
+* [Samples](../samples)
 
 ## License
 

@@ -3,20 +3,15 @@
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var file = require('gulp-file');
-var replace = require('gulp-replace');
-var streamify = require('gulp-streamify');
 var zip = require('gulp-zip');
 var karma = require('karma');
-var merge = require('merge2');
 var path = require('path');
 var {exec} = require('child_process');
 var pkg = require('./package.json');
 
 var argv = require('yargs')
 	.option('output', {alias: 'o', default: 'dist'})
-	.option('samples-dir', {default: 'samples'})
 	.option('docs-dir', {default: 'docs'})
-	.option('www-dir', {default: 'www'})
 	.argv;
 
 function run(bin, args) {
@@ -65,8 +60,6 @@ gulp.task('test', gulp.parallel('test-unit', 'test-types'));
 
 gulp.task('lint', function() {
 	var files = [
-		'samples/**/*.js',
-		'samples/**/*.html',
 		'src/**/*.js',
 		'test/**/*.js',
 		'*.js'
@@ -85,38 +78,14 @@ gulp.task('docs', function() {
 	return run('vuepress', [mode, 'docs', args]);
 });
 
-gulp.task('samples', function() {
-	// since we moved the dist files one folder up (package root), we need to rewrite
-	// samples src="../dist/ to src="../ and then copy them in the /samples directory.
-	var out = path.join(argv.output, argv.samplesDir);
-	return gulp.src('samples/**/*', {base: 'samples'})
-		.pipe(streamify(replace(/src="((?:\.\.\/)+)dist\//g, 'src="$1', {skipBinary: true})))
-		.pipe(gulp.dest(out));
-});
-
-gulp.task('package', gulp.series(gulp.parallel('build', 'samples'), function() {
+gulp.task('package', gulp.series(gulp.parallel('build'), function() {
 	var out = argv.output;
-	var streams = merge(
-		gulp.src(path.join(out, argv.samplesDir, '**/*'), {base: out}),
-		gulp.src([path.join(out, '*.js'), 'LICENSE.md'])
-	);
-
-	return streams
+	return gulp.src([path.join(out, '*.js'), 'LICENSE.md'])
 		.pipe(zip(pkg.name + '.zip'))
 		.pipe(gulp.dest(out));
 }));
 
-gulp.task('netlify', gulp.series(gulp.parallel('build', 'docs', 'samples'), function() {
-	var root = argv.output;
-	var out = path.join(root, argv.wwwDir);
-	var streams = merge(
-		gulp.src(path.join(root, argv.docsDir, '**/*'), {base: path.join(root, argv.docsDir)}),
-		gulp.src(path.join(root, argv.samplesDir, '**/*'), {base: root}),
-		gulp.src(path.join(root, '*.js'))
-	);
-
-	return streams.pipe(gulp.dest(out));
-}));
+gulp.task('netlify', gulp.series(gulp.parallel('build', 'docs')));
 
 gulp.task('bower', function() {
 	var json = JSON.stringify({

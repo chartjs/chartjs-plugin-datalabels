@@ -4,6 +4,3 @@
 /positioning        /guide/positioning.html
 /formatting         /guide/formatting.html
 /events             /guide/events.html
-
-# https://github.com/chartjs/chartjs-plugin-datalabels/issues/80
-/samples            /samples/index.html
