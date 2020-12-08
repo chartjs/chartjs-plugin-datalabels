@@ -109,8 +109,7 @@ function drawFrame(ctx, rect, model) {
 		rasterize(rect.y) + borderWidth / 2,
 		rasterize(rect.w) - borderWidth,
 		rasterize(rect.h) - borderWidth,
-		model.borderRadius
-	);
+		model.borderRadius);
 
 	ctx.closePath();
 

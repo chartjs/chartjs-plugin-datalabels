@@ -28,11 +28,9 @@ jasmine.triggerMouseEvent = utils.triggerMouseEvent;
 beforeEach(function() {
 	jasmine.addMatchers(matchers);
 
-	Chart.defaults.set('', {
+	Chart.defaults.set({
 		animation: false,
-		legend: {display: false},
 		responsive: false,
-		title: {display: false},
 		elements: {
 			arc: {
 				backgroundColor: 'transparent',
@@ -51,6 +49,8 @@ beforeEach(function() {
 			}
 		},
 		plugins: {
+			title: false,
+			legend: false,
 			tooltip: false
 		}
 	});

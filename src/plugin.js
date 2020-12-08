@@ -80,18 +80,14 @@ function dispatchEvent(chart, listeners, label) {
 		return;
 	}
 
-	if (helpers.callback(callback, [context]) !== true) {
-		return false;
+	if (helpers.callback(callback, [context]) === true) {
+		// Users are allowed to tweak the given context by injecting values that can be
+		// used in scriptable options to display labels differently based on the current
+		// event (e.g. highlight an hovered label). That's why we update the label with
+		// the output context and schedule a new chart render by setting it dirty.
+		chart[EXPANDO_KEY]._dirty = true;
+		label.update(context);
 	}
-
-	// Users are allowed to tweak the given context by injecting values that can be
-	// used in scriptable options to display labels differently based on the current
-	// event (e.g. highlight an hovered label). That's why we update the label with
-	// the output context and schedule a new chart render by setting it dirty.
-	chart[EXPANDO_KEY]._dirty = true;
-	label.update(context);
-
-	return true;
 }
 
 function dispatchMoveEvents(chart, listeners, previous, label) {
@@ -142,7 +138,7 @@ function handleClickEvents(chart, event) {
 	var handlers = expando._listeners.click;
 	var label = handlers && layout.lookup(expando._labels, event);
 	if (label) {
-		return dispatchEvent(chart, handlers, label);
+		dispatchEvent(chart, handlers, label);
 	}
 }
 
@@ -233,18 +229,18 @@ var plugin = {
 		layout.draw(chart, chart[EXPANDO_KEY]._labels);
 	},
 
-	beforeEvent: function(chart, event) {
+	beforeEvent: function(chart, args) {
 		// If there is no listener registered for this chart, `listened` will be false,
 		// meaning we can immediately ignore the incoming event and avoid useless extra
 		// computation for users who don't implement label interactions.
 		if (chart[EXPANDO_KEY]._listened) {
-			switch (event.type) {
+			switch (args.event.type) {
 			case 'mousemove':
 			case 'mouseout':
-				handleMoveEvents(chart, event);
+				handleMoveEvents(chart, args.event);
 				break;
 			case 'click':
-				return handleClickEvents(chart, event);
+				handleClickEvents(chart, args.event);
 			default:
 			}
 		}
