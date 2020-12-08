@@ -10,13 +10,13 @@ declare module 'chart.js' {
 		datalabels?: Options
 	}
 
-  interface PluginOptions {
-    /**
-     * Per chart datalabels plugin options.
-     * @since 0.1.0
-     */
+	interface PluginOptions {
+		/**
+			* Per chart datalabels plugin options.
+			* @since 0.1.0
+			*/
 		datalabels?: Options
-  }
+	}
 }
 
 declare const plugin: Plugin;
