@@ -18,14 +18,14 @@ module.exports = {
     }],
     [ChartEditorPlugin, {
       defaults: {
-        global: {
+        plugins: {
           legend: {
             display: false
           },
           title: {
             display: false
           },
-          tooltips: {
+          tooltip: {
             enabled: false
           }
         }

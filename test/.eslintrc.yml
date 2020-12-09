@@ -1,5 +1,8 @@
 env:
   jasmine: true
+  es6: true
+parserOptions:
+  ecmaVersion: 8
 
 globals:
   __karma__: true

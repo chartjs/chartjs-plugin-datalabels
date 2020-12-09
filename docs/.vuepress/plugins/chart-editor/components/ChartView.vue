@@ -8,7 +8,7 @@
 import Chart from 'chart.js';
 import plugin from '../../../../../dist/chartjs-plugin-datalabels.js';
 
-Chart.plugins.register(plugin);
+Chart.register(plugin);
 
 export default {
   props: {
