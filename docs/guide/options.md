@@ -12,12 +12,12 @@ The following table lists all available options:
 | `borderWidth` | `number` | Yes | Yes | `0`
 | [`clamp`](positioning.md#clamping) | `boolean` | Yes | Yes | `false`
 | [`clip`](positioning.md#clipping) | `boolean` | Yes | Yes | `false`
-| `color` | [`Style`](#style-options) | Yes | Yes | [`defaultFontColor`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `color` | [`Style`](#style-options) | Yes | Yes | [`color`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | [`display`](positioning.md#visibility) | `boolean` \| `string` | Yes | Yes | `true`
 | `font` | `object` | Yes | Yes | -
-| `font.family` | `string` | - | - | [`defaultFontFamily`](http://www.chartjs.org/docs/latest/general/fonts.html)
-| `font.size` | `string` | - | - | [`defaultFontSize`](http://www.chartjs.org/docs/latest/general/fonts.html)
-| `font.style` | `string` | - | - | [`defaultFontStyle`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `font.family` | `string` | - | - | [`font.family`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `font.size` | `string` | - | - | [`font.size`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `font.style` | `string` | - | - | [`font.style`](http://www.chartjs.org/docs/latest/general/fonts.html)
 | `font.weight` | `string` | - | - | `'normal'`
 | [`font.lineHeight`](formatting.md#multiline-labels) | `number` \| `string` | - | - | `1.2`
 | [`formatter`](formatting.md#data-transformation) | `function` \| `null` | - | - | -

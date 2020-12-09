@@ -16,10 +16,13 @@ const options: Options = {
 };
 
 const chart = new Chart('id', {
+  type: 'bar',
   data: {
+    labels: [],
     datasets: [
       {
-        datalabels: options
+        data: [],
+        datalabels: options,
       }
     ]
   },

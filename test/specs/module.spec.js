@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import plugin from 'chartjs-plugin-datalabels';
 
 describe('module', function() {
@@ -13,8 +13,7 @@ describe('module', function() {
 
   // https://github.com/chartjs/chartjs-plugin-datalabels/issues/42
   it ('should not be globally registered', function() {
-    var plugins = Chart.plugins.getAll();
-    expect(plugins.find((p) => p.id === 'datalabels')).toBeUndefined();
-    expect(!plugins.includes(plugin));
+    expect(Chart.registry.plugins.get('datalabels')).toBeUndefined();
+    expect(() => Chart.registry.getPlugin('datalabels')).toThrow();
   });
 });
