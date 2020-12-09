@@ -49,11 +49,11 @@ beforeEach(function() {
 			}
 		},
 		plugins: {
-			title: false,
 			// TODO: revert to legend: false when https://github.com/chartjs/Chart.js/issues/8145 is fixed
 			legend: {
 				display: false
 			},
+			title: false,
 			tooltip: false
 		}
 	});

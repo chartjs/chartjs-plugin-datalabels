@@ -234,13 +234,14 @@ var plugin = {
 		// meaning we can immediately ignore the incoming event and avoid useless extra
 		// computation for users who don't implement label interactions.
 		if (chart[EXPANDO_KEY]._listened) {
-			switch (args.event.type) {
+			var event = args.event;
+			switch (event.type) {
 			case 'mousemove':
 			case 'mouseout':
-				handleMoveEvents(chart, args.event);
+				handleMoveEvents(chart, event);
 				break;
 			case 'click':
-				handleClickEvents(chart, args.event);
+				handleClickEvents(chart, event);
 				break;
 			default:
 			}

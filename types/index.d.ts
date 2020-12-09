@@ -12,9 +12,9 @@ declare module 'chart.js' {
 
 	interface PluginOptions {
 		/**
-			* Per chart datalabels plugin options.
-			* @since 0.1.0
-			*/
+		 * Per chart datalabels plugin options.
+		 * @since 0.1.0
+		 */
 		datalabels?: Options
 	}
 }
