@@ -85,12 +85,12 @@ var config = /* <block:config:0> */ {
       }
     },
     scales: {
-      xAxes: [{
+      x: {
         stacked: true
-      }],
-      yAxes: [{
+      },
+      y: {
         stacked: true
-      }]
+      }
     }
   }
 } /* </block:config> */;
