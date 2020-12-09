@@ -63,19 +63,18 @@ var config = /* <block:config:0> */ {
     },
     elements: {
       line: {
-        fill: false
+        fill: false,
+        tension: 0.4
       }
     },
     scales: {
-      xAxes: [{
+      x: {
         display: false,
         offset: true
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
+      },
+      y: {
+        beginAtZero: true
+      }
     }
   }
 } /* </block:config> */;

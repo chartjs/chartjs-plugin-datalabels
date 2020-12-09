@@ -1,7 +1,8 @@
+import {ChartType, Plugin} from 'chart.js';
 import {Options} from './options';
 
 declare module 'chart.js' {
-  interface ChartDataSets {
+  interface ChartDatasetProperties<TType extends ChartType, TData> {
     /**
      * Per dataset datalabels plugin options.
      * @since 0.1.0
@@ -9,7 +10,7 @@ declare module 'chart.js' {
     datalabels?: Options;
   }
 
-  interface ChartPluginsOptions {
+  interface PluginOptionsByType<TType extends ChartType> {
     /**
      * Per chart datalabels plugin options.
      * @since 0.1.0
@@ -18,7 +19,7 @@ declare module 'chart.js' {
   }
 }
 
-declare const plugin: Record<string, unknown>;
+declare const plugin: Plugin;
 
 export * from './context';
 

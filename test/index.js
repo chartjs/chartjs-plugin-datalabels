@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import {acquireChart, addMatchers, releaseChart, releaseCharts, specsFromFixtures, triggerMouseEvent} from 'chartjs-test-utils';
 
 // force ratio=1 for tests on high-res/retina devices
@@ -13,19 +13,19 @@ jasmine.chart = {
   // in the describe() block from where this method is called. Note that some tests
   // require the plugin to **not** be registered.
   register: function(plugin) {
-    if (Chart.plugins.getAll().includes(plugin)) {
+    if (Chart.registry.plugins.get(plugin.id)) {
       throw new Error(`Plugin #${plugin.id} is already registered`);
     }
 
     beforeEach(() => {
-      Chart.plugins.register(plugin);
-      if (!Chart.plugins.getAll().includes(plugin)) {
+      Chart.register(plugin);
+      if (!Chart.registry.plugins.get(plugin.id)) {
         throw new Error(`Failed to register plugin #${plugin.id}`);
       }
     });
     afterEach(() => {
-      Chart.plugins.unregister(plugin);
-      if (Chart.plugins.getAll().includes(plugin)) {
+      Chart.unregister(plugin);
+      if (Chart.registry.plugins.get(plugin.id)) {
         throw new Error(`Failed to unregister plugin #${plugin.id}`);
       }
     });
@@ -40,12 +40,9 @@ jasmine.triggerMouseEvent = triggerMouseEvent;
 beforeEach(function() {
   addMatchers();
 
-  Chart.helpers.merge(Chart.defaults.global, {
+  Chart.defaults.set({
     animation: false,
-    legend: {display: false},
     responsive: false,
-    title: {display: false},
-    tooltips: false,
     elements: {
       arc: {
         backgroundColor: 'transparent',
@@ -62,10 +59,21 @@ beforeEach(function() {
         borderColor: 'rgba(0, 0, 0, 0.1)',
         borderWidth: 1
       }
+    },
+    plugins: {
+      legend: {
+        display: false
+      },
+      title: {
+        display: false
+      },
+      tooltip: {
+        display: false
+      }
     }
   });
 
-  Chart.helpers.merge(Chart.defaults.scale, {
+  Chart.defaults.set('scale', {
     display: false,
     ticks: {
       beginAtZero: true

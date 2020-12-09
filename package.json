@@ -36,12 +36,11 @@
   },
   "devDependencies": {
     "@simonbrunel/vuepress-plugin-versions": "^0.2.0",
-    "@types/chart.js": "^2.9.32",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@vuepress/plugin-google-analytics": "^1.8.2",
     "archiver": "^5.3.0",
-    "chart.js": "^2.9.4",
+    "chart.js": "^3.0.0-beta.13",
     "chartjs-test-utils": "^0.2.2",
     "eslint": "^7.24.0",
     "eslint-config-chartjs": "^0.3.0",
@@ -66,6 +65,6 @@
     "yargs": "^16.2.0"
   },
   "peerDependencies": {
-    "chart.js": ">= 2.7.0 < 3"
+    "chart.js": "^3.0.0-beta.13"
   }
 }

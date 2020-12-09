@@ -11,7 +11,9 @@ function fallback(/* values ... */) {
   }
 }
 
-var Color = typeof window !== 'undefined' ? window.Color : {};
+var Color = typeof window !== 'undefined' && window.Chart !== undefined ?
+  window.Chart.helpers.color :
+  function() {};
 
 export var COLORS = [
   '#FF3784',
@@ -75,7 +77,7 @@ export function colors(config) {
   var cfg = config || {};
   var c = cfg.color || color(0);
   var count = cfg.count !== undefined ? cfg.count : 8;
-  var method = cfg.mode ? Color.prototype[cfg.mode] : null;
+  var method = cfg.mode ? Color(color)[cfg.mode] : null;
   var values = [];
   var i, f, v;
 

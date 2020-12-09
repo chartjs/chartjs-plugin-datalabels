@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 
 var helpers = Chart.helpers;
 
@@ -61,7 +61,7 @@ var HitBox = function() {
   };
 };
 
-helpers.extend(HitBox.prototype, {
+helpers.merge(HitBox.prototype, {
   center: function() {
     var r = this._rect;
     return {

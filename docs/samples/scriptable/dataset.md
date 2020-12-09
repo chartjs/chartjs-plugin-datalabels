@@ -79,7 +79,8 @@ var config = /* <block:config:0> */ {
     elements: {
       line: {
         borderWidth: 2,
-        fill: false
+        fill: false,
+        tension: 0.4
       }
     },
   }
