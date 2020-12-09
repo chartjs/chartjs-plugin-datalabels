@@ -241,6 +241,7 @@ var plugin = {
 				break;
 			case 'click':
 				handleClickEvents(chart, args.event);
+				break;
 			default:
 			}
 		}
