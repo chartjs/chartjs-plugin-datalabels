@@ -101,7 +101,7 @@ interface LabelOptions {
 
 	/**
 	 * The color used to draw the label text.
-	 * @default undefined (Chart.defaults.global.defaultFontColor)
+	 * @default undefined (Chart.defaults.color)
 	 * @since 0.1.0
 	 */
 	color?: Indexable<Color> | Scriptable<Color>;
@@ -117,7 +117,7 @@ interface LabelOptions {
 
 	/**
 	 * The font options used to draw the label text.
-	 * @default Chart.defaults.global.defaultFont.*
+	 * @default Chart.defaults.font.*
 	 * @since 0.1.0
 	 */
 	font?: Indexable<Font> | Scriptable<Font>;

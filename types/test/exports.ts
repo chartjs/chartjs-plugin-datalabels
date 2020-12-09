@@ -4,10 +4,16 @@ import {Context} from '../index';
 import Plugin from '../index';
 
 // Plugin instance
-Chart.plugins.register(Plugin);
-Chart.plugins.unregister(Plugin);
+Chart.register(Plugin);
+Chart.unregister(Plugin);
 
 const chart = new Chart('id', {
+	data: {
+		labels: [],
+		datasets: []
+	},
+	options: {},
+	type: 'bar',
 	plugins: [Plugin]
 });
 
@@ -17,5 +23,7 @@ const ctx: Context = {
 	chart: chart,
 	datasetIndex: 0,
 	dataIndex: 0,
-	dataset: {}
+	dataset: {
+		data: []
+	}
 };

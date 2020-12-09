@@ -91,13 +91,13 @@ The [plugin options](options.md) can be changed at 3 different levels and are ev
 
 - per dataset: `dataset.datalabels.*`
 - per chart: `options.plugins.datalabels.*`
-- or globally: `Chart.defaults.global.plugins.datalabels.*`
+- or globally: `Chart.defaults.plugins.datalabels.*`
 
 For example:
 
 ```javascript
 // Change default options for ALL charts
-Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
+Chart.defaults.set('plugins.datalabels', {
     color: '#FE777B'
 });
 

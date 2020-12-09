@@ -149,13 +149,14 @@ var config = /* <block:config:0> */ {
     },
     elements: {
       line: {
-        fill: false
+        fill: false,
+        tension: 0.4
       }
     },
     scales: {
-      yAxes: [{
+      y: {
         stacked: true
-      }]
+      }
     }
   }
 } /* </block:config> */;

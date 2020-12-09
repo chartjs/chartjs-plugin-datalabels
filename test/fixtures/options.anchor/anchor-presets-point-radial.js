@@ -37,8 +37,11 @@ export default {
 					radius: 16
 				}
 			},
-			scale: {
-				display: false
+			scales: {
+				r: {
+					min: 0,
+					display: false
+				}
 			},
 			plugins: {
 				datalabels: {

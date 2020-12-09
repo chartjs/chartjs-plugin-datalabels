@@ -32,12 +32,10 @@ export default {
 				}
 			},
 			scales: {
-				yAxes: [{
-					ticks: {
-						min: -40,
-						max: -60
-					}
-				}]
+				y: {
+					min: -40,
+					max: -60
+				}
 			},
 			plugins: {
 				datalabels: {

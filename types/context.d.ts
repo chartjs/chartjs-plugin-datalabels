@@ -1,4 +1,4 @@
-import {Chart, ChartDataSets} from 'chart.js';
+import {Chart, ChartDataset} from 'chart.js';
 
 /**
  * The context is used to give contextual information when resolving options.
@@ -28,7 +28,7 @@ export interface Context {
 	 * The current dataset at index `datasetIndex`.
 	 * @since 0.1.0
 	 */
-	dataset: ChartDataSets;
+	dataset: ChartDataset;
 
 	/**
 	 * Index of the current dataset.

@@ -23,7 +23,7 @@ module.exports = ({ defaults }) => {
 				name: 'chart-defaults',
 				content: `
 					import Chart from 'chart.js';
-					Chart.helpers.merge(Chart.defaults, ${JSON.stringify(defaults)});
+					Chart.defaults.set(${JSON.stringify(defaults)});
 				`
 			},
 			resolve(__dirname, 'global.js'),
@@ -34,6 +34,13 @@ module.exports = ({ defaults }) => {
 				externals: {
 					moment: 'moment',
 				},
+				resolve: {
+					alias: {
+						// Don't use the Chart.js ESM build since it's not yet
+						// compatible with the current plugin implementation.
+						'chart.js': 'chart.js/dist/chart.js'
+					}
+				}
 			});
 		},
 		chainMarkdown: (config) => {

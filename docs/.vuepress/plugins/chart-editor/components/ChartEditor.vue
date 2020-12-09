@@ -83,7 +83,7 @@ export default {
 				},
 			};
 
-			Chart.helpers.merge(Chart.defaults, CHART_DEFAULTS);
+			Chart.defaults.set(CHART_DEFAULTS);
 
 			try {
 				const exports = new Function(script)(context);

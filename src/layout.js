@@ -1,7 +1,7 @@
 import HitBox from './hitbox';
 
-function coordinates(view, model, geometry) {
-	var point = model.positioner(view, model);
+function coordinates(el, model, geometry) {
+	var point = model.positioner(el, model);
 	var vx = point.vx;
 	var vy = point.vy;
 
@@ -67,7 +67,7 @@ function compute(labels) {
 
 		if (state._visible) {
 			geometry = label.geometry();
-			center = coordinates(label._el._model, label.model(), geometry);
+			center = coordinates(label._el, label.model(), geometry);
 			state._box.update(center, geometry, label.rotation());
 		}
 	}
@@ -165,7 +165,7 @@ export default {
 
 			if (state._visible) {
 				geometry = label.geometry();
-				center = coordinates(label._el._view, label.model(), geometry);
+				center = coordinates(label._el, label.model(), geometry);
 				state._box.update(center, geometry, label.rotation());
 				label.draw(chart, center);
 			}

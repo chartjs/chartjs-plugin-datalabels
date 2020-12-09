@@ -29,9 +29,8 @@ function boundingRects(model) {
 	};
 }
 
-function getScaleOrigin(el) {
-	var horizontal = el._model.horizontal;
-	var scale = el._scale || (horizontal && el._xScale) || el._yScale;
+function getScaleOrigin(el, context) {
+	var scale = context.chart.getDatasetMeta(context.datasetIndex).vScale;
 
 	if (!scale) {
 		return null;
@@ -42,22 +41,55 @@ function getScaleOrigin(el) {
 	}
 
 	var pixel = scale.getBasePixel();
-	return horizontal ?
+	return el.horizontal ?
 		{x: pixel, y: null} :
 		{x: null, y: pixel};
 }
 
 function getPositioner(el) {
-	if (el instanceof Chart.elements.Arc) {
+	if (el instanceof Chart.elements.ArcElement) {
 		return positioners.arc;
 	}
-	if (el instanceof Chart.elements.Point) {
+	if (el instanceof Chart.elements.PointElement) {
 		return positioners.point;
 	}
-	if (el instanceof Chart.elements.Rectangle) {
-		return positioners.rect;
+	if (el instanceof Chart.elements.BarElement) {
+		return positioners.bar;
 	}
 	return positioners.fallback;
+}
+
+function drawRoundedRect(ctx, x, y, w, h, radius) {
+	var HALF_PI = Math.PI / 2;
+
+	if (radius) {
+		var r = Math.min(radius, h / 2, w / 2);
+		var left = x + r;
+		var top = y + r;
+		var right = x + w - r;
+		var bottom = y + h - r;
+
+		ctx.moveTo(x, top);
+		if (left < right && top < bottom) {
+			ctx.arc(left, top, r, -Math.PI, -HALF_PI);
+			ctx.arc(right, top, r, -HALF_PI, 0);
+			ctx.arc(right, bottom, r, 0, HALF_PI);
+			ctx.arc(left, bottom, r, HALF_PI, Math.PI);
+		} else if (left < right) {
+			ctx.moveTo(left, y);
+			ctx.arc(right, top, r, -HALF_PI, HALF_PI);
+			ctx.arc(left, top, r, HALF_PI, Math.PI + HALF_PI);
+		} else if (top < bottom) {
+			ctx.arc(left, top, r, -Math.PI, 0);
+			ctx.arc(left, bottom, r, 0, Math.PI);
+		} else {
+			ctx.arc(left, top, r, -Math.PI, Math.PI);
+		}
+		ctx.closePath();
+		ctx.moveTo(x, y);
+	} else {
+		ctx.rect(x, y, w, h);
+	}
 }
 
 function drawFrame(ctx, rect, model) {
@@ -71,7 +103,7 @@ function drawFrame(ctx, rect, model) {
 
 	ctx.beginPath();
 
-	helpers.canvas.roundedRect(
+	drawRoundedRect(
 		ctx,
 		rasterize(rect.x) + borderWidth / 2,
 		rasterize(rect.y) + borderWidth / 2,
@@ -195,16 +227,16 @@ var Label = function(config, ctx, el, index) {
 	me._el = el;
 };
 
-helpers.extend(Label.prototype, {
+helpers.merge(Label.prototype, {
 	/**
 	 * @private
 	 */
 	_modelize: function(display, lines, config, context) {
 		var me = this;
 		var index = me._index;
-		var resolve = helpers.options.resolve;
-		var font = utils.parseFont(resolve([config.font, {}], context, index));
-		var color = resolve([config.color, Chart.defaults.global.defaultFontColor], context, index);
+		var resolve = helpers.resolve;
+		var font = helpers.toFont(resolve([config.font, {}], context, index));
+		var color = resolve([config.color, Chart.defaults.font.color], context, index);
 
 		return {
 			align: resolve([config.align, 'center'], context, index),
@@ -222,8 +254,8 @@ helpers.extend(Label.prototype, {
 			lines: lines,
 			offset: resolve([config.offset, 0], context, index),
 			opacity: resolve([config.opacity, 1], context, index),
-			origin: getScaleOrigin(me._el),
-			padding: helpers.options.toPadding(resolve([config.padding, 0], context, index)),
+			origin: getScaleOrigin(me._el, context),
+			padding: helpers.toPadding(resolve([config.padding, 0], context, index)),
 			positioner: getPositioner(me._el),
 			rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
 			size: utils.textSize(me._ctx, lines, font),
@@ -245,7 +277,7 @@ helpers.extend(Label.prototype, {
 
 		// We first resolve the display option (separately) to avoid computing
 		// other options in case the label is hidden (i.e. display: false).
-		var display = helpers.options.resolve([config.display, true], context, index);
+		var display = helpers.resolve([config.display, true], context, index);
 
 		if (display) {
 			value = context.dataset.data[index];

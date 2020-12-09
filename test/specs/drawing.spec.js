@@ -14,11 +14,11 @@ describe('drawing', function() {
 
 		var ds0 = chart.getDatasetMeta(0);
 
-		expect(ds0.data[0]._model.skip).toBeFalsy();
+		expect(ds0.data[0].skip).toBeFalsy();
 		expect(ds0.data[0].$datalabels.length).toBeGreaterThan(0);
 
 		for (var i = 1; i <= 4; ++i) {
-			expect(ds0.data[i]._model.skip).toBeTruthy();
+			expect(ds0.data[i].skip).toBeTruthy();
 			expect(ds0.data[i].$datalabels).toEqual([]);
 		}
 	});

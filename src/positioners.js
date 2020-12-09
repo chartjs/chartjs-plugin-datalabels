@@ -165,51 +165,51 @@ function compute(range, config) {
 }
 
 export default {
-	arc: function(vm, config) {
-		var angle = (vm.startAngle + vm.endAngle) / 2;
+	arc: function(el, config) {
+		var angle = (el.startAngle + el.endAngle) / 2;
 		var vx = Math.cos(angle);
 		var vy = Math.sin(angle);
-		var r0 = vm.innerRadius;
-		var r1 = vm.outerRadius;
+		var r0 = el.innerRadius;
+		var r1 = el.outerRadius;
 
 		return compute({
-			x0: vm.x + vx * r0,
-			y0: vm.y + vy * r0,
-			x1: vm.x + vx * r1,
-			y1: vm.y + vy * r1,
+			x0: el.x + vx * r0,
+			y0: el.y + vy * r0,
+			x1: el.x + vx * r1,
+			y1: el.y + vy * r1,
 			vx: vx,
 			vy: vy
 		}, config);
 	},
 
-	point: function(vm, config) {
-		var v = orient(vm, config.origin);
-		var rx = v.x * vm.radius;
-		var ry = v.y * vm.radius;
+	point: function(el, config) {
+		var v = orient(el, config.origin);
+		var rx = v.x * el.options.radius;
+		var ry = v.y * el.options.radius;
 
 		return compute({
-			x0: vm.x - rx,
-			y0: vm.y - ry,
-			x1: vm.x + rx,
-			y1: vm.y + ry,
+			x0: el.x - rx,
+			y0: el.y - ry,
+			x1: el.x + rx,
+			y1: el.y + ry,
 			vx: v.x,
 			vy: v.y
 		}, config);
 	},
 
-	rect: function(vm, config) {
-		var v = orient(vm, config.origin);
-		var x = vm.x;
-		var y = vm.y;
+	bar: function(el, config) {
+		var v = orient(el, config.origin);
+		var x = el.x;
+		var y = el.y;
 		var sx = 0;
 		var sy = 0;
 
-		if (vm.horizontal) {
-			x = Math.min(vm.x, vm.base);
-			sx = Math.abs(vm.base - vm.x);
+		if (el.horizontal) {
+			x = Math.min(el.x, el.base);
+			sx = Math.abs(el.base - el.x);
 		} else {
-			y = Math.min(vm.y, vm.base);
-			sy = Math.abs(vm.base - vm.y);
+			y = Math.min(el.y, el.base);
+			sy = Math.abs(el.base - el.y);
 		}
 
 		return compute({
@@ -222,14 +222,14 @@ export default {
 		}, config);
 	},
 
-	fallback: function(vm, config) {
-		var v = orient(vm, config.origin);
+	fallback: function(el, config) {
+		var v = orient(el, config.origin);
 
 		return compute({
-			x0: vm.x,
-			y0: vm.y,
-			x1: vm.x,
-			y1: vm.y,
+			x0: el.x,
+			y0: el.y,
+			x1: el.x,
+			y1: el.y,
 			vx: v.x,
 			vy: v.y
 		}, config);

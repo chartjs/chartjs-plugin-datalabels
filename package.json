@@ -35,13 +35,12 @@
     "test:dev": "npm run test-unit:dev"
   },
   "devDependencies": {
-    "@types/chart.js": "^2.9.27",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "@vuepress/plugin-google-analytics": "^1.7.1",
     "acorn": "^8.0.4",
     "archiver": "^5.1.0",
-    "chart.js": "~2.8.0",
+    "chart.js": "^3.0.0-beta.7",
     "eslint": "^7.15.0",
     "eslint-config-chartjs": "^0.1.0",
     "eslint-plugin-es": "^3.0.1",
@@ -68,6 +67,6 @@
     "yargs": "^16.1.0"
   },
   "peerDependencies": {
-    "chart.js": ">= 2.7.0 < 3"
+    "chart.js": "^3.0.0-beta.7"
   }
 }

@@ -2,9 +2,12 @@ import {Chart} from 'chart.js';
 import {Context} from '../context';
 
 const chart = new Chart('id', {
+	type: 'bar',
 	data: {
+		labels: [],
 		datasets: [
 			{
+				data: [],
 				datalabels: {
 					align: 'start',
 					labels: {

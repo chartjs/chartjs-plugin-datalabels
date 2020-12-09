@@ -16,16 +16,16 @@ module.exports = {
         }],
         [require('./plugins/chart-editor'), {
             defaults: {
-                global: {
+                plugins: {
                     legend: {
                         display: false
                     },
                     title: {
                         display: false
                     },
-                    tooltips: {
+                    tooltip: {
                         enabled: false
-                    }
+                    },
                 }
             }
         }],

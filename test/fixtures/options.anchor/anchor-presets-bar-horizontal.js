@@ -11,12 +11,13 @@ var datasets = [];
 
 export default {
 	config: {
-		type: 'horizontalBar',
+		type: 'bar',
 		data: {
 			labels: [0, 1, 2],
 			datasets: datasets
 		},
 		options: {
+			indexAxis: 'y',
 			layout: {
 				padding: {
 					left: 20,

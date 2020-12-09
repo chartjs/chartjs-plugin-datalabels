@@ -142,31 +142,10 @@ function handleClickEvents(chart, event) {
 	}
 }
 
-// https://github.com/chartjs/chartjs-plugin-datalabels/issues/108
-function invalidate(chart) {
-	if (chart.animating) {
-		return;
-	}
-
-	// `chart.animating` can be `false` even if there is animation in progress,
-	// so let's iterate all animations to find if there is one for the `chart`.
-	var animations = Chart.animationService.animations;
-	for (var i = 0, ilen = animations.length; i < ilen; ++i) {
-		if (animations[i].chart === chart) {
-			return;
-		}
-	}
-
-	// No render scheduled: trigger a "lazy" render that can be canceled in case
-	// of hover interactions. The 1ms duration is a workaround to make sure an
-	// animation is created so the controller can stop it before any transition.
-	chart.render({duration: 1, lazy: true});
-}
-
-Chart.defaults.global.plugins.datalabels = defaults;
-
 var plugin = {
 	id: 'datalabels',
+
+	defaults: defaults,
 
 	beforeInit: function(chart) {
 		chart[EXPANDO_KEY] = {
@@ -199,7 +178,7 @@ var plugin = {
 			el = elements[i];
 			el[EXPANDO_KEY] = [];
 
-			if (visible && el && !el.hidden && !el._model.skip) {
+			if (visible && el && chart.getDataVisibility(i) && !el.skip) {
 				for (j = 0, jlen = config.labels.length; j < jlen; ++j) {
 					cfg = config.labels[j];
 					key = cfg._key;
@@ -250,11 +229,12 @@ var plugin = {
 		layout.draw(chart, chart[EXPANDO_KEY]._labels);
 	},
 
-	beforeEvent: function(chart, event) {
+	beforeEvent: function(chart, args) {
 		// If there is no listener registered for this chart, `listened` will be false,
 		// meaning we can immediately ignore the incoming event and avoid useless extra
 		// computation for users who don't implement label interactions.
 		if (chart[EXPANDO_KEY]._listened) {
+			var event = args.event;
 			switch (event.type) {
 			case 'mousemove':
 			case 'mouseout':
@@ -271,14 +251,14 @@ var plugin = {
 	afterEvent: function(chart) {
 		var expando = chart[EXPANDO_KEY];
 		var previous = expando._actives;
-		var actives = expando._actives = chart.lastActive || [];  // public API?!
+		var actives = expando._actives = chart.getActiveElements();
 		var updates = utils.arrayDiff(previous, actives);
 		var i, ilen, j, jlen, update, label, labels;
 
 		for (i = 0, ilen = updates.length; i < ilen; ++i) {
 			update = updates[i];
 			if (update[1]) {
-				labels = update[0][EXPANDO_KEY] || [];
+				labels = update[0].element[EXPANDO_KEY] || [];
 				for (j = 0, jlen = labels.length; j < jlen; ++j) {
 					label = labels[j];
 					label.$context.active = (update[1] === 1);
@@ -289,7 +269,7 @@ var plugin = {
 
 		if (expando._dirty || updates.length) {
 			layout.update(expando._labels);
-			invalidate(chart);
+			chart.render();
 		}
 
 		delete expando._dirty;
@@ -298,6 +278,6 @@ var plugin = {
 
 // TODO Remove at version 1, we shouldn't automatically register plugins.
 // https://github.com/chartjs/chartjs-plugin-datalabels/issues/42
-Chart.plugins.register(plugin);
+Chart.register(plugin);
 
 export default plugin;

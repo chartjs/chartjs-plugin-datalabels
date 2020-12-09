@@ -18,12 +18,10 @@ export default {
 				}
 			},
 			scales: {
-				yAxes: [{
-					ticks: {
-						min: 25,
-						max: -25
-					}
-				}]
+				y: {
+					min: 25,
+					max: -25
+				}
 			},
 			plugins: {
 				datalabels: {
