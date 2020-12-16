@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <a href="https://chartjs-plugin-datalabels.netlify.com/guide/getting-started.html"><img src="https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Downloads"></a>
+    <a href="https://chartjs-plugin-datalabels.netlify.app/guide/getting-started.html"><img src="https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Downloads"></a>
     <a href="https://travis-ci.org/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Builds"></a>
     <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/c/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Coverage"></a>
     <a href="https://github.com/chartjs/awesome"><img src="https://awesome.re/badge-flat2.svg" alt="Awesome"></a>
@@ -17,14 +17,14 @@ Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or l
 
 ## Documentation
 
-- [Introduction](https://chartjs-plugin-datalabels.netlify.com/guide/)
-- [Getting Started](https://chartjs-plugin-datalabels.netlify.com/guide/getting-started.html)
-- [Options](https://chartjs-plugin-datalabels.netlify.com/guide/options.html)
-- [Labels](https://chartjs-plugin-datalabels.netlify.com/guide/labels.html)
-- [Positioning](https://chartjs-plugin-datalabels.netlify.com/guide/positioning.html)
-- [Formatting](https://chartjs-plugin-datalabels.netlify.com/guide/formatting.html)
-- [Events](https://chartjs-plugin-datalabels.netlify.com/guide/events.html)
-- [Samples](https://chartjs-plugin-datalabels.netlify.com/samples/)
+- [Introduction](https://chartjs-plugin-datalabels.netlify.app/guide/)
+- [Getting Started](https://chartjs-plugin-datalabels.netlify.app/guide/getting-started.html)
+- [Options](https://chartjs-plugin-datalabels.netlify.app/guide/options.html)
+- [Labels](https://chartjs-plugin-datalabels.netlify.app/guide/labels.html)
+- [Positioning](https://chartjs-plugin-datalabels.netlify.app/guide/positioning.html)
+- [Formatting](https://chartjs-plugin-datalabels.netlify.app/guide/formatting.html)
+- [Events](https://chartjs-plugin-datalabels.netlify.app/guide/events.html)
+- [Samples](https://chartjs-plugin-datalabels.netlify.app/samples/)
 
 ## Development
 

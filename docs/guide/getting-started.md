@@ -47,7 +47,7 @@ You can download the latest version of `chartjs-plugin-datalabels` from the [Git
 ```
 
 ::: warning IMPORTANT
-`chartjs-plugin-datalabel` must be loaded **after** the Chart.js library!
+`chartjs-plugin-datalabels` must be loaded **after** the Chart.js library!
 :::
 
 Once imported, the plugin is available under the global property `ChartDataLabels`. This is useful to [register/unregister](#registration) the plugin afterward.

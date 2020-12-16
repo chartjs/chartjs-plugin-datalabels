@@ -38,6 +38,6 @@ export interface Context {
 
 	// NOTE(SB) context can be extended dynamically with user properties, for
 	// example to implement event based label customizations / interactions.
-	// https://chartjs-plugin-datalabels.netlify.com/guide/events.html#example
+	// https://chartjs-plugin-datalabels.netlify.app/guide/events.html#example
 	[key: string]: any
 }
