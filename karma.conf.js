@@ -2,14 +2,17 @@ const commonjs = require('rollup-plugin-commonjs');
 const istanbul = require('rollup-plugin-istanbul');
 const resolve = require('rollup-plugin-node-resolve');
 const builds = require('./rollup.config');
+const yargs = require('yargs');
 
 module.exports = function(karma) {
-	const args = karma.args || {};
-	const regex = args.watch ? /s\.js$/ : /s\.min\.js$/;
+	const args = yargs.argv;
+	const regex = args.autoWatch ? /s\.js$/ : /s\.min\.js$/;
+	const pattern = !args.grep || args.grep === true ? '' : args.grep;
+	const specs = `test/specs/**/*${pattern}*.js`;
 	const output = builds[0].output.filter((v) => v.file.match(regex))[0];
 	const build = Object.assign({}, builds[0], {output: output});
 
-	if (args.watch) {
+	if (args.autoWatch) {
 		build.output.sourcemap = 'inline';
 	}
 
@@ -24,8 +27,9 @@ module.exports = function(karma) {
 			{pattern: './test/fixtures/**/*.png', included: false},
 			'node_modules/chart.js/dist/Chart.js',
 			'test/index.js',
-			'src/plugin.js'
-		].concat(args.inputs),
+			'src/plugin.js',
+			specs
+		],
 
 		// Explicitly disable hardware acceleration to make image
 		// diff more stable when ran on Travis and dev machine.

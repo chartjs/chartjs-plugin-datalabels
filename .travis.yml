@@ -11,10 +11,11 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - gulp test --coverage
-  - gulp lint
-  - gulp package
-  - gulp bower
+  - npm run build
+  - npm run test
+  - npm run lint
+  - npm run package
+  - npm run bower
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
@@ -35,6 +36,7 @@ deploy:
     file:
       - "./dist/chartjs-plugin-datalabels.js"
       - "./dist/chartjs-plugin-datalabels.min.js"
+      - "./dist/chartjs-plugin-datalabels.tgz"
       - "./dist/chartjs-plugin-datalabels.zip"
     skip_cleanup: true
     on:
