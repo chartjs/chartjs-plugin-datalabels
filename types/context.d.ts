@@ -1,4 +1,4 @@
-import { Chart, ChartDataSets } from 'chart.js';
+import {Chart, ChartDataSets} from 'chart.js';
 
 /**
  * The context is used to give contextual information when resolving options.
@@ -10,34 +10,35 @@ export interface Context {
 	 * @see http://www.chartjs.org/docs/latest/general/interactions
 	 * @since 0.3.0
 	 */
-	active: boolean,
+	active: boolean;
 
 	/**
 	 * The associated chart.
 	 * @since 0.1.0
 	 */
-	chart: Chart,
+	chart: Chart;
 
 	/**
 	 * Index of the current data.
 	 * @since 0.1.0
 	 */
-	dataIndex: number,
+	dataIndex: number;
 
 	/**
 	 * The current dataset at index `datasetIndex`.
 	 * @since 0.1.0
 	 */
-	dataset: ChartDataSets,
+	dataset: ChartDataSets;
 
 	/**
 	 * Index of the current dataset.
 	 * @since 0.1.0
 	 */
-	datasetIndex: number,
+	datasetIndex: number;
 
 	// NOTE(SB) context can be extended dynamically with user properties, for
 	// example to implement event based label customizations / interactions.
 	// https://chartjs-plugin-datalabels.netlify.app/guide/events.html#example
-	[key: string]: any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
 }

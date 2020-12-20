@@ -1,6 +1,6 @@
-import { Chart } from 'chart.js';
+import {Chart} from 'chart.js';
 
-new Chart('id', {
+const chart = new Chart('id', {
 	data: {
 		datasets: [
 			{

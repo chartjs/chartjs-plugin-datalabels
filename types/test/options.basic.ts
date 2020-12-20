@@ -1,6 +1,6 @@
-import { Chart } from 'chart.js';
-import { Context } from '../context';
-import { Options } from '../options';
+import {Chart} from 'chart.js';
+import {Context} from '../context';
+import {Options} from '../options';
 
 const options: Options = {
 	align: 'start',
@@ -20,9 +20,7 @@ const options: Options = {
 		style: 'italic',
 		weight: 200
 	},
-	formatter(v: any, ctx: Context) {
-		return ctx.active ? '' + v : null;
-	},
+	formatter: (v: string, ctx: Context) => ctx.active ? '' + v : null,
 	labels: {
 		foo: {},
 		bar: null,
@@ -47,9 +45,11 @@ const options: Options = {
 			offset: 42,
 			opacity: 0.42,
 			listeners: {
-				click(ctx: Context) { return true; },
-				enter(ctx: Context) { return false; },
-				leave(ctx: Context) {}
+				click: (ctx: Context) => true,
+				enter: (ctx: Context) => false,
+				leave: (ctx: Context) => {
+					ctx.foo = 42;
+				}
 			},
 			padding: {
 				top: 42,
@@ -66,9 +66,11 @@ const options: Options = {
 		}
 	},
 	listeners: {
-		click(ctx: Context) { return true; },
-		enter(ctx: Context) { return false; },
-		leave(ctx: Context) {}
+		click: (ctx: Context) => true,
+		enter: (ctx: Context) => false,
+		leave: (ctx: Context) => {
+			ctx.foo = 42;
+		}
 	},
 	offset: 42,
 	opacity: 0.42,
@@ -86,7 +88,7 @@ const options: Options = {
 	textShadowColor: 'blue'
 };
 
-new Chart('id', {
+const chart = new Chart('id', {
 	data: {
 		datasets: [
 			{

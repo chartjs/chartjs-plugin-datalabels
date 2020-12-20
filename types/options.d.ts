@@ -1,4 +1,4 @@
-import { Context } from "./context";
+import {Context} from './context';
 
 type Align = 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number;
 type Anchor = 'center' | 'end' | 'start';
@@ -7,18 +7,18 @@ type Listener = (context: Context) => boolean | void;
 type TextAlign = 'left' | 'right' | 'start' | 'center' | 'end';
 
 type Font = {
-	family?: string,
-	lineHeight?: string | number,
-	size?: number,
-	style?: 'normal' | 'italic' | 'oblique',
-	weight?: 'normal' | 'bold' | 'bolder' | 'lighter' | number
+	family?: string;
+	lineHeight?: string | number;
+	size?: number;
+	style?: 'normal' | 'italic' | 'oblique';
+	weight?: 'normal' | 'bold' | 'bolder' | 'lighter' | number;
 };
 
 type Padding = number | {
-	top?: number,
-	right?: number,
-	bottom?: number,
-	left?: number
+	top?: number;
+	right?: number;
+	bottom?: number;
+	left?: number;
 };
 
 // Generic types
@@ -42,7 +42,7 @@ interface LabelOptions {
 	 * @default 'center'
 	 * @since 0.1.0
 	 */
-	align?: Indexable<Align> | Scriptable<Align>,
+	align?: Indexable<Align> | Scriptable<Align>;
 
 	/**
 	 * The label box alignment relative to the element:
@@ -54,35 +54,35 @@ interface LabelOptions {
 	 * @default 'center'
 	 * @since 0.1.0
 	 */
-	anchor?: Indexable<Anchor> | Scriptable<Anchor>,
+	anchor?: Indexable<Anchor> | Scriptable<Anchor>;
 
 	/**
 	 * The color used to draw the background of the surrounding frame.
 	 * @default null (no background)
 	 * @since 0.1.0
 	 */
-	backgroundColor?: Indexable<Color | null> | Scriptable<Color | null>,
+	backgroundColor?: Indexable<Color | null> | Scriptable<Color | null>;
 
 	/**
 	 * The color used to draw the border of the surrounding frame.
 	 * @default null (no border)
 	 * @since 0.1.0
 	 */
-	borderColor?: Indexable<Color | null> | Scriptable<Color | null>,
+	borderColor?: Indexable<Color | null> | Scriptable<Color | null>;
 
 	/**
 	 * The border radius used to add rounded corners to the surrounding frame.
 	 * @default 0 (not rounded)
 	 * @since 0.1.0
 	 */
-	borderRadius?: Indexable<number> | Scriptable<number>,
+	borderRadius?: Indexable<number> | Scriptable<number>;
 
 	/**
 	 * The border width of the surrounding frame.
 	 * @default 0 (no border)
 	 * @since 0.1.0
 	 */
-	borderWidth?: Indexable<number> | Scriptable<number>,
+	borderWidth?: Indexable<number> | Scriptable<number>;
 
 	/**
 	 * When `true`, the anchor position is calculated based on the visible
@@ -90,21 +90,21 @@ interface LabelOptions {
 	 * @default false (no clamping)
 	 * @since 0.5.0
 	 */
-	clamp?: Indexable<boolean> | Scriptable<boolean>,
+	clamp?: Indexable<boolean> | Scriptable<boolean>;
 
 	/**
 	 * Clip the label drawing to the chart area.
 	 * @default false (no clipping)
 	 * @since 0.4.0
 	 */
-	clip?: Indexable<boolean> | Scriptable<boolean>,
+	clip?: Indexable<boolean> | Scriptable<boolean>;
 
 	/**
 	 * The color used to draw the label text.
 	 * @default undefined (Chart.defaults.global.defaultFontColor)
 	 * @since 0.1.0
 	 */
-	color?: Indexable<Color> | Scriptable<Color>,
+	color?: Indexable<Color> | Scriptable<Color>;
 
 	/**
 	 * When `false`, the label is hidden and associated options are not
@@ -113,21 +113,22 @@ interface LabelOptions {
 	 * @default true
 	 * @since 0.1.0 (boolean), 0.5.0 ('auto')
 	 */
-	display?: Indexable<boolean | string> | Scriptable<boolean | string>,
+	display?: Indexable<boolean | string> | Scriptable<boolean | string>;
 
 	/**
 	 * The font options used to draw the label text.
 	 * @default Chart.defaults.global.defaultFont.*
 	 * @since 0.1.0
 	 */
-	font?: Indexable<Font> | Scriptable<Font>,
+	font?: Indexable<Font> | Scriptable<Font>;
 
 	/**
 	 * Allows to customize the label text by transforming input data.
 	 * @default data[index] // parsed as string
 	 * @since 0.1.0
 	 */
-	formatter?: ((value: any, context: Context) => any | null),
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	formatter?: (value: any, context: Context) => any | null;
 
 	/**
 	 * Event listeners, where the property is the type of the event to listen
@@ -144,20 +145,20 @@ interface LabelOptions {
 		 * Called when a mouse click is detected within a label.
 		 * @since 0.3.0
 		 */
-		click?: Listener,
+		click?: Listener;
 
 		/**
 		 * Called when the mouse enters a label.
 		 * @since 0.3.0
 		 */
-		enter?: Listener,
+		enter?: Listener;
 
 		/**
 		 * Called when the mouse leaves a label.
 		 * @since 0.3.0
 		 */
-		leave?: Listener
-	},
+		leave?: Listener;
+	};
 
 	/**
 	 * The distance (in pixels) to pull the label away from the anchor point,
@@ -166,7 +167,7 @@ interface LabelOptions {
 	 * @default 4
 	 * @since 0.1.0
 	 */
-	offset?: Indexable<number> | Scriptable<number>,
+	offset?: Indexable<number> | Scriptable<number>;
 
 	/**
 	 * The label global opacity, including text, background, borders, etc.,
@@ -174,28 +175,28 @@ interface LabelOptions {
 	 * @default 1
 	 * @since 0.1.0
 	 */
-	opacity?: Indexable<number> | Scriptable<number>,
+	opacity?: Indexable<number> | Scriptable<number>;
 
 	/**
 	 * The padding (in pixels) to apply between the text and the surrounding frame.
 	 * @default 4 (all values)
 	 * @since 0.1.0
 	 */
-	padding?: Indexable<Padding> | Scriptable<Padding>,
+	padding?: Indexable<Padding> | Scriptable<Padding>;
 
 	/**
 	 * Clockwise rotation of the label relative to its center.
 	 * @default 0
 	 * @since 0.1.0
 	 */
-	rotation?: Indexable<number> | Scriptable<number>,
+	rotation?: Indexable<number> | Scriptable<number>;
 
 	/**
 	 * Text alignment for multi-lines labels.
 	 * @default 'start'
 	 * @since 0.1.0
 	 */
-	textAlign?: Indexable<TextAlign> | Scriptable<TextAlign>,
+	textAlign?: Indexable<TextAlign> | Scriptable<TextAlign>;
 
 	/**
 	 * The stroke color used to draw the label text. If this options is
@@ -203,28 +204,28 @@ interface LabelOptions {
 	 * @default color
 	 * @since 0.5.0
 	 */
-	textStrokeColor?: Indexable<Color> | Scriptable<Color>,
+	textStrokeColor?: Indexable<Color> | Scriptable<Color>;
 
 	/**
 	 * The width of the stroke for the label text.
 	 * @default 0 (no stroke)
 	 * @since 0.5.0
 	 */
-	textStrokeWidth?: Indexable<number> | Scriptable<number>,
+	textStrokeWidth?: Indexable<number> | Scriptable<number>;
 
 	/**
 	 * The amount of blur applied to shadow under the label text.
 	 * @default 0 (no shadow)
 	 * @since 0.5.0
 	 */
-	textShadowBlur?: Indexable<number> | Scriptable<number>,
+	textShadowBlur?: Indexable<number> | Scriptable<number>;
 
 	/**
 	 * The color of the shadow under the label text.
 	 * @default color
 	 * @since 0.5.0
 	 */
-	textShadowColor?: Indexable<Color> | Scriptable<Color>
+	textShadowColor?: Indexable<Color> | Scriptable<Color>;
 }
 
 export interface Options extends LabelOptions {
@@ -235,7 +236,5 @@ export interface Options extends LabelOptions {
 	 * @default undefined
 	 * @since 0.7.0
 	 */
-	labels?: {
-		[key: string]: LabelOptions | null
-	}
+	labels?: Record<string, LabelOptions | null>;
 }

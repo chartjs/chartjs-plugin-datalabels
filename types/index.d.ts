@@ -1,4 +1,4 @@
-import { Options } from './options';
+import {Options} from './options';
 
 declare module 'chart.js' {
 	interface ChartDataSets {
@@ -6,7 +6,7 @@ declare module 'chart.js' {
 		 * Per dataset datalabels plugin options.
 		 * @since 0.1.0
 		 */
-		datalabels?: Options
+		datalabels?: Options;
 	}
 
 	interface ChartPluginsOptions {
@@ -14,11 +14,11 @@ declare module 'chart.js' {
 		 * Per chart datalabels plugin options.
 		 * @since 0.1.0
 		 */
-		datalabels?: Options
+		datalabels?: Options;
 	}
 }
 
-declare const plugin: object;
+declare const plugin: Record<string, unknown>;
 
 export * from './context';
 

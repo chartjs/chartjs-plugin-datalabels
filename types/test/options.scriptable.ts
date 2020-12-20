@@ -1,57 +1,57 @@
-import { Chart } from 'chart.js';
-import { Context } from '../context';
-import { Options } from '../options';
+import {Chart} from 'chart.js';
+import {Context} from '../context';
+import {Options} from '../options';
 
 const options: Options = {
-	align: (ctx: Context) => { return 'end'; },
-	anchor: (ctx: Context) => { return 'end'; },
-	backgroundColor: (ctx: Context) => { return 'blue'; },
-	borderColor: (ctx: Context) => { return 'blue'; },
-	borderRadius: (ctx: Context) => { return 42; },
-	borderWidth: (ctx: Context) => { return 42; },
-	clamp: (ctx: Context) => { return false; },
-	clip: (ctx: Context) => { return false; },
-	color: (ctx: Context) => { return 'blue'; },
-	display: (ctx: Context) => { return true; },
-	font: (ctx: Context) => { return {size: 42}; },
+	align: (ctx: Context) => 'end',
+	anchor: (ctx: Context) => 'end',
+	backgroundColor: (ctx: Context) => 'blue',
+	borderColor: (ctx: Context) => 'blue',
+	borderRadius: (ctx: Context) => 42,
+	borderWidth: (ctx: Context) => 42,
+	clamp: (ctx: Context) => false,
+	clip: (ctx: Context) => false,
+	color: (ctx: Context) => 'blue',
+	display: (ctx: Context) => true,
+	font: (ctx: Context) => ({size: 42}),
 	labels: {
 		foo: {},
 		bar: null,
 		bla: {
-			align: (ctx: Context) => { return 'end'; },
-			anchor: (ctx: Context) => { return 'end'; },
-			backgroundColor: (ctx: Context) => { return 'blue'; },
-			borderColor: (ctx: Context) => { return 'blue'; },
-			borderRadius: (ctx: Context) => { return 42; },
-			borderWidth: (ctx: Context) => { return 42; },
-			clamp: (ctx: Context) => { return false; },
-			clip: (ctx: Context) => { return false; },
-			color: (ctx: Context) => { return 'blue'; },
-			display: (ctx: Context) => { return true; },
-			font: (ctx: Context) => { return {size: 42}; },
-			offset: (ctx: Context) => { return 42; },
-			opacity: (ctx: Context) => { return 0.42; },
-			padding: (ctx: Context) => { return 42; },
-			rotation: (ctx: Context) => { return 42; },
-			textAlign: (ctx: Context) => { return 'end'; },
-			textStrokeColor: (ctx: Context) => { return 'blue'; },
-			textStrokeWidth: (ctx: Context) => { return 42; },
-			textShadowBlur: (ctx: Context) => { return 42; },
-			textShadowColor: (ctx: Context) => { return 'blue'; }
+			align: (ctx: Context) => 'end',
+			anchor: (ctx: Context) => 'end',
+			backgroundColor: (ctx: Context) => 'blue',
+			borderColor: (ctx: Context) => 'blue',
+			borderRadius: (ctx: Context) => 42,
+			borderWidth: (ctx: Context) => 42,
+			clamp: (ctx: Context) => false,
+			clip: (ctx: Context) => false,
+			color: (ctx: Context) => 'blue',
+			display: (ctx: Context) => true,
+			font: (ctx: Context) => ({size: 42}),
+			offset: (ctx: Context) => 42,
+			opacity: (ctx: Context) => 0.42,
+			padding: (ctx: Context) => 42,
+			rotation: (ctx: Context) => 42,
+			textAlign: (ctx: Context) => 'end',
+			textStrokeColor: (ctx: Context) => 'blue',
+			textStrokeWidth: (ctx: Context) => 42,
+			textShadowBlur: (ctx: Context) => 42,
+			textShadowColor: (ctx: Context) => 'blue'
 		}
 	},
-	offset: (ctx: Context) => { return 42; },
-	opacity: (ctx: Context) => { return 0.42; },
-	padding: (ctx: Context) => { return 42; },
-	rotation: (ctx: Context) => { return 42; },
-	textAlign: (ctx: Context) => { return 'end'; },
-	textStrokeColor: (ctx: Context) => { return 'blue'; },
-	textStrokeWidth: (ctx: Context) => { return 42; },
-	textShadowBlur: (ctx: Context) => { return 42; },
-	textShadowColor: (ctx: Context) => { return 'blue'; },
+	offset: (ctx: Context) => 42,
+	opacity: (ctx: Context) => 0.42,
+	padding: (ctx: Context) => 42,
+	rotation: (ctx: Context) => 42,
+	textAlign: (ctx: Context) => 'end',
+	textStrokeColor: (ctx: Context) => 'blue',
+	textStrokeWidth: (ctx: Context) => 42,
+	textShadowBlur: (ctx: Context) => 42,
+	textShadowColor: (ctx: Context) => 'blue',
 };
 
-new Chart('id', {
+const chart = new Chart('id', {
 	data: {
 		datasets: [
 			{

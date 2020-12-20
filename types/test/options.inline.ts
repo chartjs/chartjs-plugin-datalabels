@@ -1,7 +1,7 @@
-import { Chart } from 'chart.js';
-import { Context } from '../context';
+import {Chart} from 'chart.js';
+import {Context} from '../context';
 
-new Chart('id', {
+const chart = new Chart('id', {
 	data: {
 		datasets: [
 			{
@@ -13,12 +13,12 @@ new Chart('id', {
 						bla: {
 							align: 'end',
 							listeners: {
-								click(ctx: Context) { return true; }
+								click: (ctx: Context) => true
 							}
 						}
 					},
 					listeners: {
-						click(ctx: Context) { return true; }
+						click: (ctx: Context) => true
 					}
 				}
 			}
@@ -34,12 +34,12 @@ new Chart('id', {
 					bla: {
 						align: 'end',
 						listeners: {
-							click(ctx: Context) { return true; }
+							click: (ctx: Context) => true
 						}
 					}
 				},
 				listeners: {
-					click(ctx: Context) { return true; }
+					click: (ctx: Context) => true
 				}
 			}
 		}

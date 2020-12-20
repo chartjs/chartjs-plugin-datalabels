@@ -26,7 +26,7 @@
     "build:dev": "rollup -c --watch",
     "docs": "vuepress build docs --dest dist/docs",
     "docs:dev": "vuepress dev docs",
-    "lint": "eslint . --ext .js",
+    "lint": "eslint . --ext .js --ext .ts",
     "package": "node scripts/create-packages.js",
     "test-unit": "karma start --single-run --coverage --grep",
     "test-unit:dev": "karma start --grep",
@@ -36,6 +36,8 @@
   },
   "devDependencies": {
     "@types/chart.js": "^2.9.27",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
     "@vuepress/plugin-google-analytics": "^1.7.1",
     "acorn": "^8.0.4",
     "archiver": "^5.1.0",

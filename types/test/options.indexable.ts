@@ -1,5 +1,5 @@
-import { Chart } from 'chart.js';
-import { Options } from '../options';
+import {Chart} from 'chart.js';
+import {Options} from '../options';
 
 const options: Options = {
 	align: ['bottom', 'center', 'end', 'left', 'right', 'start', 'top', 42],
@@ -50,7 +50,7 @@ const options: Options = {
 	textShadowColor: ['blue', 'red']
 };
 
-new Chart('id', {
+const chart = new Chart('id', {
 	data: {
 		datasets: [
 			{
