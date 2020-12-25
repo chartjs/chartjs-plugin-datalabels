@@ -30,12 +30,12 @@ module.exports = {
 		],
 		locales: {
 				'/': {
-						lang: 'English',
+						lang: 'en-US',
 						title: 'chartjs-plugin-datalabels',
     				description: 'Display labels on data for any type of charts.',
 				},
 				'/zh/': {
-						lang: '简体中文',
+						lang: 'zh-CN',
 						title: 'chartjs-plugin-datalabels',
     				description: '支持任意类型的图表显示文本标签',
 				}
