@@ -5,9 +5,9 @@
 锚点位置由向量方向、数据项位置和锚点配置决定。向量方向由坐标轴类型决定（如：直角坐标系（vertical、horizontal），径向坐标轴）。
 
 `anchor` 可选配置如下：
-- `'center'` (默认值): 数据项中间
-- `'start'`: 数据项开始的边界位置
-- `'end'`: 数据项结束的边界位置
+- `'center'` (默认值): 元素中间
+- `'start'`: 元素开始的边界位置
+- `'end'`: 元素结束的边界位置
 
 ![chartjs-plugin-datalabels](../assets/anchor.png)
 
