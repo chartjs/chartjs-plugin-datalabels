@@ -16,8 +16,10 @@ This plugin doesn't provide any public API (except the plugin options), thus you
 * [Options](options.md)
 * [Labels](labels.md)
 * [Positioning](positioning.md)
-* [Formating](formatting.md)
+* [Formatting](formatting.md)
 * [Events](events.md)
+* [TypeScript](typescript)
+* [Migration](migration)
 * [Samples](../samples)
 
 ## License

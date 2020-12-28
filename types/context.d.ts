@@ -35,10 +35,4 @@ export interface Context {
 	 * @since 0.1.0
 	 */
 	datasetIndex: number;
-
-	// NOTE(SB) context can be extended dynamically with user properties, for
-	// example to implement event based label customizations / interactions.
-	// https://chartjs-plugin-datalabels.netlify.app/guide/events.html#example
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	[key: string]: any;
 }

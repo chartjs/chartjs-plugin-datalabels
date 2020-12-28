@@ -48,7 +48,7 @@ const options: Options = {
 				click: (ctx: Context) => true,
 				enter: (ctx: Context) => false,
 				leave: (ctx: Context) => {
-					ctx.foo = 42;
+					// return void
 				}
 			},
 			padding: {
@@ -69,7 +69,7 @@ const options: Options = {
 		click: (ctx: Context) => true,
 		enter: (ctx: Context) => false,
 		leave: (ctx: Context) => {
-			ctx.foo = 42;
+			// return void
 		}
 	},
 	offset: 42,

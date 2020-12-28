@@ -71,6 +71,10 @@ The context object contains the following properties:
 | `dataset` | `object` | The dataset at index `datasetIndex`.
 | `datasetIndex` | `number` | The index of the associated dataset.
 
+::: tip
+The option context can be extended dynamically with user custom properties, for example to implement [event based label customizations & interactions](events.md#listeners).
+:::
+
 ## Indexable Options
 
 Indexable options also accept an array in which each item corresponds to the element at the same index. Note that this method requires to provide as many items as data, so, in most cases, using a [function](#scriptable-options) is more appropriate.
