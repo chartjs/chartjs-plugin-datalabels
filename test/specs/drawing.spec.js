@@ -1,4 +1,8 @@
+import plugin from 'chartjs-plugin-datalabels';
+
 describe('drawing', function() {
+	jasmine.chart.register(plugin);
+
 	describe('auto', jasmine.fixture.specs('drawing'));
 
 	// https://github.com/chartjs/chartjs-plugin-datalabels/issues/30

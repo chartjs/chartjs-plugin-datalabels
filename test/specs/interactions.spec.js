@@ -1,4 +1,8 @@
+import plugin from 'chartjs-plugin-datalabels';
+
 describe('interactions', function() {
+	jasmine.chart.register(plugin);
+
 	describe('context.active', function() {
 		it('should be false for non active elements (default)', function() {
 			var options = {color: function() {}};

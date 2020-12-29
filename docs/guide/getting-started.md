@@ -6,7 +6,7 @@
 
 [![npm](https://img.shields.io/npm/v/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://npmjs.com/package/chartjs-plugin-datalabels) [![npm downloads](https://img.shields.io/npm/dm/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://npmjs.com/package/chartjs-plugin-datalabels)
 
-```
+```sh
 npm install chartjs-plugin-datalabels --save
 ```
 
@@ -50,7 +50,7 @@ You can download the latest version of `chartjs-plugin-datalabels` from the [Git
 `chartjs-plugin-datalabels` must be loaded **after** the Chart.js library!
 :::
 
-Once imported, the plugin is available under the global property `ChartDataLabels`. This is useful to [register/unregister](#registration) the plugin afterward.
+Once loaded, the plugin, available under the global `ChartDataLabels` property, needs to be [registered](#registration).
 
 ### Module
 
@@ -59,18 +59,19 @@ import Chart from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 ```
 
+Once imported, the plugin needs to be [registered](#registration).
+
 ## Registration
 
-**This plugin registers itself [globally](https://www.chartjs.org/docs/latest/developers/plugins.html#global-plugins)**, meaning that once imported, all charts will display labels. In case you want it enabled only for a few charts, you first need to unregister it globally:
+Since version 1.x, this plugin **no longer registers itself automatically**. It must be manually registered either globally or locally (see [#42](https://github.com/chartjs/chartjs-plugin-datalabels/issues/42) for the rationale).
 
 ```javascript
-// NOTE: when imported as a <script> tag, use the global property 'ChartDataLabels'
-Chart.plugins.unregister(ChartDataLabels);
+// Register the plugin to all charts:
+Chart.plugins.register(ChartDataLabels);
 ```
 
-Then, you can enabled the plugin only for specific charts:
-
 ```javascript
+// OR only to specific charts:
 var chart = new Chart(ctx, {
     plugins: [ChartDataLabels],
     options: {
@@ -78,12 +79,11 @@ var chart = new Chart(ctx, {
     }
 })
 ```
+::: tip
+When imported via a [`<script>` tag](#html), use the global property `ChartDataLabels`.
+:::
 
 See also [Chart.js &rsaquo; Using plugins](https://www.chartjs.org/docs/latest/developers/plugins.html).
-
-::: warning DEPRECATION
-From version 1.x, this plugin will no longer be registered automatically (see [#42](https://github.com/chartjs/chartjs-plugin-datalabels/issues/42) for details).
-:::
 
 ## Configuration
 

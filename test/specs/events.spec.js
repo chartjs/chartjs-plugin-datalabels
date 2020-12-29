@@ -1,6 +1,9 @@
 import Chart from 'chart.js';
+import plugin from 'chartjs-plugin-datalabels';
 
 describe('events', function() {
+	jasmine.chart.register(plugin);
+
 	beforeEach(function() {
 		this.data = {
 			labels: [1, 2, 3],

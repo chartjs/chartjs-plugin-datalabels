@@ -8,7 +8,7 @@ module.exports = function(karma) {
 	const args = yargs.argv;
 	const regex = args.autoWatch ? /s\.js$/ : /s\.min\.js$/;
 	const pattern = !args.grep || args.grep === true ? '' : args.grep;
-	const specs = `test/specs/**/*${pattern}*.js`;
+	const specs = `test/specs/**/*${pattern}*spec.js`;
 	const output = builds[0].output.filter((v) => v.file.match(regex))[0];
 	const build = Object.assign({}, builds[0], {output: output});
 
@@ -56,12 +56,14 @@ module.exports = function(karma) {
 				commonjs()
 			],
 			external: [
-				'chart.js'
+				'chart.js',
+				'chartjs-plugin-datalabels',
 			],
 			output: {
 				format: 'umd',
 				globals: {
-					'chart.js': 'Chart'
+					'chart.js': 'Chart',
+					'chartjs-plugin-datalabels': 'ChartDataLabels',
 				}
 			}
 		},

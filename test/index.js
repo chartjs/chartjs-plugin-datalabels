@@ -1,5 +1,3 @@
-'use strict';
-
 import Chart from 'chart.js';
 import fixture from './fixture';
 import matchers from './matchers';
@@ -19,6 +17,29 @@ jasmine.chart = {
 	release: function(chart) {
 		utils.releaseChart.apply(utils, arguments);
 		delete charts[chart.id];
+	},
+
+	// Since version 1.x, this plugin isn't anymore automatically registered on first
+	// import. This helper allows to register the given plugin for all specs contained
+	// in the describe() block from where this method is called. Note that some tests
+	// require the plugin to **not** be registered.
+	register: function(plugin) {
+		if (Chart.plugins.getAll().includes(plugin)) {
+			throw new Error(`Plugin #${plugin.id} is already registered`);
+		}
+
+		beforeEach(() => {
+			Chart.plugins.register(plugin);
+			if (!Chart.plugins.getAll().includes(plugin)) {
+				throw new Error(`Failed to register plugin #${plugin.id}`);
+			}
+		});
+		afterEach(() => {
+			Chart.plugins.unregister(plugin);
+			if (Chart.plugins.getAll().includes(plugin)) {
+				throw new Error(`Failed to unregister plugin #${plugin.id}`);
+			}
+		});
 	}
 };
 

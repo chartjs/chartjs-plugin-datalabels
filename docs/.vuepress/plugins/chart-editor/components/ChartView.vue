@@ -6,7 +6,9 @@
 
 <script>
 import Chart from 'chart.js';
-import '../../../../../dist/chartjs-plugin-datalabels.js';
+import plugin from '../../../../../dist/chartjs-plugin-datalabels.js';
+
+Chart.plugins.register(plugin);
 
 export default {
 	props: {

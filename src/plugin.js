@@ -165,7 +165,7 @@ function invalidate(chart) {
 
 Chart.defaults.global.plugins.datalabels = defaults;
 
-var plugin = {
+export default {
 	id: 'datalabels',
 
 	beforeInit: function(chart) {
@@ -295,9 +295,3 @@ var plugin = {
 		delete expando._dirty;
 	}
 };
-
-// TODO Remove at version 1, we shouldn't automatically register plugins.
-// https://github.com/chartjs/chartjs-plugin-datalabels/issues/42
-Chart.plugins.register(plugin);
-
-export default plugin;
