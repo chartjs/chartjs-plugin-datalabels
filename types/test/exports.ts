@@ -8,14 +8,14 @@ Chart.plugins.register(Plugin);
 Chart.plugins.unregister(Plugin);
 
 const chart = new Chart('id', {
-	plugins: [Plugin]
+  plugins: [Plugin]
 });
 
 // Scriptable context
 const ctx: Context = {
-	active: true,
-	chart: chart,
-	datasetIndex: 0,
-	dataIndex: 0,
-	dataset: {}
+  active: true,
+  chart: chart,
+  datasetIndex: 0,
+  dataIndex: 0,
+  dataset: {}
 };

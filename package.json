@@ -43,7 +43,7 @@
     "archiver": "^5.1.0",
     "chart.js": "~2.8.0",
     "eslint": "^7.15.0",
-    "eslint-config-chartjs": "^0.1.0",
+    "eslint-config-chartjs": "^0.3.0",
     "eslint-plugin-es": "^3.0.1",
     "eslint-plugin-html": "^6.1.1",
     "jasmine-core": "^3.6.0",

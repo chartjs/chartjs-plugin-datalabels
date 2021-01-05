@@ -17,7 +17,7 @@ Example:
 
 ```javascript
 formatter: function(value, context) {
-    return context.dataIndex + ': ' + Math.round(value*100) + '%';
+  return context.dataIndex + ': ' + Math.round(value*100) + '%';
 }
 
 // label for data at index 0 with value 0.23: "0: 23%"
@@ -42,22 +42,22 @@ It's also possible to display text other than the data values, for example, the 
 
 ```javascript
 new Chart('id', {
-    type: 'bar',
-    data: {
-        labels: ['foo', 'bar'],
-        datasets: [{
-            data: [42, 24]
-        }]
-    },
-    options: {
-        plugins: {
-            datalabels: {
-                formatter: function(value, context) {
-                    return context.chart.data.labels[context.dataIndex];
-                }
-            }
+  type: 'bar',
+  data: {
+    labels: ['foo', 'bar'],
+    datasets: [{
+      data: [42, 24]
+    }]
+  },
+  options: {
+    plugins: {
+      datalabels: {
+        formatter: function(value, context) {
+          return context.chart.data.labels[context.dataIndex];
         }
+      }
     }
+  }
 });
 
 // label for data at index 0: "foo"
@@ -84,8 +84,8 @@ Example:
 
 ```javascript
 formatter: function(value) {
-    return 'line1\nline2\n' + value;
-    // eq. return ['line1', 'line2', value]
+  return 'line1\nline2\n' + value;
+  // eq. return ['line1', 'line2', value]
 }
 ```
 

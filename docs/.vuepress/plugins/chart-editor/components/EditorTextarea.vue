@@ -1,9 +1,9 @@
 <template>
-	<perfect-scrollbar class="editor-textarea">
-		<div class="editor-textarea-content">
-			<prism-editor :value="value" :highlight="highlight" @input="$emit('input', $event)"/>
-		</div>
-	</perfect-scrollbar>
+  <perfect-scrollbar class="editor-textarea">
+    <div class="editor-textarea-content">
+      <prism-editor :value="value" :highlight="highlight" @input="$emit('input', $event)"/>
+    </div>
+  </perfect-scrollbar>
 </template>
 
 <script>
@@ -20,22 +20,22 @@ import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css';
 
 export default {
-	components: {
-		PrismEditor,
-	},
+  components: {
+    PrismEditor,
+  },
 
-	props: {
-		value: {
-			type: String,
-			required: true,
-		},
-	},
+  props: {
+    value: {
+      type: String,
+      required: true,
+    },
+  },
 
-	methods: {
-		highlight(code) {
-			return highlight(code, languages.js);
-		},
-	}
+  methods: {
+    highlight(code) {
+      return highlight(code, languages.js);
+    },
+  }
 };
 </script>
 
@@ -43,21 +43,21 @@ export default {
 @import '../styles/palette.styl'
 
 .editor-textarea
-	color $code-text-color
-	font-family $code-font-family
-	font-size $code-font-size
-	line-height $code-line-height
-	height inherit
+  color $code-text-color
+  font-family $code-font-family
+  font-size $code-font-size
+  line-height $code-line-height
+  height inherit
 
-	// Move the "js" indicator a bit further from the top/right sides
-	// so we can display the vertical scrollbar without overlap it.
-	&:before
-		margin-right 8px
-		margin-top 4px
+  // Move the "js" indicator a bit further from the top/right sides
+  // so we can display the vertical scrollbar without overlap it.
+  &:before
+    margin-right 8px
+    margin-top 4px
 
-	.prism-editor-wrapper
-		overflow visible
+  .prism-editor-wrapper
+    overflow visible
 
 .editor-textarea-content
-	padding 16px 24px
+  padding 16px 24px
 </style>

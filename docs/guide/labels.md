@@ -8,23 +8,23 @@ The following snippet creates two labels for every data element, the first with 
 
 ```js
 {
-    options: {
-        plugins: {
-            datalabels: {
-                color: 'blue',
-                labels: {
-                    title: {
-                        font: {
-                            weight: 'bold'
-                        }
-                    },
-                    value: {
-                        color: 'green'
-                    }
-                }
+  options: {
+    plugins: {
+      datalabels: {
+        color: 'blue',
+        labels: {
+          title: {
+            font: {
+              weight: 'bold'
             }
+          },
+          value: {
+            color: 'green'
+          }
         }
+      }
     }
+  }
 }
 ```
 
@@ -38,36 +38,36 @@ To modify a label for a specific dataset, create an entry in the `labels` datase
 
 ```js
 {
-    data: {
-        datasets: [{
-            // First dataset.
-            datalabels: {
-                color: 'yellow'
-            }
-        }, {
-            // Second dataset.
-            datalabels: {
-                labels: {
-                    title: {
-                        color: 'green'
-                    }
-                }
-            }
-        }]
-    },
-    options: {
-        plugins: {
-            datalabels: {
-                color: 'pink',
-                labels: {
-                    value: {},
-                    title: {
-                        color: 'blue'
-                    }
-                }
-            }
+  data: {
+    datasets: [{
+      // First dataset.
+      datalabels: {
+        color: 'yellow'
+      }
+    }, {
+      // Second dataset.
+      datalabels: {
+        labels: {
+          title: {
+            color: 'green'
+          }
         }
+      }
+    }]
+  },
+  options: {
+    plugins: {
+      datalabels: {
+        color: 'pink',
+        labels: {
+          value: {},
+          title: {
+            color: 'blue'
+          }
+        }
+      }
     }
+  }
 }
 ```
 
@@ -89,31 +89,31 @@ To add a new label to a specific dataset, create an entry under the `labels` dat
 
 ```js
 {
-    data: {
-        datasets: [{
-            // First dataset.
-        }, {
-            // Second dataset.
-            datalabels: {
-                labels: {
-                    value: {
-                        color: 'green'
-                    }
-                }
-            }
-        }]
-    },
-    options: {
-        plugins: {
-            datalabels: {
-                labels: {
-                    title: {
-                        color: 'blue'
-                    }
-                }
-            }
+  data: {
+    datasets: [{
+      // First dataset.
+    }, {
+      // Second dataset.
+      datalabels: {
+        labels: {
+          value: {
+            color: 'green'
+          }
         }
+      }
+    }]
+  },
+  options: {
+    plugins: {
+      datalabels: {
+        labels: {
+          title: {
+            color: 'blue'
+          }
+        }
+      }
     }
+  }
 }
 ```
 
@@ -123,28 +123,28 @@ To remove a label for a specific dataset, create an `null` entry under the `labe
 
 ```js
 {
-    data: {
-        datasets: [{
-            // First dataset.
-        }, {
-            // Second dataset.
-            datalabels: {
-                labels: {
-                    title: null
-                }
-            }
-        }]
-    },
-    options: {
-        plugins: {
-            datalabels: {
-                labels: {
-                    title: {
-                        color: 'blue'
-                    }
-                }
-            }
+  data: {
+    datasets: [{
+      // First dataset.
+    }, {
+      // Second dataset.
+      datalabels: {
+        labels: {
+          title: null
         }
+      }
+    }]
+  },
+  options: {
+    plugins: {
+      datalabels: {
+        labels: {
+          title: {
+            color: 'blue'
+          }
+        }
+      }
     }
+  }
 }
 ```

@@ -9,35 +9,35 @@ const banner = `/*!
  */`;
 
 module.exports = [
-	{
-		input: 'src/plugin.js',
-		output: ['.js', '.min.js'].map((suffix) => {
-			const config = {
-				name: 'ChartDataLabels',
-				file: `dist/${pkg.name}${suffix}`,
-				banner: banner,
-				format: 'umd',
-				indent: false,
-				plugins: [],
-				globals: {
-					'chart.js': 'Chart'
-				}
-			};
+  {
+    input: 'src/plugin.js',
+    output: ['.js', '.min.js'].map((suffix) => {
+      const config = {
+        name: 'ChartDataLabels',
+        file: `dist/${pkg.name}${suffix}`,
+        banner: banner,
+        format: 'umd',
+        indent: false,
+        plugins: [],
+        globals: {
+          'chart.js': 'Chart'
+        }
+      };
 
-			if (suffix.match(/\.min\.js$/)) {
-				config.plugins.push(
-					terser({
-						output: {
-							comments: /^!/
-						}
-					})
-				);
-			}
+      if (suffix.match(/\.min\.js$/)) {
+        config.plugins.push(
+          terser({
+            output: {
+              comments: /^!/
+            }
+          })
+        );
+      }
 
-			return config;
-		}),
-		external: [
-			'chart.js'
-		]
-	}
+      return config;
+    }),
+    external: [
+      'chart.js'
+    ]
+  }
 ];

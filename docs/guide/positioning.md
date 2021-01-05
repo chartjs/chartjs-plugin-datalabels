@@ -53,7 +53,7 @@ This option is [scriptable](options.md#scriptable-options), so it's possible to 
 
 ```javascript
 display: function(context) {
-    return context.dataIndex % 2; // display labels with an odd index
+  return context.dataIndex % 2; // display labels with an odd index
 }
 ```
 

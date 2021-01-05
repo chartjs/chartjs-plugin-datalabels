@@ -1,111 +1,111 @@
 function fallback(/* values ... */) {
-	var ilen = arguments.length;
-	var i = 0;
-	var v;
+  var ilen = arguments.length;
+  var i = 0;
+  var v;
 
-	for (; i < ilen; ++i) {
-		v = arguments[i];
-		if (v !== undefined) {
-			return v;
-		}
-	}
+  for (; i < ilen; ++i) {
+    v = arguments[i];
+    if (v !== undefined) {
+      return v;
+    }
+  }
 }
 
 var Color = typeof window !== 'undefined' ? window.Color : {};
 
 var COLORS = [
-	'#FF3784',
-	'#36A2EB',
-	'#4BC0C0',
-	'#F77825',
-	'#9966FF',
-	'#00A8C6',
-	'#379F7A',
-	'#CC2738',
-	'#8B628A',
-	'#8FBE00',
-	'#606060',
+  '#FF3784',
+  '#36A2EB',
+  '#4BC0C0',
+  '#F77825',
+  '#9966FF',
+  '#00A8C6',
+  '#379F7A',
+  '#CC2738',
+  '#8B628A',
+  '#8FBE00',
+  '#606060',
 ];
 
 // Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
 function srand(seed) {
-	this._seed = seed;
+  this._seed = seed;
 }
 
 function rand(min, max) {
-	var seed = this._seed;
-	min = min === undefined ? 0 : min;
-	max = max === undefined ? 1 : max;
-	this._seed = (seed * 9301 + 49297) % 233280;
-	return min + (this._seed / 233280) * (max - min);
+  var seed = this._seed;
+  min = min === undefined ? 0 : min;
+  max = max === undefined ? 1 : max;
+  this._seed = (seed * 9301 + 49297) % 233280;
+  return min + (this._seed / 233280) * (max - min);
 }
 
 function numbers(config) {
-	var cfg = config || {};
-	var min = fallback(cfg.min, 0);
-	var max = fallback(cfg.max, 1);
-	var from = fallback(cfg.from, []);
-	var count = fallback(cfg.count, 8);
-	var decimals = fallback(cfg.decimals, 8);
-	var continuity = fallback(cfg.continuity, 1);
-	var dfactor = Math.pow(10, decimals) || 0;
-	var data = [];
-	var i, value;
+  var cfg = config || {};
+  var min = fallback(cfg.min, 0);
+  var max = fallback(cfg.max, 1);
+  var from = fallback(cfg.from, []);
+  var count = fallback(cfg.count, 8);
+  var decimals = fallback(cfg.decimals, 8);
+  var continuity = fallback(cfg.continuity, 1);
+  var dfactor = Math.pow(10, decimals) || 0;
+  var data = [];
+  var i, value;
 
-	for (i = 0; i < count; ++i) {
-		value = (from[i] || 0) + this.rand(min, max);
-		if (this.rand() <= continuity) {
-			data.push(Math.round(dfactor * value) / dfactor);
-		} else {
-			data.push(null);
-		}
-	}
+  for (i = 0; i < count; ++i) {
+    value = (from[i] || 0) + this.rand(min, max);
+    if (this.rand() <= continuity) {
+      data.push(Math.round(dfactor * value) / dfactor);
+    } else {
+      data.push(null);
+    }
+  }
 
-	return data;
+  return data;
 }
 
 function color(offset) {
-	var count = COLORS.length;
-	var index = offset === undefined ? ~~rand(0, count) : offset;
-	return COLORS[index % count];
+  var count = COLORS.length;
+  var index = offset === undefined ? ~~rand(0, count) : offset;
+  return COLORS[index % count];
 }
 
 function colors(config) {
-	var cfg = config || {};
-	var c = cfg.color || color(0);
-	var count = cfg.count !== undefined ? cfg.count : 8;
-	var method = cfg.mode ? Color.prototype[cfg.mode] : null;
-	var values = [];
-	var i, f, v;
+  var cfg = config || {};
+  var c = cfg.color || color(0);
+  var count = cfg.count !== undefined ? cfg.count : 8;
+  var method = cfg.mode ? Color.prototype[cfg.mode] : null;
+  var values = [];
+  var i, f, v;
 
-	for (i = 0; i < count; ++i) {
-		f = i / count;
+  for (i = 0; i < count; ++i) {
+    f = i / count;
 
-		if (method) {
-			v = method.call(Color(c), f).rgbString();
-		} else {
-			v = color(i);
-		}
+    if (method) {
+      v = method.call(Color(c), f).rgbString();
+    } else {
+      v = color(i);
+    }
 
-		values.push(v);
-	}
+    values.push(v);
+  }
 
-	return values;
+  return values;
 }
 
 function transparentize(c, opacity) {
-	var alpha = opacity === undefined ? 0.5 : 1 - opacity;
-	return Color(c).alpha(alpha).rgbString();
+  var alpha = opacity === undefined ? 0.5 : 1 - opacity;
+  return Color(c).alpha(alpha).rgbString();
 }
 
 srand(Date.now());
 
 module.exports = {
-	color: color,
-	colors: colors,
-	COLORS: COLORS,
-	numbers: numbers,
-	rand: rand,
-	srand: srand,
-	transparentize: transparentize,
+  color: color,
+  colors: colors,
+  COLORS: COLORS,
+  numbers: numbers,
+  rand: rand,
+  srand: srand,
+  transparentize: transparentize,
 };
