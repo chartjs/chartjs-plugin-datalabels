@@ -42,7 +42,7 @@ You can download the latest version of `chartjs-plugin-datalabels` from the [Git
 ### HTML
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 ```
 

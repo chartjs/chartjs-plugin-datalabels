@@ -1,19 +1,21 @@
 <p align="center">
-    <img src="docs/.vuepress/public/hero-title.svg?sanitize=true">
+  <img src="docs/.vuepress/public/hero-title.svg?sanitize=true">
 </p>
 
 <p align="center">
-    <a href="https://chartjs-plugin-datalabels.netlify.app/guide/getting-started.html"><img src="https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Downloads"></a>
-    <a href="https://travis-ci.org/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Builds"></a>
-    <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/c/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Coverage"></a>
-    <a href="https://github.com/chartjs/awesome"><img src="https://awesome.re/badge-flat2.svg" alt="Awesome"></a>
+  <a href="https://chartjs-plugin-datalabels.netlify.app/guide/getting-started.html"><img src="https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Downloads"></a>
+  <a href="https://travis-ci.org/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/travis/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Builds"></a>
+  <a href="https://codeclimate.com/github/chartjs/chartjs-plugin-datalabels"><img src="https://img.shields.io/codeclimate/c/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600" alt="Coverage"></a>
+  <a href="https://github.com/chartjs/awesome"><img src="https://awesome.re/badge-flat2.svg" alt="Awesome"></a>
 </p>
 
 ## Overview
 
 Highly customizable [Chart.js](http://www.chartjs.org/) plugin that displays labels on data for any type of charts.
 
-Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or later.
+Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **>= 2.7.0 < 3.x.x**.
+
+See [this discussion](https://github.com/chartjs/chartjs-plugin-datalabels/discussions/213) for compatibility with Chart.js 3.
 
 ## Documentation
 
@@ -32,18 +34,22 @@ Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **2.7.0** or l
 
 You first need to install node dependencies (requires [Node.js](https://nodejs.org/)):
 
-    > npm install
+```
+> npm install
+```
 
 The following commands will then be available from the repository root:
 
-    > npm run build            // build dist files
-    > npm run build:dev        // build and watch for changes
-    > npm run test             // run all tests and generate code coverage
-    > npm run test:dev         // run all tests and watch for changes
-    > npm run lint             // perform code linting
-    > npm run lint -- --fix    // automatically fix linting problems
-    > npm run docs             // generate documentation (`dist/docs`)
-    > npm run docs:dev         // generate documentation and watch for changes
+```
+> npm run build            // build dist files
+> npm run build:dev        // build and watch for changes
+> npm run test             // run all tests and generate code coverage
+> npm run test:dev         // run all tests and watch for changes
+> npm run lint             // perform code linting
+> npm run lint -- --fix    // automatically fix linting problems
+> npm run docs             // generate documentation (`dist/docs`)
+> npm run docs:dev         // generate documentation and watch for changes
+```
 
 ## License
 
