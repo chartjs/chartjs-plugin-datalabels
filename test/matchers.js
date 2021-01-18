@@ -1,6 +1,6 @@
 'use strict';
 
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import pixelmatch from 'pixelmatch';
 import utils from './utils';
 

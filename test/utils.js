@@ -1,6 +1,6 @@
 'use strict';
 
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 
 function createCanvas(w, h) {
   var canvas = document.createElement('CANVAS');
