@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import utils from './utils';
 import positioners from './positioners';
 

@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import {acquireChart, addMatchers, releaseChart, releaseCharts, specsFromFixtures, triggerMouseEvent} from 'chartjs-test-utils';
 
 // force ratio=1 for tests on high-res/retina devices

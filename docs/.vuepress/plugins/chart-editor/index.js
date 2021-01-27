@@ -22,7 +22,7 @@ module.exports = ({defaults}) => {
       {
         name: 'chart-defaults',
         content: `
-          import Chart from 'chart.js';
+          import {Chart} from 'chart.js';
           Chart.defaults.set(${JSON.stringify(defaults)});
         `
       },

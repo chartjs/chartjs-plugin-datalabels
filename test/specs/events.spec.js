@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import plugin from 'chartjs-plugin-datalabels';
 
 describe('events', function() {

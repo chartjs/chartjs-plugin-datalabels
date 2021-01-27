@@ -2,7 +2,7 @@
  * @see https://github.com/chartjs/Chart.js/issues/4176
  */
 
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import Label from './label';
 import utils from './utils';
 import layout from './layout';
