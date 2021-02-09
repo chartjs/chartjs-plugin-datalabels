@@ -21,23 +21,23 @@ function configure(dataset, options) {
   if (override === false) {
     return null;
   }
-  if (override === true) {
-    override = {};
-  }
 
-  options = helpers.merge({}, [options, override]);
-  labels = options.labels || {};
-  keys = Object.keys(labels);
-  delete options.labels;
+  keys = Object.keys(options.labels);
+
+  if (helpers.isObject(override)) {
+    options = options.override(override);
+    keys = keys.concat(Object.keys(options.labels).filter(function(key) {
+      return keys.indexOf(key) === -1;
+    }));
+  }
+  labels = options.labels;
 
   if (keys.length) {
     keys.forEach(function(key) {
-      if (labels[key]) {
-        configs.push(helpers.merge({}, [
-          options,
-          labels[key],
-          {_key: key}
-        ]));
+      var label = labels[key];
+      if (helpers.isObject(label)) {
+        label._key = key;
+        configs.push(label);
       }
     });
   } else {
@@ -52,7 +52,6 @@ function configure(dataset, options) {
       target[event][config._key || DEFAULT_KEY] = fn;
     });
 
-    delete config.listeners;
     return target;
   }, {});
 
@@ -147,6 +146,14 @@ export default {
 
   defaults: defaults,
 
+  descriptors: {
+    _fallback: 'datalabels',
+    _scriptable: function(name) {
+      return !['formatter', 'enter', 'leave', 'click'].includes(name);
+    },
+    labels: {}
+  },
+
   beforeInit: function(chart) {
     chart[EXPANDO_KEY] = {
       _actives: []
@@ -191,6 +198,7 @@ export default {
           label.$context = {
             active: false,
             chart: chart,
+            index: i,
             dataIndex: i,
             dataset: dataset,
             datasetIndex: datasetIndex

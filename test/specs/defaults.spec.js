@@ -59,9 +59,13 @@ describe('defaults.js', function() {
 
     expect(spy).toHaveBeenCalled();
 
+    var defaultOpts = Object.assign({}, expected, {
+      color: Chart.defaults.color,
+      labels: {}
+    });
     var args = spy.calls.first().args;
     expect(args[0]).toBe(chart);
-    expect(args[2]).toEqual(jasmine.objectContaining(expected));
+    expect(args[2]).toEqualOptions(defaultOpts);
     expect(args[2].formatter).toBe(Chart.defaults.plugins.datalabels.formatter);
   });
 

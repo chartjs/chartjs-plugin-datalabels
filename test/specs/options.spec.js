@@ -49,6 +49,7 @@ describe('options', function() {
           expect(options[key].calls.argsFor(i)[0]).toEqual({
             active: false,
             chart: chart,
+            index: e.dataIndex,
             dataIndex: e.dataIndex,
             dataset: chart.data.datasets[e.datasetIndex],
             datasetIndex: e.datasetIndex

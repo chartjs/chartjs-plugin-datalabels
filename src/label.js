@@ -233,37 +233,35 @@ helpers.merge(Label.prototype, {
    */
   _modelize: function(display, lines, config, context) {
     var me = this;
-    var index = me._index;
-    var resolve = helpers.resolve;
-    var font = helpers.toFont(resolve([config.font, {}], context, index));
-    var color = resolve([config.color, Chart.defaults.font.color], context, index);
+    var font = helpers.toFont(config.font);
+    var color = config.color;
 
     return {
-      align: resolve([config.align, 'center'], context, index),
-      anchor: resolve([config.anchor, 'center'], context, index),
+      align: config.align,
+      anchor: config.anchor,
       area: context.chart.chartArea,
-      backgroundColor: resolve([config.backgroundColor, null], context, index),
-      borderColor: resolve([config.borderColor, null], context, index),
-      borderRadius: resolve([config.borderRadius, 0], context, index),
-      borderWidth: resolve([config.borderWidth, 0], context, index),
-      clamp: resolve([config.clamp, false], context, index),
-      clip: resolve([config.clip, false], context, index),
+      backgroundColor: config.backgroundColor,
+      borderColor: config.borderColor,
+      borderRadius: config.borderRadius,
+      borderWidth: config.borderWidth,
+      clamp: config.clamp,
+      clip: config.clip,
       color: color,
       display: display,
       font: font,
       lines: lines,
-      offset: resolve([config.offset, 0], context, index),
-      opacity: resolve([config.opacity, 1], context, index),
+      offset: config.offset,
+      opacity: helpers.valueOrDefault(config.opacity, 1),
       origin: getScaleOrigin(me._el, context),
-      padding: helpers.toPadding(resolve([config.padding, 0], context, index)),
+      padding: helpers.toPadding(config.padding),
       positioner: getPositioner(me._el),
-      rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
+      rotation: config.rotation * (Math.PI / 180),
       size: utils.textSize(me._ctx, lines, font),
-      textAlign: resolve([config.textAlign, 'start'], context, index),
-      textShadowBlur: resolve([config.textShadowBlur, 0], context, index),
-      textShadowColor: resolve([config.textShadowColor, color], context, index),
-      textStrokeColor: resolve([config.textStrokeColor, color], context, index),
-      textStrokeWidth: resolve([config.textStrokeWidth, 0], context, index)
+      textAlign: config.textAlign,
+      textShadowBlur: config.textShadowBlur,
+      textShadowColor: config.textShadowColor,
+      textStrokeColor: config.textStrokeColor,
+      textStrokeWidth: config.textStrokeWidth
     };
   },
 
@@ -277,15 +275,17 @@ helpers.merge(Label.prototype, {
 
     // We first resolve the display option (separately) to avoid computing
     // other options in case the label is hidden (i.e. display: false).
-    var display = helpers.resolve([config.display, true], context, index);
+    var opts = config.setContext(context);
+
+    var display = opts.display;
 
     if (display) {
       value = context.dataset.data[index];
-      label = helpers.valueOrDefault(helpers.callback(config.formatter, [value, context]), value);
+      label = helpers.valueOrDefault(helpers.callback(opts.formatter, [value, context]), value);
       lines = helpers.isNullOrUndef(label) ? [] : utils.toTextLines(label);
 
       if (lines.length) {
-        model = me._modelize(display, lines, config, context);
+        model = me._modelize(display, lines, opts, context);
         rects = boundingRects(model);
       }
     }

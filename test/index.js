@@ -37,8 +37,73 @@ jasmine.fixture = {
 };
 jasmine.triggerMouseEvent = triggerMouseEvent;
 
+function isObject(value) {
+  return value !== null && Object.prototype.toString.call(value) === '[object Object]';
+}
+
+function isArray(value) {
+  return value !== null && Object.prototype.toString.call(value) === '[object Array]';
+}
+
+function compareOption(val, act, path) {
+  let ret = true;
+
+  if (isObject(val)) {
+    ret = compareOptions(act, val, path);
+  } else if (isArray(val)) {
+    ret = val.length === act.length;
+    if (ret) {
+      for (let i = 0; i < val.length; i++) {
+        if (!compareOption(val[i], act[i], path)) {
+          ret = false;
+          break;
+        }
+      }
+    }
+  } else {
+    ret = act === val;
+  }
+  return ret;
+}
+
+function compareOptions(actual, expected, path = '') {
+  let ret = true;
+  let diff = [];
+  if (path !== '') {
+    path = path + '.';
+  }
+  for (const key in expected) {
+    if (typeof key === 'string' && key.startsWith('_')) {
+      continue;
+    }
+    if (!Object.prototype.hasOwnProperty.call(expected, key)) {
+      continue;
+    }
+    const val = expected[key];
+    const act = actual[key];
+    ret = compareOption(val, act, `${path}${key}`);
+    if (!ret) {
+      diff.push(`${path}${key}: Expected '${actual[key]}' to be '${val}'`);
+      break;
+    }
+  }
+  return {
+    pass: ret,
+    message: diff.join('\n')
+  };
+}
+
 beforeEach(function() {
   addMatchers();
+  jasmine.addMatchers({
+    toEqualOptions() {
+      return {
+        compare(actual, expected) {
+          return compareOptions(actual, expected);
+        }
+      };
+    }
+  });
 
   Chart.defaults.set({
     animation: false,
