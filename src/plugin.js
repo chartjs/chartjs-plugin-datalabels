@@ -154,6 +154,11 @@ export default {
     labels: {}
   },
 
+  defaultRoutes: {
+    textShadowColor: 'color',
+    textStrokeColor: 'color',
+  },
+
   beforeInit: function(chart) {
     chart[EXPANDO_KEY] = {
       _actives: []
