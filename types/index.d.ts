@@ -1,4 +1,4 @@
-import {ChartDatasetProperties, ChartType, Plugin, PluginOptionsByType} from 'chart.js';
+import {ChartType, Plugin} from 'chart.js';
 import {Options} from './options';
 
 declare module 'chart.js' {

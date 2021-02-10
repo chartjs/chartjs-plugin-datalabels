@@ -1,8 +1,9 @@
-import {Chart} from 'chart.js';
+import {ArcElement, BarElement, defaults, PointElement} from 'chart.js';
+import {callback, isNullOrUndef, merge, resolve, toFont, toPadding, valueOrDefault} from 'chart.js/helpers';
+
 import utils from './utils';
 import positioners from './positioners';
 
-var helpers = Chart.helpers;
 var rasterize = utils.rasterize;
 
 function boundingRects(model) {
@@ -47,13 +48,13 @@ function getScaleOrigin(el, context) {
 }
 
 function getPositioner(el) {
-  if (el instanceof Chart.elements.ArcElement) {
+  if (el instanceof ArcElement) {
     return positioners.arc;
   }
-  if (el instanceof Chart.elements.PointElement) {
+  if (el instanceof PointElement) {
     return positioners.point;
   }
-  if (el instanceof Chart.elements.BarElement) {
+  if (el instanceof BarElement) {
     return positioners.bar;
   }
   return positioners.fallback;
@@ -227,16 +228,15 @@ var Label = function(config, ctx, el, index) {
   me._el = el;
 };
 
-helpers.merge(Label.prototype, {
+merge(Label.prototype, {
   /**
    * @private
    */
   _modelize: function(display, lines, config, context) {
     var me = this;
     var index = me._index;
-    var resolve = helpers.resolve;
-    var font = helpers.toFont(resolve([config.font, {}], context, index));
-    var color = resolve([config.color, Chart.defaults.font.color], context, index);
+    var font = toFont(resolve([config.font, {}], context, index));
+    var color = resolve([config.color, defaults.color], context, index);
 
     return {
       align: resolve([config.align, 'center'], context, index),
@@ -255,7 +255,7 @@ helpers.merge(Label.prototype, {
       offset: resolve([config.offset, 0], context, index),
       opacity: resolve([config.opacity, 1], context, index),
       origin: getScaleOrigin(me._el, context),
-      padding: helpers.toPadding(resolve([config.padding, 0], context, index)),
+      padding: toPadding(resolve([config.padding, 0], context, index)),
       positioner: getPositioner(me._el),
       rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
       size: utils.textSize(me._ctx, lines, font),
@@ -277,12 +277,12 @@ helpers.merge(Label.prototype, {
 
     // We first resolve the display option (separately) to avoid computing
     // other options in case the label is hidden (i.e. display: false).
-    var display = helpers.resolve([config.display, true], context, index);
+    var display = resolve([config.display, true], context, index);
 
     if (display) {
       value = context.dataset.data[index];
-      label = helpers.valueOrDefault(helpers.callback(config.formatter, [value, context]), value);
-      lines = helpers.isNullOrUndef(label) ? [] : utils.toTextLines(label);
+      label = valueOrDefault(callback(config.formatter, [value, context]), value);
+      lines = isNullOrUndef(label) ? [] : utils.toTextLines(label);
 
       if (lines.length) {
         model = me._modelize(display, lines, config, context);

@@ -1,14 +1,10 @@
-/**
- * @see https://github.com/chartjs/Chart.js/issues/4176
- */
+import {callback, each, merge} from 'chart.js/helpers';
 
-import {Chart} from 'chart.js';
 import Label from './label';
 import utils from './utils';
 import layout from './layout';
 import defaults from './defaults';
 
-var helpers = Chart.helpers;
 var EXPANDO_KEY = '$datalabels';
 var DEFAULT_KEY = '$default';
 
@@ -25,7 +21,7 @@ function configure(dataset, options) {
     override = {};
   }
 
-  options = helpers.merge({}, [options, override]);
+  options = merge({}, [options, override]);
   labels = options.labels || {};
   keys = Object.keys(labels);
   delete options.labels;
@@ -33,7 +29,7 @@ function configure(dataset, options) {
   if (keys.length) {
     keys.forEach(function(key) {
       if (labels[key]) {
-        configs.push(helpers.merge({}, [
+        configs.push(merge({}, [
           options,
           labels[key],
           {_key: key}
@@ -47,7 +43,7 @@ function configure(dataset, options) {
 
   // listeners: {<event-type>: {<label-key>: <fn>}}
   listeners = configs.reduce(function(target, config) {
-    helpers.each(config.listeners || {}, function(fn, event) {
+    each(config.listeners || {}, function(fn, event) {
       target[event] = target[event] || {};
       target[event][config._key || DEFAULT_KEY] = fn;
     });
@@ -69,18 +65,18 @@ function dispatchEvent(chart, listeners, label) {
 
   var context = label.$context;
   var groups = label.$groups;
-  var callback;
+  var callbackFunction;
 
   if (!listeners[groups._set]) {
     return;
   }
 
-  callback = listeners[groups._set][groups._key];
-  if (!callback) {
+  callbackFunction = listeners[groups._set][groups._key];
+  if (!callbackFunction) {
     return;
   }
 
-  if (helpers.callback(callback, [context]) === true) {
+  if (callback(callbackFunction, [context]) === true) {
     // Users are allowed to tweak the given context by injecting values that can be
     // used in scriptable options to display labels differently based on the current
     // event (e.g. highlight an hovered label). That's why we update the label with
@@ -207,7 +203,7 @@ export default {
 
     // Store listeners at the chart level and per event type to optimize
     // cases where no listeners are registered for a specific event.
-    helpers.merge(expando._listeners, config.listeners, {
+    merge(expando._listeners, config.listeners, {
       merger: function(event, target, source) {
         target[event] = target[event] || {};
         target[event][args.index] = source[event];
