@@ -1,23 +1,12 @@
-import Chart from 'chart.js';
-import fixture from './fixture';
-import matchers from './matchers';
-import utils from './utils';
-
-var charts = {};
+import {Chart} from 'chart.js';
+import {acquireChart, addMatchers, releaseChart, releaseCharts, specsFromFixtures, triggerMouseEvent} from 'chartjs-test-utils';
 
 // force ratio=1 for tests on high-res/retina devices
 window.devicePixelRatio = 1;
 
 jasmine.chart = {
-  acquire: function() {
-    var chart = utils.acquireChart.apply(utils, arguments);
-    charts[chart.id] = chart;
-    return chart;
-  },
-  release: function(chart) {
-    utils.releaseChart.apply(utils, arguments);
-    delete charts[chart.id];
-  },
+  acquire: acquireChart,
+  release: releaseChart,
 
   // Since version 1.x, this plugin isn't anymore automatically registered on first
   // import. This helper allows to register the given plugin for all specs contained
@@ -43,11 +32,13 @@ jasmine.chart = {
   }
 };
 
-jasmine.fixture = fixture;
-jasmine.triggerMouseEvent = utils.triggerMouseEvent;
+jasmine.fixture = {
+  specs: specsFromFixtures
+};
+jasmine.triggerMouseEvent = triggerMouseEvent;
 
 beforeEach(function() {
-  jasmine.addMatchers(matchers);
+  addMatchers();
 
   Chart.defaults.set({
     animation: false,
@@ -91,11 +82,5 @@ beforeEach(function() {
 });
 
 afterEach(function() {
-  // Auto releasing acquired charts
-  Object.keys(charts).forEach(function(id) {
-    var chart = charts[id];
-    if (!(chart.$test || {}).persistent) {
-      jasmine.chart.release(chart);
-    }
-  });
+  releaseCharts();
 });

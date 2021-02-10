@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import plugin from 'chartjs-plugin-datalabels';
 
 describe('events', function() {
@@ -415,7 +415,8 @@ describe('events', function() {
         options: {
           hover: false,
           plugins: {
-            datalabels: options
+            datalabels: options,
+            tooltip: false // Chart.js v3.0.0-beta.10 tooltip plugin triggers a change if enabled
           }
         }
       });
