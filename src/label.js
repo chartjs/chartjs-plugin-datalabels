@@ -281,6 +281,7 @@ merge(Label.prototype, {
 
     if (display) {
       value = context.dataset.data[index];
+      // eslint-disable-next-line callback-return
       label = valueOrDefault(callback(config.formatter, [value, context]), value);
       lines = isNullOrUndef(label) ? [] : utils.toTextLines(label);
 

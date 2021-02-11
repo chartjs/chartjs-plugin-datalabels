@@ -76,6 +76,7 @@ function dispatchEvent(chart, listeners, label) {
     return;
   }
 
+  // eslint-disable-next-line callback-return
   if (callback(callbackFunction, [context]) === true) {
     // Users are allowed to tweak the given context by injecting values that can be
     // used in scriptable options to display labels differently based on the current

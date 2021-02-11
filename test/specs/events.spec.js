@@ -1,5 +1,5 @@
 import plugin from 'chartjs-plugin-datalabels';
-import {clone} from "chart.js/helpers";
+import {clone} from 'chart.js/helpers';
 
 describe('events', function() {
   jasmine.chart.register(plugin);
