@@ -9,6 +9,7 @@ const root = path.resolve(__dirname, '..');
 const inputs = [
   path.join(root, 'dist', `${pkg.name}.js`),
   path.join(root, 'dist', `${pkg.name}.min.js`),
+  path.join(root, 'dist', `${pkg.name}.esm.js`),
   path.join(root, 'LICENSE.md'),
   path.join(root, 'README.md'),
 ];

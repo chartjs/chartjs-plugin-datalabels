@@ -1,3 +1,5 @@
+import {color as Color} from 'chart.js/helpers';
+
 function fallback(/* values ... */) {
   var ilen = arguments.length;
   var i = 0;
@@ -10,10 +12,6 @@ function fallback(/* values ... */) {
     }
   }
 }
-
-var Color = typeof window !== 'undefined' && window.Chart !== undefined ?
-  window.Chart.helpers.color :
-  function() {};
 
 var COLORS = [
   '#FF3784',
@@ -29,17 +27,19 @@ var COLORS = [
   '#606060',
 ];
 
+var _seed;
+
 // Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
 function srand(seed) {
-  this._seed = seed;
+  _seed = seed;
 }
 
 function rand(min, max) {
-  var seed = this._seed;
+  var seed = _seed;
   min = min === undefined ? 0 : min;
   max = max === undefined ? 1 : max;
-  this._seed = (seed * 9301 + 49297) % 233280;
-  return min + (this._seed / 233280) * (max - min);
+  _seed = (seed * 9301 + 49297) % 233280;
+  return min + (_seed / 233280) * (max - min);
 }
 
 function numbers(config) {
@@ -102,12 +102,4 @@ function transparentize(c, opacity) {
 
 srand(Date.now());
 
-module.exports = {
-  color: color,
-  colors: colors,
-  COLORS: COLORS,
-  numbers: numbers,
-  rand: rand,
-  srand: srand,
-  transparentize: transparentize,
-};
+export default {color, colors, COLORS, numbers, rand, srand, transparentize};

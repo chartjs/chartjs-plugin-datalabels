@@ -41,5 +41,19 @@ module.exports = [
       'chart.js',
       'chart.js/helpers',
     ]
-  }
+  },
+  {
+    input: 'src/plugin.esm.js',
+    output: {
+      name: 'ChartDataLabels',
+      file: pkg.module,
+      banner,
+      format: 'esm',
+      indent: false
+    },
+    external: [
+      'chart.js',
+      'chart.js/helpers',
+    ]
+  },
 ];
