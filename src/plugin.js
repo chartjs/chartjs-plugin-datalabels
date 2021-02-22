@@ -1,4 +1,7 @@
-import {callback, each, merge} from 'chart.js/helpers';
+/**
+ * @see https://github.com/chartjs/Chart.js/issues/4176
+*/
+import {callback as callbackHelper, each, merge} from 'chart.js/helpers';
 
 import Label from './label';
 import utils from './utils';
@@ -65,19 +68,18 @@ function dispatchEvent(chart, listeners, label) {
 
   var context = label.$context;
   var groups = label.$groups;
-  var callbackFunction;
+  var callback;
 
   if (!listeners[groups._set]) {
     return;
   }
 
-  callbackFunction = listeners[groups._set][groups._key];
-  if (!callbackFunction) {
+  callback = listeners[groups._set][groups._key];
+  if (!callback) {
     return;
   }
 
-  // eslint-disable-next-line callback-return
-  if (callback(callbackFunction, [context]) === true) {
+  if (callbackHelper(callback, [context]) === true) {
     // Users are allowed to tweak the given context by injecting values that can be
     // used in scriptable options to display labels differently based on the current
     // event (e.g. highlight an hovered label). That's why we update the label with

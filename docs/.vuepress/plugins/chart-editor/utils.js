@@ -102,4 +102,4 @@ function transparentize(c, opacity) {
 
 srand(Date.now());
 
-export default {color, colors, COLORS, numbers, rand, srand, transparentize};
+export {color, colors, COLORS, numbers, rand, srand, transparentize};

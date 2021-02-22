@@ -43,11 +43,10 @@ module.exports = [
     ]
   },
   {
-    input: 'src/plugin.esm.js',
+    input: 'src/plugin.js',
     output: {
-      name: 'ChartDataLabels',
       file: pkg.module,
-      banner,
+      banner: banner,
       format: 'esm',
       indent: false
     },

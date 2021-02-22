@@ -1,5 +1,13 @@
 import {ArcElement, BarElement, defaults, PointElement} from 'chart.js';
-import {callback, isNullOrUndef, merge, resolve, toFont, toPadding, valueOrDefault} from 'chart.js/helpers';
+import {
+  callback as callbackHelper,
+  isNullOrUndef,
+  merge,
+  resolve,
+  toFont,
+  toPadding,
+  valueOrDefault
+} from 'chart.js/helpers';
 
 import utils from './utils';
 import positioners from './positioners';
@@ -281,8 +289,7 @@ merge(Label.prototype, {
 
     if (display) {
       value = context.dataset.data[index];
-      // eslint-disable-next-line callback-return
-      label = valueOrDefault(callback(config.formatter, [value, context]), value);
+      label = valueOrDefault(callbackHelper(config.formatter, [value, context]), value);
       lines = isNullOrUndef(label) ? [] : utils.toTextLines(label);
 
       if (lines.length) {

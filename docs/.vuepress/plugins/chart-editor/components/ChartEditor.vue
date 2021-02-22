@@ -13,35 +13,16 @@
 </template>
 
 <script>
-import {
-  ArcElement, BarController, BarElement,
-  BubbleController, CategoryScale,
-  Chart, DoughnutController, Filler, Legend, LinearScale, LineController, LineElement,
-  PieController, PointElement,
-  PolarAreaController, RadarController, RadialLinearScale,
-  ScatterController,
-  TimeSeriesScale,
-  Title, Tooltip
-} from 'chart.js';
+import {Chart, registerables} from 'chart.js';
 import {merge} from 'chart.js/helpers';
-import Utils from '../utils';
+import * as Utils from '../utils';
 
 // Components
 import ChartActions from './ChartActions.vue';
 import ChartView from './ChartView.vue';
 import CodeEditor from './CodeEditor.vue';
 
-Chart.register(
-    Title, Tooltip, Filler, Legend,
-    LineController, LineElement, PointElement, LinearScale, CategoryScale,
-    BarController, BarElement,
-    DoughnutController, ArcElement,
-    RadarController, RadialLinearScale,
-    PieController,
-    PolarAreaController,
-    BubbleController,
-    ScatterController,
-    TimeSeriesScale);
+Chart.register(...registerables);
 
 const CHART_DEFAULTS = merge({}, Chart.defaults);
 

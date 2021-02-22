@@ -41,7 +41,7 @@
     "@vuepress/plugin-google-analytics": "^1.7.1",
     "acorn": "^8.0.4",
     "archiver": "^5.1.0",
-    "chart.js": "^3.0.0-beta.10",
+    "chart.js": "^3.0.0-beta.11",
     "chartjs-test-utils": "^0.2.0",
     "eslint": "^7.15.0",
     "eslint-config-chartjs": "^0.3.0",
