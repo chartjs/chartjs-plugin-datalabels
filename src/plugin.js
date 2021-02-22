@@ -1,6 +1,6 @@
 /**
  * @see https://github.com/chartjs/Chart.js/issues/4176
-*/
+ */
 import {callback as callbackHelper, each, merge} from 'chart.js/helpers';
 
 import Label from './label';
@@ -143,6 +143,13 @@ function handleClickEvents(chart, event) {
 
 export default {
   id: 'datalabels',
+
+  descriptors: {
+    _scriptable: false,
+    listeners: {
+      _scriptable: false
+    }
+  },
 
   defaults: defaults,
 
