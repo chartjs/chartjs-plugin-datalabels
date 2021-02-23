@@ -1,6 +1,7 @@
 /**
  * @see https://github.com/chartjs/Chart.js/issues/4176
  */
+
 import {callback as callbackHelper, each, merge} from 'chart.js/helpers';
 
 import Label from './label';
@@ -144,6 +145,7 @@ function handleClickEvents(chart, event) {
 export default {
   id: 'datalabels',
 
+  // TODO: Remove descriptors after https://github.com/chartjs/Chart.js/pull/8497 is released
   descriptors: {
     _scriptable: false,
     listeners: {
