@@ -29,7 +29,7 @@
     "lint": "eslint . --ext .js --ext .ts",
     "package": "node scripts/create-packages.js",
     "test-unit": "karma start --single-run --coverage --grep",
-    "test-unit:dev": "karma start --grep",
+    "test-unit:dev": "karma start --auto-watch --grep",
     "test-types": "tsc -p types/test",
     "test": "npm run test-types && npm run test-unit",
     "test:dev": "npm run test-unit:dev"
@@ -42,7 +42,7 @@
     "acorn": "^8.0.4",
     "archiver": "^5.1.0",
     "chart.js": "~2.9.4",
-    "chartjs-test-utils": "^0.2.0",
+    "chartjs-test-utils": "^0.2.2",
     "eslint": "^7.15.0",
     "eslint-config-chartjs": "^0.3.0",
     "eslint-plugin-es": "^3.0.1",
