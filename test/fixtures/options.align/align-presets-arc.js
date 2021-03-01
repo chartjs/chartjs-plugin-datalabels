@@ -31,7 +31,7 @@ export default {
       datasets: datasets
     },
     options: {
-      cutoutPercentage: 25,
+      cutout: '25%',
       layout: {
         padding: 24
       },

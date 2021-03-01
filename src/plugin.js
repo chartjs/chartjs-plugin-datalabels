@@ -145,14 +145,6 @@ function handleClickEvents(chart, event) {
 export default {
   id: 'datalabels',
 
-  // TODO: Remove descriptors after https://github.com/chartjs/Chart.js/pull/8497 is released
-  descriptors: {
-    _scriptable: false,
-    listeners: {
-      _scriptable: false
-    }
-  },
-
   defaults: defaults,
 
   beforeInit: function(chart) {
