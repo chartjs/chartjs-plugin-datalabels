@@ -1,0 +1,25 @@
+# https://docs.github.com/actions/reference/workflow-syntax-for-github-actions
+
+name: Release
+
+on: workflow_dispatch
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm ci
+      - run: npm run build
+      - run: npm run bower
+      - run: npm run package
+      - run: node scripts/attach-gh-assets.js
+        env:
+          # https://github.com/cli/cli/discussions/3029
+          GITHUB_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
+          DEBUG: api
+      - run: node scripts/create-release-tag.js
+        env:
+          GH_AUTH_EMAIL: ${{ secrets.GH_AUTH_EMAIL }}
+          GH_AUTH_NAME: ${{ secrets.GH_AUTH_NAME }}

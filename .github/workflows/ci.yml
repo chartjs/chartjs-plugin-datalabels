@@ -1,0 +1,27 @@
+# https://docs.github.com/actions/reference/workflow-syntax-for-github-actions
+
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm ci
+      - run: npm run build
+      - run: npm run lint
+      - name: Run tests
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: npm run test
+      - uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - uses: actions/upload-artifact@v2
+        with:
+          path: dist/
+          name: chartjs-plugin-datalabels
+          if-no-files-found: error
