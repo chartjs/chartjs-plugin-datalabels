@@ -3,7 +3,7 @@ home: true
 heroImage: /hero.svg
 actionText: Get Started →
 actionLink: /guide/
-footer: MIT Licensed | Copyright © 2020 Chart.js Contributors
+footer: MIT Licensed | Copyright © 2017-2021 chartjs-plugin-datalabels contributors
 features:
 - title: Flexible
   details: Compatible with all types of charts (bar, line, doughnut, radar, etc.)

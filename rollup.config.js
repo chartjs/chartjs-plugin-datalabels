@@ -4,7 +4,7 @@ const pkg = require('./package.json');
 const banner = `/*!
  * ${pkg.name} v${pkg.version}
  * ${pkg.homepage}
- * (c) ${new Date().getFullYear()} Chart.js Contributors
+ * (c) 2017-${new Date().getFullYear()} ${pkg.name} contributors
  * Released under the ${pkg.license} license
  */`;
 
