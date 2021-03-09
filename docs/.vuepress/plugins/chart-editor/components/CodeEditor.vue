@@ -103,6 +103,9 @@ export default {
   },
 
   watch: {
+    output() {
+      this.rebuild();
+    },
     value: {
       immediate: true,
       handler() {

@@ -17,19 +17,11 @@ module.exports = {
       ],
     }],
     [ChartEditorPlugin, {
-      defaults: {
-        global: {
-          legend: {
-            display: false
-          },
-          title: {
-            display: false
-          },
-          tooltips: {
-            enabled: false
-          }
-        }
-      }
+      imports: [
+        ['samples/register.js'],
+        ['samples/defaults.js'],
+        ['samples/utils.js', 'Utils'],
+      ]
     }],
   ],
   themeConfig: {

@@ -5,10 +5,7 @@
 </template>
 
 <script>
-import Chart from 'chart.js';
-import plugin from '../../../../../dist/chartjs-plugin-datalabels.js';
-
-Chart.plugins.register(plugin);
+import {Chart} from 'chart.js';
 
 export default {
   methods: {

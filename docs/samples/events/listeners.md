@@ -18,7 +18,7 @@ function log(type, context) {
   var j = context.dataIndex;
   var v = context.dataset.data[j];
 
-  Utils.log(type + ': ' + i + '-' + j + ' (' + v + ')')
+  console.log(type + ': ' + i + '-' + j + ' (' + v + ')')
 }
 // </block:setup>
 

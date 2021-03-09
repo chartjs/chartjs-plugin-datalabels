@@ -13,15 +13,12 @@
 </template>
 
 <script>
-import Chart from 'chart.js';
-import * as Utils from '../utils';
+import {Chart} from 'chart.js';
 
 // Components
 import ChartActions from './ChartActions.vue';
 import ChartView from './ChartView.vue';
 import CodeEditor from './CodeEditor.vue';
-
-const CHART_DEFAULTS = Chart.helpers.merge({}, Chart.defaults);
 
 export default {
   components: {
@@ -63,11 +60,31 @@ export default {
         return;
       }
 
+      const logger = {
+        log(...args) {
+          me.messages = [...me.messages, args.join(' ')].slice(-50);
+        },
+      };
+
+      const me = this;
+      const context = {
+        ...(this.$chart || {}).imports,
+        console: {
+          ...console,
+          ...logger,
+        },
+        Chart,
+      };
+
+      const keys = Object.keys(context);
+      const lines = keys.map((key) => {
+        return `const ${key} = arguments[0].${key}`;
+      });
+
       const script = `
         'use strict';
-        const Chart = arguments[0].Chart;
-        const Utils = arguments[0].Utils;
         const module = {exports: {}};
+        ${lines.join(';\n')};
         (function(){ ${code} })();
         return module.exports;
       `;

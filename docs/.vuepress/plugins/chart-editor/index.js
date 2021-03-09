@@ -1,39 +1,65 @@
 const {resolve} = require('path');
 
-module.exports = ({defaults}) => {
-  function render(md) {
-    const fence = md.renderer.rules.fence;
-    md.renderer.rules.fence = (...args) => {
-      const [tokens, idx] = args;
-      const token = tokens[idx];
-      const lang = token.info.trim();
+function render({renderer}) {
+  const fence = renderer.rules.fence;
+  renderer.rules.fence = (...args) => {
+    const [tokens, idx] = args;
+    const token = tokens[idx];
+    const lang = token.info.trim();
 
-      if (!(/ chart-editor( |$)/).test(lang)) {
-        return fence(...args);
+    return (/ chart-editor( |$)/).test(lang) ?
+      `<chart-editor :code="\`${token.content}\`"/>` :
+      fence(...args);
+  };
+}
+
+function importsScripts(imports) {
+  const names = imports.map(([, name]) => name).filter((name) => !!name);
+  const lines = imports.map(([file, name]) => {
+    const path = `@docs/${file}`;
+    return name ?
+      `import * as ${name} from '${path}'` :
+      `import '${path}'`;
+  });
+
+  return `
+    import Vue from 'vue';
+    ${lines.join(';\n')};
+
+    const imports = {
+      ${names.join(',\n')}
+    }
+
+    Vue.mixin({
+      created() {
+        this.$chart = this.$chart || {};
+        this.$chart.imports = imports;
       }
+    })
+  `;
+}
 
-      return `<chart-editor :code="\`${token.content}\`"/>`;
-    };
-  }
-
+module.exports = ({imports}) => {
   return {
     name: 'vuepress-plugin-chart-editor',
     enhanceAppFiles: [
-      {
-        name: 'chart-defaults',
-        content: `
-          import Chart from 'chart.js';
-          Chart.helpers.merge(Chart.defaults, ${JSON.stringify(defaults)});
-        `
-      },
       resolve(__dirname, 'global.js'),
       resolve(__dirname, 'enhancer.js'),
+      {
+        content: importsScripts(imports),
+        name: 'chart-imports',
+      }
     ],
     chainWebpack: (config) => {
       config.merge({
         externals: {
           moment: 'moment',
         },
+        resolve: {
+          alias: {
+            '@docs': resolve(__dirname, '../../../'),
+          }
+        }
       });
     },
     chainMarkdown: (config) => {

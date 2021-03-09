@@ -13,7 +13,7 @@ function fallback(/* values ... */) {
 
 var Color = typeof window !== 'undefined' ? window.Color : {};
 
-var COLORS = [
+export var COLORS = [
   '#FF3784',
   '#36A2EB',
   '#4BC0C0',
@@ -28,19 +28,20 @@ var COLORS = [
 ];
 
 // Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
-function srand(seed) {
-  this._seed = seed;
+var _seed = Date.now();
+
+export function srand(seed) {
+  _seed = seed;
 }
 
-function rand(min, max) {
-  var seed = this._seed;
+export function rand(min, max) {
   min = min === undefined ? 0 : min;
   max = max === undefined ? 1 : max;
-  this._seed = (seed * 9301 + 49297) % 233280;
-  return min + (this._seed / 233280) * (max - min);
+  _seed = (_seed * 9301 + 49297) % 233280;
+  return min + (_seed / 233280) * (max - min);
 }
 
-function numbers(config) {
+export function numbers(config) {
   var cfg = config || {};
   var min = fallback(cfg.min, 0);
   var max = fallback(cfg.max, 1);
@@ -64,13 +65,13 @@ function numbers(config) {
   return data;
 }
 
-function color(offset) {
+export function color(offset) {
   var count = COLORS.length;
   var index = offset === undefined ? ~~rand(0, count) : offset;
   return COLORS[index % count];
 }
 
-function colors(config) {
+export function colors(config) {
   var cfg = config || {};
   var c = cfg.color || color(0);
   var count = cfg.count !== undefined ? cfg.count : 8;
@@ -93,19 +94,7 @@ function colors(config) {
   return values;
 }
 
-function transparentize(c, opacity) {
+export function transparentize(c, opacity) {
   var alpha = opacity === undefined ? 0.5 : 1 - opacity;
   return Color(c).alpha(alpha).rgbString();
 }
-
-srand(Date.now());
-
-module.exports = {
-  color: color,
-  colors: colors,
-  COLORS: COLORS,
-  numbers: numbers,
-  rand: rand,
-  srand: srand,
-  transparentize: transparentize,
-};

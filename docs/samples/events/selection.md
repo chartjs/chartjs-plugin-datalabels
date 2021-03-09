@@ -34,7 +34,7 @@ function isSelected(context) {
 }
 
 function log(selected) {
-  Utils.log('selection: ' + selected.map(function(item) {
+  console.log('selection: ' + selected.map(function(item) {
     return item.value;
   }).join(', '));
 }
