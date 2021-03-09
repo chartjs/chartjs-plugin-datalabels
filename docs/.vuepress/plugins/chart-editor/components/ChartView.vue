@@ -11,29 +11,11 @@ import plugin from '../../../../../dist/chartjs-plugin-datalabels.js';
 Chart.plugins.register(plugin);
 
 export default {
-  props: {
-    config: {
-      type: Object,
-      default: null,
-    },
-  },
-
-  watch: {
-    config() {
-      this.update();
-    },
-  },
-
-  mounted() {
-    this.update();
-  },
-
   methods: {
     chart() {
       return this._chart;
     },
-    update() {
-      const config = this.config;
+    update(config) {
       const canvas = this.$refs.canvas;
       if (!canvas || !config) {
         return;

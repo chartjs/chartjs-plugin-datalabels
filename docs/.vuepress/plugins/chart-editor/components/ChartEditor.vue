@@ -1,13 +1,13 @@
 <template>
   <div class="chart-editor">
-    <chart-view ref="chart-view" :config="config"/>
+    <chart-view ref="chart-view" />
     <chart-actions :actions="actions" @action="execute"/>
     <code-editor
       :error.sync="error"
       :messages="messages"
       :output="output"
       :value="code"
-      @input="update"
+      @input="evaluate"
     />
   </div>
 </template>
@@ -39,27 +39,27 @@ export default {
 
   data: () => ({
     actions: null,
-    config: null,
     error: null,
     messages: [],
     output: false,
   }),
 
   watch: {
-    code: {
-      immediate: true,
-      handler(code) {
-        this.update(code);
-      },
+    code(code) {
+      this.evaluate(code);
     },
   },
 
+  mounted() {
+    this.evaluate(this.code);
+  },
+
   methods: {
-    update(code) {
+    evaluate(code) {
       this.error = null;
 
       if (!code) {
-        this.config = null;
+        this.update(null);
         return;
       }
 
@@ -72,30 +72,22 @@ export default {
         return module.exports;
       `;
 
-      const me = this;
-      const context = {
-        Chart: Chart,
-        Utils: {
-          ...Utils,
-          log(...args) {
-            me.messages = [...me.messages, args.join(' ')].slice(-50);
-          },
-        },
-      };
-
-      Chart.helpers.merge(Chart.defaults, CHART_DEFAULTS);
-
       try {
         const exports = new Function(script)(context);
+        const config = exports.config || null;
         this.output = exports.output || false;
-        this.config = exports.config;
 
         if (!this.actions) {
           this.actions = exports.actions || null;
         }
+
+        this.update(config);
       } catch(error) {
         this.error = error;
       }
+    },
+    update(config) {
+      this.$refs['chart-view'].update(config);
     },
     execute(action) {
       action.handler(this.$refs['chart-view'].chart());
