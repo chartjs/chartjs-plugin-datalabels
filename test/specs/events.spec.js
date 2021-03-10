@@ -1,4 +1,4 @@
-import {Chart} from 'chart.js';
+import {clone} from 'chart.js/helpers';
 import plugin from 'chartjs-plugin-datalabels';
 
 describe('events', function() {
@@ -222,7 +222,7 @@ describe('events', function() {
 
     it('should call handlers for label in a specific dataset', async function() {
       var spy = jasmine.createSpy('spy');
-      var data = Chart.helpers.clone(this.data);
+      var data = clone(this.data);
 
       data.datasets[1].datalabels = {
         listeners: {
@@ -295,7 +295,7 @@ describe('events', function() {
 
     it('should call handlers for specific label in a specific dataset', async function() {
       var spy = jasmine.createSpy('spy');
-      var data = Chart.helpers.clone(this.data);
+      var data = clone(this.data);
 
       data.datasets[1].datalabels = {
         labels: {
