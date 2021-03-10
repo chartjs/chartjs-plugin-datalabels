@@ -1,6 +1,4 @@
-import {Chart} from 'chart.js';
-
-var helpers = Chart.helpers;
+import {merge} from 'chart.js/helpers';
 
 var MIN_INTEGER = Number.MIN_SAFE_INTEGER || -9007199254740991; // eslint-disable-line es/no-number-minsafeinteger
 var MAX_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;  // eslint-disable-line es/no-number-maxsafeinteger
@@ -61,7 +59,7 @@ var HitBox = function() {
   };
 };
 
-helpers.merge(HitBox.prototype, {
+merge(HitBox.prototype, {
   center: function() {
     var r = this._rect;
     return {

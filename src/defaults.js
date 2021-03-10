@@ -1,18 +1,16 @@
-import {Chart} from 'chart.js';
-
-var helpers = Chart.helpers;
+import {isNullOrUndef, isObject} from 'chart.js/helpers';
 
 var formatter = function(value) {
-  if (helpers.isNullOrUndef(value)) {
+  if (isNullOrUndef(value)) {
     return null;
   }
 
   var label = value;
   var keys, klen, k;
-  if (helpers.isObject(value)) {
-    if (!helpers.isNullOrUndef(value.label)) {
+  if (isObject(value)) {
+    if (!isNullOrUndef(value.label)) {
       label = value.label;
-    } else if (!helpers.isNullOrUndef(value.r)) {
+    } else if (!isNullOrUndef(value.r)) {
       label = value.r;
     } else {
       label = '';

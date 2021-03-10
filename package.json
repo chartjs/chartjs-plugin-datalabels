@@ -5,6 +5,7 @@
   "version": "1.0.0-beta.1",
   "license": "MIT",
   "main": "dist/chartjs-plugin-datalabels.js",
+  "module": "dist/chartjs-plugin-datalabels.esm.js",
   "types": "types/index.d.ts",
   "repository": {
     "type": "git",

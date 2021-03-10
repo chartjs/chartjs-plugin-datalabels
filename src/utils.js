@@ -1,6 +1,4 @@
-import {Chart} from 'chart.js';
-
-var helpers = Chart.helpers;
+import {isNullOrUndef} from 'chart.js/helpers';
 
 var devicePixelRatio = (function() {
   if (typeof window !== 'undefined') {
@@ -33,7 +31,7 @@ var utils = {
         lines.unshift.apply(lines, input.split('\n'));
       } else if (Array.isArray(input)) {
         inputs.push.apply(inputs, input);
-      } else if (!helpers.isNullOrUndef(inputs)) {
+      } else if (!isNullOrUndef(inputs)) {
         lines.unshift('' + input);
       }
     }

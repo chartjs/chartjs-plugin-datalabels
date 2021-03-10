@@ -58,10 +58,6 @@ module.exports = ({imports}) => {
         resolve: {
           alias: {
             '@docs': resolve(__dirname, '../../../'),
-
-            // Don't use the Chart.js ESM build since it's not yet
-            // compatible with the current plugin implementation.
-            'chart.js': 'chart.js/dist/chart.js'
           }
         }
       });
