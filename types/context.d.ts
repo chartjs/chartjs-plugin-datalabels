@@ -17,7 +17,7 @@ export interface Context {
    * @since 2.0.0
    */
   type: string;
-  
+
   /**
    * The associated chart.
    * @since 0.1.0
