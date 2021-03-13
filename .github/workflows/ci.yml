@@ -17,7 +17,8 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: npm run test
-      - uses: paambaati/codeclimate-action@v2.7.5
+      - if: env.CC_TEST_REPORTER_ID
+        uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       - uses: actions/upload-artifact@v2
