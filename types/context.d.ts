@@ -13,6 +13,12 @@ export interface Context {
   active: boolean;
 
   /**
+   * The type of teh context, 'datalabels'.
+   * @since 2.0.0
+   */
+  type: string;
+  
+  /**
    * The associated chart.
    * @since 0.1.0
    */

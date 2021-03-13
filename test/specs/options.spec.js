@@ -48,6 +48,7 @@ describe('options', function() {
         ].forEach(function(e, i) {
           expect(options[key].calls.argsFor(i)[0]).toEqual({
             active: false,
+            type: 'datalabels',
             chart: chart,
             dataIndex: e.dataIndex,
             dataset: chart.data.datasets[e.datasetIndex],

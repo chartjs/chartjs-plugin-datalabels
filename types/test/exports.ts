@@ -20,6 +20,7 @@ const chart = new Chart('id', {
 // Scriptable context
 const ctx: Context = {
   active: true,
+  type: 'datalabels',
   chart: chart,
   datasetIndex: 0,
   dataIndex: 0,
