@@ -13,7 +13,7 @@ export interface Context {
   active: boolean;
 
   /**
-   * The type of teh context, 'datalabels'.
+   * The type of the context, 'datalabels'.
    * @since 2.0.0
    */
   type: string;
