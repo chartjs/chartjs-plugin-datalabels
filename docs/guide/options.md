@@ -66,6 +66,7 @@ The context object contains the following properties:
 | Property | Type | Description
 | -------- | ---- | -----------
 | `active` | `bool` | Whether the associated element is hovered ([see interactions](http://www.chartjs.org/docs/latest/general/interactions/)).
+| `type` | `string` | The type of context, always `datalabels`.
 | `chart` | `Chart` | The associated chart.
 | `dataIndex` | `number` | The index of the associated data.
 | `dataset` | `object` | The dataset at index `datasetIndex`.
