@@ -189,6 +189,7 @@ export default {
             _key: key || DEFAULT_KEY
           };
           label.$context = {
+            type: 'datalabels',
             active: false,
             chart: chart,
             dataIndex: i,
