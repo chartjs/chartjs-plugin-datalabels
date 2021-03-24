@@ -1,8 +1,8 @@
-const ChartEditorPlugin = require('./plugins/chart-editor');
-
 module.exports = {
+  dest: 'dist/docs',
+  theme: 'chartjs',
   title: 'chartjs-plugin-datalabels',
-  description: 'Display labels on data for any type of charts.',
+  description: 'Display labels on data for any type of charts',
   head: [
     ['link', {rel: 'icon', href: '/favicon.png'}],
   ],
@@ -16,13 +16,6 @@ module.exports = {
         {base: '/samples', alternative: ['charts/line']},
       ],
     }],
-    [ChartEditorPlugin, {
-      imports: [
-        ['samples/register.js'],
-        ['samples/defaults.js'],
-        ['samples/utils.js', 'Utils'],
-      ]
-    }],
   ],
   themeConfig: {
     repo: 'chartjs/chartjs-plugin-datalabels',
@@ -32,7 +25,14 @@ module.exports = {
     docsDir: 'docs',
     algolia: {
       apiKey: '7224f458f773f7cf4cbbc4c53621d30c',
-      indexName: 'chartjs-plugin-datalabels'
+      indexName: 'chartjs-plugin-datalabels',
+    },
+    chart: {
+      imports: [
+        ['samples/register.js'],
+        ['samples/defaults.js'],
+        ['samples/utils.js', 'Utils'],
+      ]
     },
     nav: [
       {text: 'Home', link: '/'},
@@ -54,7 +54,6 @@ module.exports = {
       '/samples/': [
         {
           title: 'Charts',
-          collapsable: false,
           children: [
             'charts/line',
             'charts/bar',
@@ -66,7 +65,6 @@ module.exports = {
         },
         {
           title: 'Scriptable',
-          collapsable: false,
           children: [
             'scriptable/interactions',
             'scriptable/data',
@@ -77,7 +75,6 @@ module.exports = {
         },
         {
           title: 'Events',
-          collapsable: false,
           children: [
             'events/listeners',
             'events/highlight',
@@ -86,7 +83,6 @@ module.exports = {
         },
         {
           title: 'Advanced',
-          collapsable: false,
           children: [
             'advanced/multiple-labels',
             'advanced/custom-labels',
