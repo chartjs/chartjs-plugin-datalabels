@@ -19,10 +19,11 @@ module.exports = {
   ],
   themeConfig: {
     repo: 'chartjs/chartjs-plugin-datalabels',
+    docsDir: 'docs',
+    editLinks: true,
     logo: '/favicon.png',
     lastUpdated: 'Last Updated',
-    editLinks: true,
-    docsDir: 'docs',
+    searchPlaceholder: 'Search...',
     algolia: {
       apiKey: '7224f458f773f7cf4cbbc4c53621d30c',
       indexName: 'chartjs-plugin-datalabels',
