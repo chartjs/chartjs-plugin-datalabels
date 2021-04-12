@@ -35,6 +35,7 @@
     "test:dev": "npm run test-unit:dev"
   },
   "devDependencies": {
+    "@simonbrunel/vuepress-plugin-versions": "^0.2.0",
     "@types/chart.js": "^2.9.32",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
