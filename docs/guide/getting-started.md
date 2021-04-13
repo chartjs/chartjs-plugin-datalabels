@@ -21,8 +21,8 @@ This plugin can also be installed using [Bower](https://bower.io/).
 By default, `https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels` returns the latest (minified) version, however it's [**highly recommended**](https://www.jsdelivr.com/features) to always specify a version in order to avoid breaking changes. This can be achieved by appending `@{version}` to the url:
 
 ```
-https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1.1.2    // exact version
-https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1        // latest 1.x.x
+https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0    // exact version
+https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2        // latest 2.x.x
 ```
 
 Read more about jsDeliver versioning on their [website](http://www.jsdelivr.com/).
@@ -42,8 +42,8 @@ You can download the latest version of `chartjs-plugin-datalabels` from the [Git
 ### HTML
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 ```
 
 ::: warning IMPORTANT
@@ -67,7 +67,7 @@ Since version 1.x, this plugin **no longer registers itself automatically**. It 
 
 ```javascript
 // Register the plugin to all charts:
-Chart.plugins.register(ChartDataLabels);
+Chart.register(ChartDataLabels);
 ```
 
 ```javascript

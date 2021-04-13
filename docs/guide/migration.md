@@ -36,3 +36,41 @@ declare module 'chartjs-plugin-datalabels' {
   }
 }
 ```
+
+## Migrating to v2.0.0
+
+### Breaking Changes
+
+Make sure to also read the [Chart.js v3 migration guide](https://www.chartjs.org/docs/latest/getting-started/v3-migration.html) since you may be impacted by more general breaking changes due to this new Chart.js version.
+
+#### Plugin registration
+
+Chart.js v3 changed the way to register plugins and now requires to use `Chart.register(plugin)` instead of `Chart.plugins.register(plugin)`.
+
+```js
+import {Chart} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+Chart.register(ChartDataLabels);
+```
+
+See [Getting Started > Registration](getting-started.html#registration) for details.
+
+#### Default options
+
+The plugin default options are now accessible in `Chart.defaults.plugins.datalabels.*` instead of `Chart.defaults.global.plugins.datalabels.*` and can be modified using:
+
+```js
+Chart.defaults.set('plugins.datalabels', {
+  color: 'blue',
+  // ...
+})
+```
+
+See [Getting Started > Configuration](getting-started.html#configuration) for details.
+
+### Notes
+
+#### Chart.js type declaration <Badge text="TS only"/>
+
+Chart.js v3 now provides TypeScript type declaration files bundled in the npm package so it's **not** anymore required to install the `@types/chart.js` package.
