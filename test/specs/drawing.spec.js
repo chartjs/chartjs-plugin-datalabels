@@ -10,6 +10,7 @@ describe('drawing', function() {
     var chart = jasmine.chart.acquire({
       type: 'line',
       data: {
+        labels: [0, 1, 2, 3, 4],
         datasets: [{
           data: [42, null, NaN, undefined, 'foobar']
         }]
@@ -32,6 +33,7 @@ describe('drawing', function() {
     var chart = jasmine.chart.acquire({
       type: 'line',
       data: {
+        labels: [0, 1, 2, 3, 4],
         datasets: [{
           data: [42, 43, 44, 45],
           hidden: true
@@ -53,6 +55,7 @@ describe('drawing', function() {
     var chart = jasmine.chart.acquire({
       type: 'line',
       data: {
+        labels: [0, 1, 2, 3, 4],
         datasets: [{
           data: [42, 43, 44, 45]
         }]

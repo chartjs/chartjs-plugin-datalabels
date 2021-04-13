@@ -10,13 +10,13 @@ export default {
           display: false
         }
       }, {
-        data: [4, 2, 0, -2, -4, -2, 0, 2, 4, 2, 0],
+        data: [4, 2, 0, -2, -4, -2, 0, 2, 4, 2],
         datalabels: {
           backgroundColor: '#0f0',
           display: true
         }
       }, {
-        data: [-4, -2, 0, 2, 4, 2, 0, -2, -4, -2, 0],
+        data: [-4, -2, 0, 2, 4, 2, 0, -2, -4, -2],
         datalabels: {
           backgroundColor: '#f00',
           display: true

@@ -26,6 +26,7 @@ describe('options', function() {
         var chart = jasmine.chart.acquire({
           type: 'line',
           data: {
+            labels: [0, 1],
             datasets: [{
               data: [42, 51]
             }, {
