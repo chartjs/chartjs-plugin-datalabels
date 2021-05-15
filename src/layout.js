@@ -58,7 +58,7 @@ function collide(labels, collider) {
 }
 
 function compute(labels) {
-  var i, ilen, label, state, geometry, center;
+  var i, ilen, label, state, geometry, center, proxy;
 
   // Initialize labels for overlap detection
   for (i = 0, ilen = labels.length; i < ilen; ++i) {
@@ -66,8 +66,15 @@ function compute(labels) {
     state = label.$layout;
 
     if (state._visible) {
+      // Chart.js 3 removed el._model in favor of getProps(), making harder to
+      // abstract reading values in positioners. Also, using string arrays to
+      // read values (i.e. var {a,b,c} = el.getProps(["a","b","c"])) would make
+      // positioners inefficient in the normal case (i.e. not the final values)
+      // and the code a bit ugly, so let's use a Proxy instead.
+      proxy = new Proxy(label._el, {get: (el, p) => el.getProps([p], true)[p]});
+
       geometry = label.geometry();
-      center = coordinates(label._el, label.model(), geometry);
+      center = coordinates(proxy, label.model(), geometry);
       state._box.update(center, geometry, label.rotation());
     }
   }

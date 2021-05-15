@@ -1,7 +1,7 @@
 plugins: [es]
 
 extends: [
-  plugin:es/restrict-to-es5
+  plugin:es/restrict-to-es2015
 ]
 
 rules:
