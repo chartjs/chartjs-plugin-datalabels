@@ -35,7 +35,9 @@ You can download the latest version of `chartjs-plugin-datalabels` from the [Git
 
 - `chartjs-plugin-datalabels.js` (recommended for development)
 - `chartjs-plugin-datalabels.min.js` (recommended for production)
-- `chartjs-plugin-datalabels.zip` (contains `.js` and `.min.js` versions)
+- `chartjs-plugin-datalabels.esm.js`
+- `chartjs-plugin-datalabels.tgz` (contains all builds)
+- `chartjs-plugin-datalabels.zip` (contains all builds)
 
 ## Integration
 

@@ -10,6 +10,7 @@ const TAG = `v${pkg.version}`;
 const ASSETS = [
   `dist/${pkg.name}.js`,
   `dist/${pkg.name}.min.js`,
+  `dist/${pkg.name}.esm.js`,
   `dist/${pkg.name}.tgz`,
   `dist/${pkg.name}.zip`,
 ];
