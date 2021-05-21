@@ -4,7 +4,7 @@ env:
 globals:
   __karma__: true
 
-# http://eslint.org/docs/rules/
+# https://eslint.org/docs/rules/
 rules:
   # Best Practices
   complexity: 0

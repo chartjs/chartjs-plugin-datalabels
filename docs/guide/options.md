@@ -12,12 +12,12 @@ The following table lists all available options:
 | `borderWidth` | `number` | Yes | Yes | `0`
 | [`clamp`](positioning.md#clamping) | `boolean` | Yes | Yes | `false`
 | [`clip`](positioning.md#clipping) | `boolean` | Yes | Yes | `false`
-| `color` | [`Style`](#style-options) | Yes | Yes | [`defaultFontColor`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `color` | [`Style`](#style-options) | Yes | Yes | [`defaultFontColor`](https://www.chartjs.org/docs/2.9.4/general/fonts.html)
 | [`display`](positioning.md#visibility) | `boolean` \| `string` | Yes | Yes | `true`
 | `font` | `object` | Yes | Yes | -
-| `font.family` | `string` | - | - | [`defaultFontFamily`](http://www.chartjs.org/docs/latest/general/fonts.html)
-| `font.size` | `string` | - | - | [`defaultFontSize`](http://www.chartjs.org/docs/latest/general/fonts.html)
-| `font.style` | `string` | - | - | [`defaultFontStyle`](http://www.chartjs.org/docs/latest/general/fonts.html)
+| `font.family` | `string` | - | - | [`defaultFontFamily`](https://www.chartjs.org/docs/2.9.4/general/fonts.html)
+| `font.size` | `string` | - | - | [`defaultFontSize`](https://www.chartjs.org/docs/2.9.4/general/fonts.html)
+| `font.style` | `string` | - | - | [`defaultFontStyle`](https://www.chartjs.org/docs/2.9.4/general/fonts.html)
 | `font.weight` | `string` | - | - | `'normal'`
 | [`font.lineHeight`](formatting.md#multiline-labels) | `number` \| `string` | - | - | `1.2`
 | [`formatter`](formatting.md#data-transformation) | `function` \| `null` | - | - | -
@@ -65,7 +65,7 @@ The context object contains the following properties:
 
 | Property | Type | Description
 | -------- | ---- | -----------
-| `active` | `bool` | Whether the associated element is hovered ([see interactions](http://www.chartjs.org/docs/latest/general/interactions/)).
+| `active` | `bool` | Whether the associated element is hovered ([see interactions](https://www.chartjs.org/docs/2.9.4/general/interactions/)).
 | `chart` | `Chart` | The associated chart.
 | `dataIndex` | `number` | The index of the associated data.
 | `dataset` | `object` | The dataset at index `datasetIndex`.
