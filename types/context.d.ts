@@ -7,7 +7,7 @@ import {Chart, ChartDataset} from 'chart.js';
 export interface Context {
   /**
    * Whether the associated element is hovered by the user.
-   * @see http://www.chartjs.org/docs/latest/general/interactions
+   * @see https://www.chartjs.org/docs/latest/configuration/interactions.html
    * @since 0.3.0
    */
   active: boolean;

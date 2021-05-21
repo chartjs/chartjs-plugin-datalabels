@@ -25,11 +25,11 @@ https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0    // exact version
 https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2        // latest 2.x.x
 ```
 
-Read more about jsDeliver versioning on their [website](http://www.jsdelivr.com/).
+Read more about jsDeliver versioning on their [website](https://www.jsdelivr.com/).
 
 ### Download
 
-[![github](https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://github.com/chartjs/chartjs-plugin-datalabels/releases/latest) [![github downloads](https://img.shields.io/github/downloads/chartjs/chartjs-plugin-datalabels/total.svg?style=flat-square&maxAge=600)](http://www.somsubhra.com/github-release-stats/?username=chartjs&repository=chartjs-plugin-datalabels)
+[![github](https://img.shields.io/github/release/chartjs/chartjs-plugin-datalabels.svg?style=flat-square&maxAge=600)](https://github.com/chartjs/chartjs-plugin-datalabels/releases/latest) [![github downloads](https://img.shields.io/github/downloads/chartjs/chartjs-plugin-datalabels/total.svg?style=flat-square&maxAge=600)](https://somsubhra.github.io/github-release-stats/?username=chartjs&repository=chartjs-plugin-datalabels)
 
 You can download the latest version of `chartjs-plugin-datalabels` from the [GitHub releases](https://github.com/chartjs/chartjs-plugin-datalabels/releases/latest):
 
