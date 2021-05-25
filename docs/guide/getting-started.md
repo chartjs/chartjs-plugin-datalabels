@@ -67,7 +67,7 @@ Since version 1.x, this plugin **no longer registers itself automatically**. It 
 
 ```javascript
 // Register the plugin to all charts:
-Chart.plugins.register(ChartDataLabels);
+Chart.plugins.register('chartjs-plugin-annotation');
 ```
 
 ```javascript
