@@ -166,16 +166,18 @@ export default {
   draw: function(chart, labels) {
     var i, ilen, label, state, geometry, center;
 
-    for (i = 0, ilen = labels.length; i < ilen; ++i) {
-      label = labels[i];
-      state = label.$layout;
-
-      if (state._visible) {
-        geometry = label.geometry();
-        center = coordinates(label._el, label.model(), geometry);
-        state._box.update(center, geometry, label.rotation());
-        label.draw(chart, center);
+    if (labels) {
+      for (i = 0, ilen = labels.length; i < ilen; ++i) {
+        label = labels[i];
+        state = label.$layout;
+        if (state._visible) {
+          geometry = label.geometry();
+          center = coordinates(label._el, label.model(), geometry);
+          state._box.update(center, geometry, label.rotation());
+          label.draw(chart, center);
+        }
       }
     }
+
   }
 };
