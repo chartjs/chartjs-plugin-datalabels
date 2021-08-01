@@ -216,10 +216,8 @@ export default {
     });
   },
 
-  afterUpdate: function(chart, options) {
-    chart[EXPANDO_KEY]._labels = layout.prepare(
-      chart[EXPANDO_KEY]._datasets,
-      options);
+  afterUpdate: function(chart) {
+    chart[EXPANDO_KEY]._labels = layout.prepare(chart[EXPANDO_KEY]._datasets);
   },
 
   // Draw labels on top of all dataset elements
