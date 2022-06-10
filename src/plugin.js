@@ -178,7 +178,7 @@ export default {
       el = elements[i];
       el[EXPANDO_KEY] = [];
 
-      if (visible && el && chart.getDataVisibility(i) && !el.skip) {
+      if (visible && el && chart.getDataVisibility(i)) {
         for (j = 0, jlen = config.labels.length; j < jlen; ++j) {
           cfg = config.labels[j];
           key = cfg._key;

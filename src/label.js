@@ -311,7 +311,7 @@ merge(Label.prototype, {
   },
 
   visible: function() {
-    return this._model && this._model.opacity;
+    return !this._el.skip && this._model && this._model.opacity;
   },
 
   model: function() {
