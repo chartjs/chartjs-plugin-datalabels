@@ -106,7 +106,7 @@ export default {
           _hidable: false,
           _visible: true,
           _set: i,
-          _idx: j
+          _idx: label._index
         };
       }
     }
