@@ -10,7 +10,7 @@ export default {
           label: 'Series 1',
           data: [5, 5, 5, 5, 5],
           backgroundColor: 'red',
-          borderWidth: 5,
+          borderWidth: 0,
           fill: false,
           borderColor: 'red',
           datalabels: {
@@ -21,7 +21,7 @@ export default {
           label: 'Series 2',
           data: [4.9, 4.9, null, 4.9, 4.9],
           backgroundColor: 'blue',
-          borderWidth: 5,
+          borderWidth: 0,
           fill: false,
           borderColor: 'blue',
           datalabels: {
@@ -43,9 +43,9 @@ export default {
       },
       plugins: {
         datalabels: {
-          color: 'white',
-          padding: 10,
-          borderRadius: 20
+          font: {
+            size: 0
+          }
         }
       }
 
@@ -53,8 +53,8 @@ export default {
   },
   options: {
     canvas: {
-      height: 512,
-      width: 512
+      height: 256,
+      width: 256
     }
   }
 };
