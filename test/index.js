@@ -1,5 +1,8 @@
 import {Chart} from 'chart.js';
+import {MatrixController, MatrixElement} from 'chartjs-chart-matrix';
 import {acquireChart, addMatchers, releaseChart, releaseCharts, specsFromFixtures, triggerMouseEvent} from 'chartjs-test-utils';
+
+Chart.register(MatrixController, MatrixElement);
 
 // force ratio=1 for tests on high-res/retina devices
 window.devicePixelRatio = 1;
@@ -79,6 +82,7 @@ beforeEach(function() {
       beginAtZero: true
     }
   });
+
 });
 
 afterEach(function() {
