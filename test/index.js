@@ -79,7 +79,6 @@ beforeEach(function() {
       beginAtZero: true
     }
   });
-
 });
 
 afterEach(function() {
