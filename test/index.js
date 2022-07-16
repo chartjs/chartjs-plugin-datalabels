@@ -1,8 +1,5 @@
 import {Chart} from 'chart.js';
 import {acquireChart, addMatchers, releaseChart, releaseCharts, specsFromFixtures, triggerMouseEvent} from 'chartjs-test-utils';
-// import {TestController, TestElement} from './chartjs-chart-test';
-
-// Chart.register(TestController, TestElement);
 
 // force ratio=1 for tests on high-res/retina devices
 window.devicePixelRatio = 1;
