@@ -228,8 +228,8 @@ export default {
     return compute({
       x0: el.x,
       y0: el.y,
-      x1: el.x + (el.width || 0),
-      y1: el.y + (el.height || 0),
+      x1: el.x,
+      y1: el.y,
       vx: v.x,
       vy: v.y
     }, config);
