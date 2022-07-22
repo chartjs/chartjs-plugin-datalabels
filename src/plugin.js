@@ -62,6 +62,7 @@ function configure(dataset, options) {
   };
 }
 
+// eslint-disable max-params
 function dispatchEvent(chart, listeners, label, event) {
   if (!listeners) {
     return;
