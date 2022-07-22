@@ -36,6 +36,11 @@ If no listener is registered, incoming events are immediately ignored, preventin
             // Receives `click` events only for labels of the first dataset.
             // The clicked label index is available in `context.dataIndex`.
             console.log('label ' + context.dataIndex + ' has been clicked!');
+            console.log('mouse is at position x:', event.x, 'and y:', event.y);
+
+            if (event.native.ctrlKey) {
+              console.log('control key is pressed!');
+            }
           }
         }
       }

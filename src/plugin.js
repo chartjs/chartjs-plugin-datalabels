@@ -90,8 +90,7 @@ function dispatchEvent(chart, listeners, label, event) {
   }
 }
 
-function dispatchMoveEvents(chart, listeners, labels, event) {
-  const {previous, label} = labels;
+function dispatchMoveEvents(chart, listeners, previous, label, event) {
   var enter, leave;
 
   if (!previous && !label) {
@@ -131,7 +130,7 @@ function handleMoveEvents(chart, event) {
 
   previous = expando._hovered;
   expando._hovered = label;
-  dispatchMoveEvents(chart, listeners, {previous, label}, event);
+  dispatchMoveEvents(chart, listeners, previous, label, event);
 }
 
 function handleClickEvents(chart, event) {
