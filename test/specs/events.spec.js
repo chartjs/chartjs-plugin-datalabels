@@ -435,4 +435,67 @@ describe('events', function() {
       expect(options.opacity).not.toHaveBeenCalled();
     });
   });
+
+  describe('chart event', function() {
+    it('should receive the chart event as second parameter for click event', async function() {
+      var nativeEvent;
+      var options = {
+        listeners: {
+          click: function(context, event) {
+            nativeEvent = event;
+            return true;
+          }
+        }
+      };
+
+      var chart = jasmine.chart.acquire({
+        type: 'line',
+        data: this.data,
+        options: {
+          hover: false,
+          plugins: {
+            datalabels: options
+          }
+        }
+      });
+
+      var ds0 = chart.getDatasetMeta(0);
+      await jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
+      expect(nativeEvent.type).toBe('click');
+    });
+
+    it('should receive the chart event as second parameter for enter and leave events', async function() {
+      var nativeEnterEvent;
+      var nativeLeaveEvent;
+      var options = {
+        listeners: {
+          enter: function(context, event) {
+            nativeEnterEvent = event;
+            return true;
+          },
+          leave: function(context, event) {
+            nativeLeaveEvent = event;
+            return true;
+          }
+        }
+      };
+
+      var chart = jasmine.chart.acquire({
+        type: 'line',
+        data: this.data,
+        options: {
+          hover: false,
+          plugins: {
+            datalabels: options
+          }
+        }
+      });
+
+      var ds0 = chart.getDatasetMeta(0);
+      await jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
+      expect(nativeEnterEvent.type).toBe('mousemove');
+      await jasmine.triggerMouseEvent(chart, 'mousemove', {x: 0, y: 0});
+      expect(nativeLeaveEvent.type).toBe('mousemove');
+    });
+  });
 });
