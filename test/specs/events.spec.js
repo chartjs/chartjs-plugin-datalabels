@@ -80,8 +80,10 @@ describe('events', function() {
       expect(spy.calls.count()).toBe(2);
       expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
       expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(0)[1].native.type).toBe('mousemove');
       expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
       expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(1)[1].native.type).toBe('mousemove');
     });
   });
 
@@ -115,6 +117,7 @@ describe('events', function() {
       expect(spy.calls.count()).toBe(1);
       expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
       expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(0)[1].native.type).toBe('mousemove');
     });
 
     it('should be called when the mouse moves out the canvas', async function() {
@@ -146,6 +149,7 @@ describe('events', function() {
       expect(spy.calls.count()).toBe(1);
       expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
       expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(0)[1].native.type).toBe('mouseout');
     });
   });
 
@@ -175,6 +179,7 @@ describe('events', function() {
       expect(spy.calls.count()).toBe(1);
       expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
       expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(0)[1].native.type).toBe('click');
     });
   });
 
@@ -433,69 +438,6 @@ describe('events', function() {
 
       expect(chart.render).not.toHaveBeenCalled();
       expect(options.opacity).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('chart event', function() {
-    it('should receive the chart event as second parameter for click event', async function() {
-      var nativeEvent;
-      var options = {
-        listeners: {
-          click: function(context, event) {
-            nativeEvent = event;
-            return true;
-          }
-        }
-      };
-
-      var chart = jasmine.chart.acquire({
-        type: 'line',
-        data: this.data,
-        options: {
-          hover: false,
-          plugins: {
-            datalabels: options
-          }
-        }
-      });
-
-      var ds0 = chart.getDatasetMeta(0);
-      await jasmine.triggerMouseEvent(chart, 'click', ds0.data[1]);
-      expect(nativeEvent.type).toBe('click');
-    });
-
-    it('should receive the chart event as second parameter for enter and leave events', async function() {
-      var nativeEnterEvent;
-      var nativeLeaveEvent;
-      var options = {
-        listeners: {
-          enter: function(context, event) {
-            nativeEnterEvent = event;
-            return true;
-          },
-          leave: function(context, event) {
-            nativeLeaveEvent = event;
-            return true;
-          }
-        }
-      };
-
-      var chart = jasmine.chart.acquire({
-        type: 'line',
-        data: this.data,
-        options: {
-          hover: false,
-          plugins: {
-            datalabels: options
-          }
-        }
-      });
-
-      var ds0 = chart.getDatasetMeta(0);
-      await jasmine.triggerMouseEvent(chart, 'mousemove', ds0.data[1]);
-      expect(nativeEnterEvent.type).toBe('mousemove');
-      await jasmine.triggerMouseEvent(chart, 'mousemove', {x: 0, y: 0});
-      expect(nativeLeaveEvent.type).toBe('mousemove');
     });
   });
 });
