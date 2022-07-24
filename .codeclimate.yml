@@ -1,5 +1,9 @@
 version: "2"
 checks:
+  argument-count:
+    enabled: true
+    config:
+      threshold: 5
   complex-logic:
     enabled: false
   method-complexity:
