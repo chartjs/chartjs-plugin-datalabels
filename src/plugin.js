@@ -90,7 +90,6 @@ function dispatchEvent(chart, listeners, label, event) {
   }
 }
 
-// eslint-disable max-params
 function dispatchMoveEvents(chart, listeners, previous, label, event) {
   var enter, leave;
 
