@@ -1,9 +1,10 @@
+import {ChartEvent} from 'chart.js';
 import {Context} from './context';
 
 type Align = 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number;
 type Anchor = 'center' | 'end' | 'start';
 type Color = string | CanvasGradient | CanvasPattern;
-type Listener = (context: Context) => boolean | void;
+type Listener = (context: Context, event: ChartEvent) => boolean | void;
 type TextAlign = 'left' | 'right' | 'start' | 'center' | 'end';
 
 type Font = {

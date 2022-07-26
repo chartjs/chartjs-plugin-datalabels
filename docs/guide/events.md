@@ -14,7 +14,7 @@ This plugin currently supports the following label events:
 
 ## Listeners
 
-The `listeners` option allows to register callbacks to be notified when an event is detected on a specific label. This option is an object where each property represents an event, the key being the type of the event to listen and the value being a callback accepting a unique `context` argument.
+The `listeners` option allows to register callbacks to be notified when an event is detected on a specific label. This option is an object where each property represents an event, the key being the type of the event to listen and the value being a callback accepting the `context` and `event` arguments.
 
 The `context` contains the same information as for [scriptable options](options.md#option-context), can be modified (e.g. add new properties) and thus, **if the callback explicitly returns `true`**, the label is updated with the new context and the chart re-rendered. This allows to implement visual interactions with labels such as highlight, selection, etc.
 
@@ -32,10 +32,15 @@ If no listener is registered, incoming events are immediately ignored, preventin
     datasets: [{
       datalabels: {
         listeners: {
-          click: function(context) {
+          click: function(context, event) {
             // Receives `click` events only for labels of the first dataset.
             // The clicked label index is available in `context.dataIndex`.
             console.log('label ' + context.dataIndex + ' has been clicked!');
+            console.log('mouse is at position x:', event.x, 'and y:', event.y);
+
+            if (event.native.ctrlKey) {
+              console.log('control key is pressed!');
+            }
           }
         }
       }
@@ -47,7 +52,7 @@ If no listener is registered, incoming events are immediately ignored, preventin
     plugins: {
       datalabels: {
         listeners: {
-          enter: function(context) {
+          enter: function(context, event) {
             // Receives `enter` events for any labels of any dataset. Indices of the
             // clicked label are: `context.datasetIndex` and `context.dataIndex`.
             // For example, we can modify keep track of the hovered state and
@@ -55,7 +60,7 @@ If no listener is registered, incoming events are immediately ignored, preventin
             context.hovered = true;
             return true;
           },
-          leave: function(context) {
+          leave: function(context, event) {
             // Receives `leave` events for any labels of any dataset.
             context.hovered = false;
             return true;

@@ -80,8 +80,10 @@ describe('events', function() {
       expect(spy.calls.count()).toBe(2);
       expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
       expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(0)[1].native.type).toBe('mousemove');
       expect(spy.calls.argsFor(1)[0].dataIndex).toBe(2);
       expect(spy.calls.argsFor(1)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(1)[1].native.type).toBe('mousemove');
     });
   });
 
@@ -115,6 +117,7 @@ describe('events', function() {
       expect(spy.calls.count()).toBe(1);
       expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
       expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(0)[1].native.type).toBe('mousemove');
     });
 
     it('should be called when the mouse moves out the canvas', async function() {
@@ -146,6 +149,7 @@ describe('events', function() {
       expect(spy.calls.count()).toBe(1);
       expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
       expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(0)[1].native.type).toBe('mouseout');
     });
   });
 
@@ -175,6 +179,7 @@ describe('events', function() {
       expect(spy.calls.count()).toBe(1);
       expect(spy.calls.argsFor(0)[0].dataIndex).toBe(1);
       expect(spy.calls.argsFor(0)[0].datasetIndex).toBe(0);
+      expect(spy.calls.argsFor(0)[1].native.type).toBe('click');
     });
   });
 

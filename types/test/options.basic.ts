@@ -1,4 +1,4 @@
-import {Chart} from 'chart.js';
+import {Chart, ChartEvent} from 'chart.js';
 import {Context} from '../context';
 import {Options} from '../options';
 
@@ -45,9 +45,9 @@ const options: Options = {
       offset: 42,
       opacity: 0.42,
       listeners: {
-        click: (ctx: Context) => true,
-        enter: (ctx: Context) => false,
-        leave: (ctx: Context) => {
+        click: (ctx: Context, event: ChartEvent) => true,
+        enter: (ctx: Context, event: ChartEvent) => false,
+        leave: (ctx: Context, event: ChartEvent) => {
           // return void
         }
       },
