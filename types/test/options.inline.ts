@@ -1,4 +1,4 @@
-import {Chart} from 'chart.js';
+import {Chart, ChartEvent} from 'chart.js';
 import {Context} from '../context';
 
 const chart = new Chart('id', {
@@ -16,12 +16,12 @@ const chart = new Chart('id', {
             bla: {
               align: 'end',
               listeners: {
-                click: (ctx: Context) => true
+                click: (ctx: Context, event: ChartEvent) => true
               }
             }
           },
           listeners: {
-            click: (ctx: Context) => true
+            click: (ctx: Context, event: ChartEvent) => true
           }
         }
       }
@@ -37,12 +37,12 @@ const chart = new Chart('id', {
           bla: {
             align: 'end',
             listeners: {
-              click: (ctx: Context) => true
+              click: (ctx: Context, event: ChartEvent) => true
             }
           }
         },
         listeners: {
-          click: (ctx: Context) => true
+          click: (ctx: Context, event: ChartEvent) => true
         }
       }
     }

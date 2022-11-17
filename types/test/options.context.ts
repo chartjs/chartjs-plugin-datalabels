@@ -1,4 +1,4 @@
-import {Chart} from 'chart.js';
+import {Chart, ChartEvent} from 'chart.js';
 import {Context} from '../context';
 import {Options} from '../options';
 
@@ -9,7 +9,7 @@ interface CustomContext extends Context {
 const options: Options = {
   rotation: (ctx: CustomContext) => ctx.foo || 0,
   listeners: {
-    click: (ctx: CustomContext) => {
+    click: (ctx: CustomContext, event: ChartEvent) => {
       ctx.foo = 42;
     }
   },

@@ -62,7 +62,7 @@ function configure(dataset, options) {
   };
 }
 
-function dispatchEvent(chart, listeners, label) {
+function dispatchEvent(chart, listeners, label, event) {
   if (!listeners) {
     return;
   }
@@ -80,7 +80,7 @@ function dispatchEvent(chart, listeners, label) {
     return;
   }
 
-  if (callbackHelper(callback, [context]) === true) {
+  if (callbackHelper(callback, [context, event]) === true) {
     // Users are allowed to tweak the given context by injecting values that can be
     // used in scriptable options to display labels differently based on the current
     // event (e.g. highlight an hovered label). That's why we update the label with
@@ -90,7 +90,7 @@ function dispatchEvent(chart, listeners, label) {
   }
 }
 
-function dispatchMoveEvents(chart, listeners, previous, label) {
+function dispatchMoveEvents(chart, listeners, previous, label, event) {
   var enter, leave;
 
   if (!previous && !label) {
@@ -106,10 +106,10 @@ function dispatchMoveEvents(chart, listeners, previous, label) {
   }
 
   if (leave) {
-    dispatchEvent(chart, listeners.leave, previous);
+    dispatchEvent(chart, listeners.leave, previous, event);
   }
   if (enter) {
-    dispatchEvent(chart, listeners.enter, label);
+    dispatchEvent(chart, listeners.enter, label, event);
   }
 }
 
@@ -130,7 +130,7 @@ function handleMoveEvents(chart, event) {
 
   previous = expando._hovered;
   expando._hovered = label;
-  dispatchMoveEvents(chart, listeners, previous, label);
+  dispatchMoveEvents(chart, listeners, previous, label, event);
 }
 
 function handleClickEvents(chart, event) {
@@ -138,7 +138,7 @@ function handleClickEvents(chart, event) {
   var handlers = expando._listeners.click;
   var label = handlers && layout.lookup(expando._labels, event);
   if (label) {
-    dispatchEvent(chart, handlers, label);
+    dispatchEvent(chart, handlers, label, event);
   }
 }
 
@@ -216,10 +216,8 @@ export default {
     });
   },
 
-  afterUpdate: function(chart, options) {
-    chart[EXPANDO_KEY]._labels = layout.prepare(
-      chart[EXPANDO_KEY]._datasets,
-      options);
+  afterUpdate: function(chart) {
+    chart[EXPANDO_KEY]._labels = layout.prepare(chart[EXPANDO_KEY]._datasets);
   },
 
   // Draw labels on top of all dataset elements

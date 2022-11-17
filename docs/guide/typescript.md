@@ -2,10 +2,6 @@
 
 This plugin provides TypeScript type declaration files bundled in the npm package so that types of this plugin options are checked when building your TypeScript project.
 
-```sh
-npm install --save-dev @types/chart.js
-```
-
 ## Option Context
 
 The declaration of the [option context](options.md#option-context) is exported as `Context`:
