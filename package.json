@@ -2,7 +2,7 @@
   "name": "chartjs-plugin-datalabels",
   "homepage": "https://chartjs-plugin-datalabels.netlify.app",
   "description": "Chart.js plugin to display labels on data elements",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "MIT",
   "main": "dist/chartjs-plugin-datalabels.js",
   "module": "dist/chartjs-plugin-datalabels.esm.js",
@@ -36,12 +36,15 @@
     "test:dev": "npm run test-unit:dev"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/preset-env": "^7.20.2",
     "@simonbrunel/vuepress-plugin-versions": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "@vuepress/plugin-google-analytics": "^1.8.2",
     "archiver": "^5.3.0",
-    "chart.js": "^3.4.0",
+    "babel-loader": "^8.3.0",
+    "chart.js": "^4.0.0",
     "chartjs-test-utils": "^0.3.0",
     "eslint": "^7.29.0",
     "eslint-config-chartjs": "^0.3.0",
@@ -66,6 +69,6 @@
     "yargs": "^17.0.1"
   },
   "peerDependencies": {
-    "chart.js": "^3.0.0"
+    "chart.js": ">=3.0.0"
   }
 }

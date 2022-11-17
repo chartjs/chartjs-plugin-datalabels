@@ -1,3 +1,5 @@
+const path = require('path');
+
 // https://docs.netlify.com/configure-builds/environment-variables/#git-metadata
 const BRANCH = process.env.BRANCH || (process.env.NODE_ENV === 'development' ? 'local' : '');
 const IS_DEV = BRANCH ? !BRANCH.match(/^v\d\.\d\.\d/) : false;
@@ -67,6 +69,17 @@ module.exports = {
       }
     }]
   ],
+  chainWebpack(config) {
+    config.module
+      .rule('chart.js')
+      .include.add(path.resolve('node_modules/chart.js')).end()
+      .use('babel-loader')
+      .loader('babel-loader')
+      .options({
+        presets: ['@babel/preset-env']
+      })
+      .end();
+  },
   themeConfig: {
     repo: REPO_NAME,
     docsDir: 'docs',
