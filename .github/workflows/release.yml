@@ -17,7 +17,6 @@ jobs:
       - run: node scripts/attach-gh-assets.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: api
       - run: node scripts/create-release-tag.js
         env:
           GH_AUTH_EMAIL: ${{ secrets.GH_AUTH_EMAIL }}
