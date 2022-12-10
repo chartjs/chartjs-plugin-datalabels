@@ -13,7 +13,7 @@
 
 Highly customizable [Chart.js](https://www.chartjs.org/) plugin that displays labels on data for any type of charts.
 
-Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **3.x**.
+Requires [Chart.js](https://github.com/chartjs/Chart.js/releases) **3.x** or higher.
 
 ## Documentation
 
