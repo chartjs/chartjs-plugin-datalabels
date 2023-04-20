@@ -10,7 +10,7 @@ declare module 'chart.js' {
     datalabels?: Options;
   }
 
-  interface PluginOptionsByType<TType extends ChartType> {
+  interface PluginOptionsByType<TType extends ChartType = ChartType> {
     /**
      * Per chart datalabels plugin options.
      * @since 0.1.0
