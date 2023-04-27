@@ -56,13 +56,13 @@ function getScaleOrigin(el, context) {
 }
 
 function getPositioner(el) {
-  if (el instanceof ArcElement) {
+  if (el.constructor.name == "ArcElement") {
     return positioners.arc;
   }
-  if (el instanceof PointElement) {
+  if (el.constructor.name == "PointElement") {
     return positioners.point;
   }
-  if (el instanceof BarElement) {
+  if (el.constructor.name == "BarElement") {
     return positioners.bar;
   }
   return positioners.fallback;
